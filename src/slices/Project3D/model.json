@@ -1,0 +1,33 @@
+{
+  "id": "project3_d",
+  "type": "SharedSlice",
+  "name": "Project3D",
+  "description": "Project3D",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "title3d": {
+          "type": "Text",
+          "config": {
+            "label": "Title3d",
+            "placeholder": ""
+          }
+        },
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "Description3d",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

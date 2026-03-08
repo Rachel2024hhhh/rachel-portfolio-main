@@ -1,0 +1,65 @@
+{
+  "id": "prints",
+  "type": "SharedSlice",
+  "name": "Prints",
+  "description": "Prints",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "datatitle": {
+          "type": "Text",
+          "config": {
+            "label": "DataTitle",
+            "placeholder": ""
+          }
+        },
+        "data_description": {
+          "type": "Text",
+          "config": {
+            "label": "Data Description",
+            "placeholder": ""
+          }
+        },
+        "main_image": {
+          "type": "Image",
+          "config": {
+            "label": "Main Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "full_image": {
+          "type": "Image",
+          "config": {
+            "label": "Full Size Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "small_image_1": {
+          "type": "Image",
+          "config": {
+            "label": "Small Image 1",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "small_image_2": {
+          "type": "Image",
+          "config": {
+            "label": "Small Image 2",
+            "constraint": {},
+            "thumbnails": []
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
