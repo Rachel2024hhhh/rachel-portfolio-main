@@ -1,0 +1,6 @@
+public/images/Growing[[:space:]]Habitats/*.png filter=lfs diff=lfs merge=lfs -text
+public/models/*.glb filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.glb filter=lfs diff=lfs merge=lfs -text
+*.fbx filter=lfs diff=lfs merge=lfs -text
+public/images/pdfs/*.pdf filter=lfs diff=lfs merge=lfs -text

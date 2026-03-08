@@ -1,0 +1,941 @@
+"use client";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { Content } from "@prismicio/client";
+import { SliceComponentProps } from "@prismicio/react";
+import Image from "next/image";
+import ProjectDivider from "../../components/ProjectDivider";
+
+interface PrintMatterProps extends Partial<SliceComponentProps<Content.PrintsSlice>> {
+  isVisible: boolean;
+  onClose: () => void;
+}
+
+const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
+  if (!isVisible) return null;
+
+
+  const [showProcessLayer, setShowProcessLayer] = useState(false);
+  const [showProcessMotion, setShowProcessMotion] = useState(false);
+  const [showProcessMute, setShowProcessMute] = useState(false);
+
+
+// Layer by Layer hooks
+// ----------------------
+const layerGalleryRef = useRef<HTMLDivElement>(null);
+const layerIsDragging = useRef(false);
+const layerStartX = useRef(0);
+const layerScrollLeft = useRef(0);
+const [showLayerGalleryModal, setShowLayerGalleryModal] = useState(false);
+const [layerGalleryIndex, setLayerGalleryIndex] = useState(0);
+
+// ----------------------
+// Mute & Unmute hooks
+// ----------------------
+const galleryRef = useRef<HTMLDivElement>(null);
+const isDragging = useRef(false);
+const startX = useRef(0);
+const scrollLeft = useRef(0);
+const [showGalleryModal, setShowGalleryModal] = useState(false);
+const [galleryModalIndex, setGalleryModalIndex] = useState(0);
+
+
+
+  // --- IMAGE SEQUENCE ANIMATION ---
+  const allImages = Array.from({ length: 52 }, (_, i) => `/images/data/animation/databook${i + 1}.png`);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Start / pause animation
+  const handleBookClick = () => {
+    if (!isAnimating) {
+      setIsAnimating(true);
+      setIsPaused(false);
+    } else {
+      setIsPaused((prev) => !prev);
+    }
+  };
+
+  // Page-flip interval
+  useEffect(() => {
+    if (!isAnimating || isPaused) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % allImages.length);
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, [isAnimating, isPaused]);
+
+  // Reset when closing
+  useEffect(() => {
+    if (!isVisible) {
+      setIsAnimating(false);
+      setIsPaused(false);
+      setCurrentIndex(0);
+    }
+  }, [isVisible]);
+
+  // --- TYPING ANIMATION ---
+  const typingLines = useMemo(
+    () => [
+      "// ==========================================",
+      "// STEP 1: Ensure enough pages",
+      "// ==========================================",
+      "// Check if any documents are open",
+      "if (app.documents.length > 0) {",
+      " var doc = app.activeDocument;",
+      " var totalPagesNeeded = 301;",
+      " var pagesToAdd = totalPagesNeeded - doc.pages.length;",
+      " for (var i = 0; i < pagesToAdd; i++) doc.pages.add();",
+      "} else {",
+      " alert(\"No active document open.\");",
+      "",
+      "// ==========================================",
+      "// STEP 2: Setup page and grid parameters",
+      "// ==========================================",
+      "var pageWidthPt = 500;",
+      "var pageHeightPt = 500;",
+      "var gridWidthPt = 400;",
+      "var gridHeightPt = 380;",
+      "var rows = 5;",
+      "var cols = 5;",
+      "var rectPaddingPt = 0;",
+      "var headingRowHeightPt = 50;",
+      "var headingToGridSpacingPt = 5;",
+      "var totalContentHeight = headingRowHeightPt + headingToGridSpacingPt + gridHeightPt;",
+      "var offsetX = (pageWidthPt - gridWidthPt) / 2;",
+      "var offsetY = (pageHeightPt - totalContentHeight) / 2;",
+      "var rectWidthPt = (gridWidthPt / cols) - (rectPaddingPt * (cols - 1) / cols);",
+      "var rectHeightPt = (gridHeightPt - rectPaddingPt * (rows - 1)) / rows;",
+      "// Actual rectangle creation skipped",
+      "",
+      "// ==========================================",
+      "// STEP 3: Place headings and values",
+      "// ==========================================",
+      "// Headings and values placement logic shown",
+      "// Actual object creation skipped",
+      "",
+      "// ==========================================",
+      "// STEP 4: Place dots with predefined colors",
+      "// ==========================================",
+      "// Logic for colored dots per page shown",
+      "// Actual ovals creation skipped",
+      "",
+      "// ==========================================",
+      "// STEP 5: Delete the grid rectangles",
+      "// ==========================================",
+      "// Grid rectangle removal logic",
+      "",
+      "// ==========================================",
+      "// STEP 6: Place entryDates and latestPersonDepartedDates vertically",
+      "// ==========================================",
+      "// LEFT SIDE: entryDates, LOWER HALF, rotated 90 degrees",
+      "// RIGHT SIDE: latestPersonDepartedDates, UPPER HALF, rotated 90 degrees",
+      "// Vertical shifts applied: leftVerticalShift = 80, rightVerticalShift = 100",
+      "// Horizontal offsets: leftOffsetAdjust = 30, rightOffsetAdjust = 30",
+      "// Safe margin applied",
+      "// Each page calculates positions independently",
+      "// Actual rectangles and textFrames skipped",
+    ],
+    []
+  );
+
+  const [typedBuffer, setTypedBuffer] = useState("");
+  const [currentLineIndex, setCurrentLineIndex] = useState(0);
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
+  const [typingSpeed] = useState(30);
+  const typingContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isVisible || !isAnimating) return;
+
+    const timeout = setTimeout(() => {
+      if (currentLineIndex < typingLines.length) {
+        const line = typingLines[currentLineIndex];
+        if (currentCharIndex < line.length) {
+          setTypedBuffer((prev) => prev + line[currentCharIndex]);
+          setCurrentCharIndex((prev) => prev + 1);
+        } else {
+          setTypedBuffer((prev) => prev + "\n");
+          setCurrentLineIndex((prev) => prev + 1);
+          setCurrentCharIndex(0);
+        }
+
+        if (typingContainerRef.current) {
+          typingContainerRef.current.scrollTop = typingContainerRef.current.scrollHeight;
+        }
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [typedBuffer, currentLineIndex, currentCharIndex, isAnimating, isVisible, typingLines, typingSpeed]);
+
+ 
+
+  // --- Tabs / Scroll + Active Section ---
+  const motionRef = useRef<HTMLDivElement>(null);
+  const layerRef = useRef<HTMLDivElement>(null);
+  const animationsRef = useRef<HTMLDivElement>(null);
+  const motionTabRef = useRef<HTMLButtonElement>(null);
+  const layerTabRef = useRef<HTMLButtonElement>(null);
+  const animationsTabRef = useRef<HTMLButtonElement>(null);
+
+  const [activeSection, setActiveSection] = useState("");
+  const [showGallery, setShowGallery] = useState(false);
+  const tabContainerHeight = 70; // kept but not really used now
+
+  const onTabClick = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const findCurrentTabSelector = () => {
+    const nav = document.querySelector("nav");
+    if (!nav) return;
+
+    const sections = [
+      { id: "#motion", ref: motionRef, tabRef: motionTabRef },
+      { id: "#layer", ref: layerRef, tabRef: layerTabRef },
+      { id: "#animations", ref: animationsRef, tabRef: animationsTabRef },
+    ];
+
+    for (const section of sections) {
+      if (section.ref.current) {
+        const offsetTop = section.ref.current.offsetTop - tabContainerHeight;
+        const offsetBottom = section.ref.current.offsetTop + section.ref.current.offsetHeight - tabContainerHeight;
+
+        if (window.scrollY >= offsetTop && window.scrollY < offsetBottom) {
+          setActiveSection(section.id);
+          break;
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    let rafId: number | null = null;
+
+    const onScroll = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(findCurrentTabSelector);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", findCurrentTabSelector);
+
+    findCurrentTabSelector(); // initial call
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", findCurrentTabSelector);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  // --- Keyboard controls ---
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.code === "Space" || e.code === "Enter") {
+        e.preventDefault();
+        handleBookClick();
+      }
+      if (e.code === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [isVisible, onClose]);
+
+  return (
+    <div className="fixed inset-0 z-50 bg-white overflow-auto">
+      <button
+        className="absolute top-4 right-4 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
+        onClick={onClose}
+        aria-label="Close project view"
+      >
+        Close
+      </button>
+
+
+{/* Bookmark-style side menu – square, shaking, tooltip always visible */}
+<div className="fixed left-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-6 items-center">
+
+  {[
+    { id: "#motion", label: "Motion of Departure", short: "01" },
+    { id: "#layer", label: "Layer by Layer", short: "02" },
+    { id: "#animations", label: "Mute & Unmute", short: "03" },
+  ].map((project) => {
+
+    const isActive = activeSection === project.id;
+
+    return (
+      <button
+        key={project.id}
+        onClick={() => onTabClick(project.id)}
+        aria-label={`Jump to ${project.label}`}
+        className="relative group flex flex-col items-center transition-all duration-300"
+      >
+        {/* Square button */}
+        <div
+          className={`w-12 h-12  flex items-center justify-center text-base font-semibold tracking-tight border transition-all duration-300
+          ${isActive
+            ? "bg-black text-white border-black scale-110"
+            : "bg-black text-gray-400 border-gray-200 animate-shake hover:animate-none hover:text-[#ff2f00]"
+          }`}
+        >
+          {project.short}
+        </div>
+
+        {/* Tooltip label */}
+        <span
+          className="absolute left-16 top-1/2 -translate-y-1/2 bg-black/90 text-white text-xs px-3 py-1.5 rounded shadow-lg
+          opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none"
+        >
+          {project.label}
+        </span>
+      </button>
+    )
+  })}
+</div>
+
+
+
+      <div className="p-10 max-w-7xl mx-auto">
+
+
+{/* MOTION OF DEPARTURE */}
+<div id="motion" ref={motionRef} className="mb-6 mt-12 flex flex-col gap-6">
+  <h1 className="text-[6vw] font-bold tracking-wide whitespace-nowrap text-center">
+    MOTION OF DEPARTURE
+  </h1>
+
+  {/* Cover Image */}
+  <div className="relative w-full h-200 overflow-hidden group">
+    {/* Main Image */}
+    <Image
+      src="/images/data/main/main1.png"
+      alt="Main Image 1"
+      fill
+      className="object-cover transition-opacity duration-400 group-hover:opacity-0 z-10"
+    />
+
+    {/* Hover Images */}
+    {[
+      { src: "/images/data/main/main2.png", duration: 400, delay: 0 },
+      { src: "/images/data/main/main3.png", duration: 700, delay: 200 },
+      { src: "/images/data/main/main4.png", duration: 1000, delay: 400 },
+      { src: "/images/data/main/main5.png", duration: 1300, delay: 600 },
+    ].map((img, idx) => (
+      <Image
+        key={idx}
+        src={img.src}
+        alt={`Hover Image ${idx + 2}`}
+        fill
+        className="absolute inset-0 object-cover opacity-0 group-hover:opacity-100"
+        style={{
+          transitionProperty: 'opacity',
+          transitionDuration: `${img.duration}ms`,
+          transitionDelay: `${img.delay}ms`,
+        }}
+      />
+    ))}
+  </div>
+
+  {/* Motion Description inside the section */}
+  <div className="flex flex-col md:flex-row gap-6 mt-6">
+    <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
+      <h2 className="text-2xl font-bold">Motion of Departure</h2>
+      <h3 className="text-xl font-medium">Data Visualization Project</h3>
+      <h4 className="text-gray-700 font-extralight">
+        Exploring migration data
+      </h4>
+    </div>
+
+    <div className="md:w-1/2 w-full bg-gray-100 p-6">
+      <p className="font-semibold">Concept:</p>
+      <p>
+        This project addresses the human impact of large scale migration by giving each individual their own space within a dataset. Migration is most often understood through aggregated data—millions of people reduced to numbers, flows, and codes an approach that obscures personal stories and lived experiences. By assigning each data point its own page, the project resists this flattening effect and affirms the right of every person to be represented individually.
+        Motion is used as a generative tool to reflect migratory movement itself. Rather than presenting the data as static information, movement unfolds across the sequence of pages, echoing displacement, transition, and passage through space. The gradual shifts, repetitions, and rhythms within the motion highlight migration as an ongoing process rather than a fixed outcome, reinforcing the idea that behind every data point is a life in motion.
+      </p>
+
+      <p className="mt-6 font-semibold">Outcome:</p>
+      <p>
+        The final book transforms abstract data into a tangible, human-centered narrative.
+        By visually separating each individual, the project restores personal presence and
+        emphasizes the humanity behind the numbers, challenging the dehumanizing effect of
+        aggregated statistics.
+      </p>
+    </div>
+  </div>
+
+  {/* Four images – same width as text block above, responsive */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+    {[
+      "/images/data/small/1.png",
+      "/images/data/small/2.png",
+      "/images/data/small/3.png",
+      "/images/data/small/4.png",
+    ].map((src, idx) => (
+      <div
+        key={idx}
+        className="relative w-full h-96 md:h-125 bg-gray-200 overflow-hidden shadow-md"
+      >
+        <Image
+          src={src}
+          alt={`Motion of Departure – final detail ${idx + 1}`}
+          fill
+          className="object-cover transition-transform duration-700 hover:scale-105"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+      </div>
+    ))}
+  </div>
+
+  {/* ✅ Process Section for Motion of Departure */}
+  <div className="mt-8">
+    <button
+      onClick={() => setShowProcessMotion(!showProcessMotion)}
+      className="uppercase text-sm tracking-wider font-medium border-b border-black hover:text-[#ff2f00] transition-colors"
+    >
+      {showProcessMotion ? "Hide process" : "See more about my process"}
+    </button>
+
+    <div
+      className={`transition-all duration-700 ease-in-out overflow-hidden ${
+        showProcessMotion ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
+      }`}
+    >
+      <div className="bg-gray-100 p-8 flex flex-col gap-8">
+        <div className="w-full max-w-full">
+          <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
+          
+          <div className="flex flex-col md:flex-row gap-6 w-full">
+            {/* Column 1: Book Flip */}
+            <div
+              className="md:w-1/3 w-full aspect-square flex items-center justify-center bg-gray-100 cursor-pointer relative overflow-visible"
+              onClick={handleBookClick}
+              role="button"
+              tabIndex={0}
+              aria-label="Start / pause / resume book page flip animation"
+            >
+              <div className="relative w-full h-full flex items-center justify-center">
+                <Image
+                  key={currentIndex}
+                  src={allImages[currentIndex]}
+                  alt={`Motion of Departure – page ${currentIndex + 1} of ${allImages.length}`}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  priority={currentIndex <= 5}
+                />
+              </div>
+
+              {/* Click Indicator */}
+              {!isAnimating && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/30 text-white text-center text-lg font-bold pointer-events-none">
+                  Click here to start
+                </div>
+              )}
+
+              {isAnimating && (
+                <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-3 py-1.5 rounded-full backdrop-blur-sm font-mono">
+                  {currentIndex + 1} / {allImages.length}
+                </div>
+              )}
+
+              {isPaused && isAnimating && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/30 text-white text-xl font-bold">
+                  PAUSED – click to resume
+                </div>
+              )}
+            </div>
+
+            {/* Column 2: Typing Animation */}
+            <div
+              ref={typingContainerRef}
+              className="md:w-1/3 w-full aspect-square bg-gray-800 shadow-inner overflow-y-auto p-6 select-none"
+            >
+              <pre
+                className={`text-green-400 font-mono m-0 whitespace-pre-wrap wrap-break-words text-sm leading-relaxed ${
+                  (currentCharIndex > 0 || !isAnimating) &&
+                  "after:content-['|'] after:animate-blink"
+                }`}
+              >
+                {typedBuffer ||
+                  "// Click the book image to begin the page-flip & code generation simulation..."}
+              </pre>
+            </div>
+
+            {/* Column 3: Project Description / Explanation */}
+            <div className="md:w-1/3 w-full bg-gray-50 p-6 flex flex-col gap-2">
+              <p className="font-semibold">Project Description:</p>
+              <p>
+                The layout and movement of elements throughout the book were generated using a
+                custom script that assigns each entry a unique position. This method ensures that
+                each individual occupies a distinct space, reflecting both the diversity of
+                experiences and the complexity of the dataset. The combination of algorithmic
+                organization and visual design reinforces the concept of individuality within a
+                large system.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <ProjectDivider />
+
+
+
+
+{/* LAYER BY LAYER */}
+<div id="layer" ref={layerRef} className="mb-6 mt-12 flex flex-col gap-6">
+  <h1 className="text-[6vw] font-bold tracking-wide whitespace-nowrap text-center">
+    LAYER BY LAYER
+  </h1>
+
+  {/* Main Static Image */}
+  <div className="w-full h-200 relative bg-gray-300 flex items-center justify-center">
+    <Image
+      src="/images/LayerbyLayer/view.png"
+      alt="Layer by Layer main image"
+      fill
+      className="object-contain"
+    />
+  </div>
+
+  <div className="flex flex-col md:flex-row gap-6">
+    <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
+      <h2 className="text-2xl font-bold">Layer by Layer</h2>
+      <h3 className="text-xl font-medium">Photography Project</h3>
+      <h4 className="text-gray-700 font-extralight">
+        Spirituality in the Mundane
+      </h4>
+    </div>
+
+    <div className="md:w-1/2 w-full bg-gray-100 p-6">
+      <p className="font-semibold">Concept:</p>
+      <div>
+        <p>
+          This project explores spirituality within the mundane by examining how ritual, intention,
+          and cultural memory can emerge from everyday objects and routines.
+        </p>
+
+        <p>
+          Central to the project is the technique of layering: each object is photographed,
+          printed, and then physically layered with another, photographed again,
+          and repeated in a process of accumulation.
+        </p>
+
+        <p>
+          Through this method, the act of layering itself becomes a ritual,
+          a way of creating a presence or essence that exists within the medium
+          and the process.
+        </p>
+
+        <p className="mt-6 font-semibold">Outcome:</p>
+
+        <p>
+          The final images capture moments where the ordinary becomes extraordinary,
+          illustrating a quiet, meditative spirituality that emerges through the
+          accumulation of layers.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Four images */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+    {[
+      "/images/LayerbyLayer/layoutimages/1.png",
+      "/images/LayerbyLayer/layoutimages/2.png",
+      "/images/LayerbyLayer/layoutimages/3.png",
+      "/images/LayerbyLayer/layoutimages/4.png",
+    ].map((src, idx) => (
+      <div
+        key={idx}
+        className="relative w-full h-96 md:h-125 bg-gray-200 overflow-hidden shadow-md"
+      >
+        <Image
+          src={src}
+          alt={`Layer by Layer – final detail ${idx + 1}`}
+          fill
+          className="object-cover transition-transform duration-700 hover:scale-105"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+      </div>
+    ))}
+  </div>
+
+ 
+{/* Layer by Layer Horizontal Drag Gallery */}
+<div className="mt-8 max-w-6xl mx-auto relative">
+  <h3 className="text-2xl font-bold mb-4">Gallery</h3>
+
+  <div
+    ref={layerGalleryRef}
+    className="relative flex gap-6 whitespace-nowrap h-96 md:h-125 cursor-grab overflow-x-hidden drag-pause-on-hover scrollbar-hidden"
+    onMouseDown={(e) => {
+      layerIsDragging.current = true;
+      layerStartX.current = e.pageX - (layerGalleryRef.current?.offsetLeft || 0);
+      layerScrollLeft.current = layerGalleryRef.current!.scrollLeft;
+    }}
+    onMouseLeave={() => (layerIsDragging.current = false)}
+    onMouseUp={() => (layerIsDragging.current = false)}
+    onMouseMove={(e) => {
+      if (!layerIsDragging.current) return;
+      e.preventDefault();
+      const x = e.pageX - (layerGalleryRef.current?.offsetLeft || 0);
+      const walk = (x - layerStartX.current) * 1.2; // scroll speed, slightly faster
+      layerGalleryRef.current!.scrollLeft = layerScrollLeft.current - walk;
+    }}
+  >
+    <div className="flex gap-6 min-w-max">
+      {[
+        "/images/LayerbyLayer/imagesection/1.png",
+        "/images/LayerbyLayer/imagesection/2.png",
+        "/images/LayerbyLayer/imagesection/3.png",
+        "/images/LayerbyLayer/imagesection/4.png",
+        "/images/LayerbyLayer/imagesection/5.png",
+        "/images/LayerbyLayer/imagesection/6.png",
+        "/images/LayerbyLayer/imagesection/7.png",
+        "/images/LayerbyLayer/imagesection/8.png",
+        "/images/LayerbyLayer/imagesection/9.png",
+        "/images/LayerbyLayer/imagesection/10.png",
+        "/images/LayerbyLayer/imagesection/11.png",
+        "/images/LayerbyLayer/imagesection/12.png",
+        "/images/LayerbyLayer/imagesection/13.png",
+        "/images/LayerbyLayer/imagesection/14.png",
+      ].map((src, idx) => (
+        <div
+          key={idx}
+          className="shrink-0 w-64 md:w-72 h-full relative bg-gray-200 overflow-hidden cursor-pointer"
+          onClick={() => {
+            setLayerGalleryIndex(idx);
+            setShowLayerGalleryModal(true);
+          }}
+        >
+          <Image
+            src={src}
+            alt={`Layer by Layer gallery ${idx + 1}`}
+            fill
+            className="object-cover"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Instruction below carousel */}
+  <div className="drag-instruction">
+    Drag horizontally to see more
+  </div>
+
+  {/* Layer by Layer Modal */}
+  {showLayerGalleryModal && (
+    <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4">
+      <div className="relative max-w-6xl w-full">
+        <button
+          onClick={() => setShowLayerGalleryModal(false)}
+          className="absolute top-2 right-2 text-white hover:text-gray-200 text-2xl font-bold z-50"
+        >
+          ✕
+        </button>
+
+        <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+          <Image
+            src={`/images/LayerbyLayer/imagesection/${layerGalleryIndex + 1}.png`}
+            alt={`Layer by Layer modal ${layerGalleryIndex + 1}`}
+            fill
+            className="object-contain"
+          />
+        </div>
+      </div>
+    </div>
+  )}
+</div>
+
+  {/* Process Section */}
+  <div className="mt-8">
+    <button
+      onClick={() => setShowProcessLayer(!showProcessLayer)}
+      className="uppercase text-sm tracking-wider font-medium border-b border-black hover:text-[#ff2f00] transition-colors"
+    >
+      {showProcessLayer ? "Hide process" : "See more about my process"}
+    </button>
+
+    <div
+      className={`transition-all duration-700 ease-in-out overflow-hidden ${
+        showProcessLayer ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
+      }`}
+    >
+      <div className="bg-gray-100 p-8 flex flex-col gap-8">
+
+        <div className="max-w-3xl">
+          <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
+
+          <p className="mt-6 font-semibold">Process:</p>
+
+          <p>
+            Each photograph was constructed layer by layer,
+            building complex visual narratives that mirror the
+            meditative and cumulative nature of spiritual practice.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="relative h-64 bg-gray-200">
+            <Image
+              src="/images/LayerbyLayer/process/1.png"
+              alt="Layer by Layer process image 1"
+              fill
+              className="object-cover"
+            />
+          </div>
+
+          <div className="relative h-64 bg-gray-200">
+            <Image
+              src="/images/LayerbyLayer/process/2.png"
+              alt="Layer by Layer process image 2"
+              fill
+              className="object-cover"
+            />
+          </div>
+
+          <div className="relative h-64 bg-gray-200">
+            <Image
+              src="/images/LayerbyLayer/process/3.png"
+              alt="Layer by Layer process image 3"
+              fill
+              className="object-cover"
+            />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+        <ProjectDivider />
+        
+
+{/* MUTE & UNMUTE */}
+<div id="animations" ref={animationsRef} className="mb-6 mt-12 flex flex-col gap-6">
+  <h1 className="text-[6vw] font-bold tracking-wide whitespace-nowrap text-center">
+    MUTE & UNMUTE
+  </h1>
+
+  {/* Click-through Image */}
+  <div className="w-full h-200 flex items-center justify-center cursor-pointer">
+    <img
+      src="/images/MuteUnmute/main.png"
+      alt="Mute-Unmute Interactive"
+      className="w-full h-full object-cover"
+    />
+  </div>
+
+  <div className="flex flex-col md:flex-row gap-6">
+    <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
+      <h2 className="text-2xl font-bold">Mute & Unmute</h2>
+      <h3 className="text-xl font-medium">Photography and Typography</h3>
+      <h4 className="text-gray-700 font-extralight">Spirituality in the Mundane</h4>
+    </div>
+
+    <div className="md:w-1/2 w-full bg-gray-100 p-6">
+      <p className="font-semibold">Concept:</p>
+      <p>
+        This project investigates the presence of spirituality within the mundane, exploring how ritual, intention, and cultural heritage can be found in everyday objects and routines. Growing up in Cuba, I experienced a culture deeply rooted in spiritual traditions, where even the simplest daily habits carry layers of meaning. I wanted to translate this sense of spirituality into photography—not only through the final images, but also through the process of creating them.
+      </p>
+
+
+      <p className="mt-6 font-semibold">Outcome:</p>
+      <p>
+        The final images reveal subtle connections between the ordinary and the transcendent, emphasizing that spirituality is not always grand or overt—it can be discovered in small, intentional gestures and in the quiet rhythm of daily life. The work encourages viewers to look closer at the layers around them, both in the physical world and in their own experiences.
+      </p>
+    </div>
+  </div>
+
+{/* Two static images – fully fitting and responsive */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+  <div className="relative w-full h-96 md:h-125">
+    <Image
+      src="/images/MuteUnmute/small1.png"
+      alt="Mute & Unmute – final detail 1"
+      fill
+      className="object-cover"
+      sizes="(max-width: 768px) 100vw, 50vw"
+    />
+  </div>
+
+  <div className="relative w-full h-96 md:h-125">
+    <Image
+      src="/images/MuteUnmute/small2.png"
+      alt="Mute & Unmute – final detail 2"
+      fill
+      className="object-cover"
+      sizes="(max-width: 768px) 100vw, 50vw"
+    />
+  </div>
+</div>
+
+{/* Mute & Unmute Horizontal Drag Gallery */}
+<div className="mt-8 max-w-6xl mx-auto relative">
+  <h3 className="text-2xl font-bold mb-4">Gallery</h3>
+
+  <div
+    ref={galleryRef}
+    className="relative flex gap-6 whitespace-nowrap h-96 md:h-125 cursor-grab overflow-x-hidden drag-pause-on-hover scrollbar-hidden"
+    onMouseDown={(e) => {
+      isDragging.current = true;
+      startX.current = e.pageX - (galleryRef.current?.offsetLeft || 0);
+      scrollLeft.current = galleryRef.current!.scrollLeft;
+    }}
+    onMouseLeave={() => (isDragging.current = false)}
+    onMouseUp={() => (isDragging.current = false)}
+    onMouseMove={(e) => {
+      if (!isDragging.current) return;
+      e.preventDefault();
+      const x = e.pageX - (galleryRef.current?.offsetLeft || 0);
+      const walk = (x - startX.current) * 1.2; // scroll speed
+      galleryRef.current!.scrollLeft = scrollLeft.current - walk;
+    }}
+  >
+    <div className="flex gap-6 min-w-max">
+      {[
+        "/images/MuteUnmute/ALLWORK/1.png",
+        "/images/MuteUnmute/ALLWORK/2.png",
+        "/images/MuteUnmute/ALLWORK/3.png",
+        "/images/MuteUnmute/ALLWORK/4.png",
+        "/images/MuteUnmute/ALLWORK/5.png",
+        "/images/MuteUnmute/ALLWORK/6.png",
+        "/images/MuteUnmute/ALLWORK/7.png",
+        "/images/MuteUnmute/ALLWORK/8.png",
+        "/images/MuteUnmute/ALLWORK/9.png",
+        "/images/MuteUnmute/ALLWORK/10.png",
+        "/images/MuteUnmute/ALLWORK/11.png",
+        "/images/MuteUnmute/ALLWORK/12.png",
+        "/images/MuteUnmute/ALLWORK/13.png",
+        "/images/MuteUnmute/ALLWORK/14.png",
+      ].map((src, idx) => (
+        <div
+          key={idx}
+          className="shrink-0 w-64 md:w-72 h-full relative bg-gray-200 overflow-hidden cursor-pointer"
+          onClick={() => {
+            setGalleryModalIndex(idx);
+            setShowGalleryModal(true);
+          }}
+        >
+          <Image
+            src={src}
+            alt={`Mute & Unmute gallery ${idx + 1}`}
+            fill
+            className="object-cover"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Instruction below carousel */}
+  <div className="drag-instruction">
+    Drag horizontally to see more
+  </div>
+
+  {/* Mute & Unmute Modal */}
+  {showGalleryModal && (
+    <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4">
+      <div className="relative max-w-6xl w-full">
+        <button
+          onClick={() => setShowGalleryModal(false)}
+          className="absolute top-2 right-2 text-white hover:text-gray-200 text-2xl font-bold z-50"
+        >
+          ✕
+        </button>
+
+        <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+          <Image
+            src={`/images/MuteUnmute/ALLWORK/${galleryModalIndex + 1}.png`}
+            alt={`Mute & Unmute modal ${galleryModalIndex + 1}`}
+            fill
+            className="object-contain"
+          />
+        </div>
+      </div>
+    </div>
+  )}
+</div>
+
+
+{/* ✅ Process Section for Mute & Unmute */}
+<div className="mt-8">
+  <button
+    onClick={() => setShowProcessMute(!showProcessMute)}
+    className="uppercase text-sm tracking-wider font-medium border-b border-black hover:text-[#ff2f00] transition-colors"
+  >
+    {showProcessMute ? "Hide process" : "See more about my process"}
+  </button>
+
+  <div
+    className={`transition-all duration-700 ease-in-out overflow-hidden ${
+      showProcessMute ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
+    }`}
+  >
+    <div className="bg-gray-100 p-8 flex flex-col gap-8">
+      <div className="max-w-3xl">
+        <h3 className="text-2xl font-bold mb-4">
+          Process & Development
+        </h3>
+        
+        <p className="mt-6 font-semibold">Process:</p>
+        <p>
+For this project, we approached pixelation as a visual tool to translate everyday sounds into imagery. Most of the work was done using <strong>Illustrator and Photoshop,</strong> supporting color adjustments and overall image refinement.
+
+The photography shoot took place across the city of Arnhem, where we explored different locations to capture unexpected moments and textures. For example, at one site we encountered broken glass. I simulated the act of breaking the glass to create an imagined sound, which was then translated visually across multiple scenes.
+
+The core idea was to <strong>create onomatopoeic sounds</strong> inspired by the existing sounds of the city. By using my body and gestures in staged poses, I aimed to create the illusion that these sounds were occurring in real time, blending physical action with visual storytelling. This process allowed the city’s environment to interact with my own performance, producing a series of images that embody sound, movement, and urban rhythm.
+</p>
+      </div>
+
+      {/* Images for Process */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          "/images/MuteUnmute/process/1.png",
+          "/images/MuteUnmute/process/2.png",
+          "/images/MuteUnmute/process/3.jpg",
+        ].map((src, idx) => (
+          <div key={idx} className="relative w-full h-64 md:h-72 bg-gray-200 overflow-hidden">
+            <Image
+              src={src}
+              alt={`Mute & Unmute process ${idx + 1}`}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+        <ProjectDivider />
+      </div>
+    </div>
+  );
+};
+
+export default PrintMatter;

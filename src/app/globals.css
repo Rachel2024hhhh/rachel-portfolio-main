@@ -1,0 +1,254 @@
+@import "tailwindcss";
+
+/* -------------------------------
+   Variable Fonts and Colors
+---------------------------------*/
+@theme inline {
+  --font-roboto: "Roboto", Arial, Helvetica, sans-serif;
+  --font-orbitron: "Orbitron", Arial, Helvetica, sans-serif;
+  --font-poppins: "Poppins", Arial, Helvetica, sans-serif;
+
+  --color-bg-start: #ffffff;
+  --color-bg-mid: #f2f2f5;
+  --color-bg-end: #e6e7ec;
+
+  --color-text-primary: #090909;
+  --color-text-accent: #ffffff;
+  --color-text-tagline: #ff8c42;
+}
+
+/* -------------------------------
+   Hero Typography
+---------------------------------*/
+.first-name-gold, .last-name-gold {
+  font-family: var(--font-roboto);
+  font-weight: 600;
+  font-size: clamp(3rem, 20vmin, 9rem);
+  color: var(--color-text-primary);
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 3px rgba(128,128,128,0.6), 0 0 6px rgba(128,128,128,0.4), 0 0 12px rgba(128,128,128,0.2);
+  max-width: 95vw;
+}
+
+.tag-line-gradient {
+  font-family: var(--font-poppins);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 6vmin, 2.5rem);
+  letter-spacing: 0.01em;
+  color: #ff2f00;
+  max-width: 90vw;
+ 
+
+  
+}
+
+.tag-line-description {
+
+  max-width: 95vw; /* match the others */
+  font-family: var(--font-poppins);
+  font-weight: 300;
+  font-size: clamp(1rem, 4vmin, 1.5rem);
+  letter-spacing: 0.003em;
+  color: var(--color-text-primary);
+  max-width: 85vw;
+  
+
+}
+/* -------------------------------
+   Hero Buttons
+---------------------------------*/
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 90vw;
+}
+
+.hero-buttons a {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(6px);
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.hero-buttons a:hover {
+  color: #ff2f00;
+}
+
+@media (max-width: 480px) {
+  .hero-buttons {
+    gap: 0.75rem;
+  }
+  .hero-buttons a {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* -------------------------------
+   Hero Fixed Height
+---------------------------------*/
+:root {
+  --vh: 100vh;
+}
+@supports (height: 100dvh) {
+  :root { --vh: 100dvh; }
+}
+
+.hero-fixed {
+  height: var(--vh);
+}
+
+/* -------------------------------
+   Navbar
+---------------------------------*/
+.main-navbar {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(12px);
+  background-color: rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  z-index: 50;
+}
+
+.main-navbar ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-navbar a {
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.main-navbar a:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 480px) {
+  .main-navbar ul {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .main-navbar a {
+    font-size: 0.875rem;
+  }
+}
+
+
+
+/* Infinite marquee – fast, smooth, professional */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  animation: marquee linear infinite;
+  animation-duration: 10s;  /* fast speed */
+  gap: 1.5rem;
+  will-change: transform;
+}
+
+/* Pause on hover or focus for UX */
+.animate-marquee:hover,
+.animate-marquee:focus-within {
+  animation-play-state: paused;
+}
+
+/* Container with overflow hidden + edge fade */
+.marquee-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.marquee-container::before,
+.marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, white, transparent);
+}
+
+.animate-marquee {
+  display: flex;
+  gap: 1rem; /* optional spacing between images */
+  animation: marquee 20s linear infinite;
+}
+
+
+/* -------------------------------
+   Drag Gallery CSS
+---------------------------------*/
+
+/* hide scrollbar but keep scrollable */
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hidden {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Pause any auto-scroll on hover */
+.drag-pause-on-hover:hover {
+  animation-play-state: paused !important;
+}
+
+/* Instruction text below carousel */
+.drag-instruction {
+  margin-top: 0.5rem;
+  text-align: right;
+  font-size: 0.875rem; /* small */
+  color: #9ca3af; /* gray-400 */
+  user-select: none;
+}
+
+
+@keyframes shake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-shake {
+  animation: shake 1s ease-in-out infinite;
+ 
+}
