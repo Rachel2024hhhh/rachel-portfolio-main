@@ -16,8 +16,9 @@ interface Building {
 
 // --- IMAGE LOADER ---
 const importImages = (folder: string, count: number) =>
-  Array.from({ length: count }, (_, i) => `/images/GrowingHabitats/${folder}/${i + 1}.webp`);
-
+  Array.from({ length: count }, (_, i) =>
+    require(`../../../public/images/GrowingHabitats/${folder}/${i + 1}.webp`).default
+  );
 // --- DATA ---
 
 const buildings: Building[] = [
@@ -143,9 +144,18 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
         <div ref={project3DRef} className="mb-6 mt-12 flex flex-col gap-6 relative">
           <h1 className="text-[6vw] font-bold tracking-wide text-center">Growing Habitats</h1>
 
-{/* First Gallery Slider - Thin edges, small outside arrows, smoother transition + dots */}
+
+
+{/* First Gallery Slider */}
 <div className="gallery-slider relative w-full h-200 overflow-hidden cursor-pointer">
-  {Array.from({ length: 6 }).map((_, i) => {
+  {[
+    "/images/GrowingHabitats/book/1.webp",
+    "/images/GrowingHabitats/book/2.webp",
+    "/images/GrowingHabitats/book/3.webp",
+    "/images/GrowingHabitats/book/4.webp",
+    "/images/GrowingHabitats/book/5.webp",
+    "/images/GrowingHabitats/book/6.webp",
+  ].map((src, i) => {
     const prev = i === 0 ? 5 : i - 1;
     const next = i === 5 ? 0 : i + 1;
     return (
@@ -157,23 +167,20 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
         data-index={i}
       >
         <Image
-          src={`/images/GrowingHabitats/book/${i + 1}.webp`}
+          src={src}
           alt={`Book Page ${i + 1}`}
           fill
           className="object-cover w-full h-full"
+          unoptimized
         />
 
         {/* Navigation */}
         <div className="nav absolute inset-0 pointer-events-none">
           <button
             onClick={() => {
-              const slides = document.querySelectorAll<HTMLDivElement>(
-                ".slide-container"
-              );
-              slides.forEach((slide) => {
-                slide.classList.remove("opacity-100");
-                slide.classList.add("opacity-0");
-              });
+              const slides = document.querySelectorAll<HTMLDivElement>(".slide-container");
+              slides.forEach((slide) => slide.classList.remove("opacity-100"));
+              slides.forEach((slide) => slide.classList.add("opacity-0"));
               slides[prev].classList.remove("opacity-0");
               slides[prev].classList.add("opacity-100");
             }}
@@ -183,13 +190,9 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
           </button>
           <button
             onClick={() => {
-              const slides = document.querySelectorAll<HTMLDivElement>(
-                ".slide-container"
-              );
-              slides.forEach((slide) => {
-                slide.classList.remove("opacity-100");
-                slide.classList.add("opacity-0");
-              });
+              const slides = document.querySelectorAll<HTMLDivElement>(".slide-container");
+              slides.forEach((slide) => slide.classList.remove("opacity-100"));
+              slides.forEach((slide) => slide.classList.add("opacity-0"));
               slides[next].classList.remove("opacity-0");
               slides[next].classList.add("opacity-100");
             }}
@@ -207,26 +210,8 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
       </div>
     );
   })}
-
-  {/* Dots */}
-  <div className="nav-dots absolute bottom-2 w-full flex justify-center gap-2 pointer-events-auto">
-    {Array.from({ length: 6 }).map((_, i) => (
-      <button
-        key={i}
-        onClick={() => {
-          const slides = document.querySelectorAll<HTMLDivElement>(".slide-container");
-          slides.forEach((slide) => {
-            slide.classList.remove("opacity-100");
-            slide.classList.add("opacity-0");
-          });
-          slides[i].classList.remove("opacity-0");
-          slides[i].classList.add("opacity-100");
-        }}
-        className="w-3 h-3 rounded-full bg-black/60 hover:bg-black/80 transition-all"
-      ></button>
-    ))}
-  </div>
 </div>
+
 
           {/* 3D Canvas + Text */}
           <div className="flex flex-col md:flex-row gap-6">
@@ -329,7 +314,7 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
                     <video
                       className="absolute top-0 left-0 w-full h-full object-cover rounded-md shadow-lg"
                       controls
-                      poster="/images/my-local-placeholder.webp"
+                      poster="/images/my-local-placeholder."
                     >
                       <source src="/videos/GrowingHabitatsv/video.mp4" type="video/mp4" />
                       Your browser does not support the video tag.
