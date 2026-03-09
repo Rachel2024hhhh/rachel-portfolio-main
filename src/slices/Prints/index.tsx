@@ -619,7 +619,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
       ].map((src, idx) => (
         <div
           key={idx}
-          className="shrink-0 w-64 md:w-72 h-full relative bg-gray-200 overflow-hidden cursor-pointer"
+          className="shrink-0 w-64 md:w-72 h-full relative bg-gray-200 overflow-hidden cursor-grab"
           onClick={() => {
             setLayerGalleryIndex(idx);
             setShowLayerGalleryModal(true);
@@ -737,7 +737,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   </h1>
 
   {/* Click-through Image */}
-  <div className="w-full h-200 flex items-center justify-center cursor-pointer">
+  <div className="w-full h-200 flex items-center justify-center ">
     <img
       src="/images/MuteUnmute/main.png"
       alt="Mute-Unmute Interactive"
@@ -830,7 +830,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
       ].map((src, idx) => (
         <div
           key={idx}
-          className="shrink-0 w-64 md:w-72 h-full relative bg-gray-200 overflow-hidden cursor-pointer"
+          className="shrink-0 w-64 md:w-72 h-full relative bg-gray-200 overflow-hidden cursor-grab"
           onClick={() => {
             setGalleryModalIndex(idx);
             setShowGalleryModal(true);

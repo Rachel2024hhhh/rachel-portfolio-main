@@ -25,35 +25,28 @@ const buildings: Building[] = [
     name: "Spore Habitat",
     description: (
       <>
-   
-
-        {/* Subtitle */}
         <p className="text-lg mb-4">
           A modular habitat that grows and adapts like a living organism.
         </p>
 
-        {/* Concept Subheading */}
         <h2 className="text-xl font-semibold mb-1">Concept</h2>
         <p className="mb-4">
           Inspired by the growth patterns of mushrooms and fungi, Mycelium Tower is a vertical, modular living structure where each unit stacks organically above the other. The design moves away from rigid, grid-based architecture, creating a building that adapts naturally to light, privacy, and circulation. Each floor can rotate, allowing the structure to respond to sunlight and environmental conditions, while the overall form mimics the organic clustering and expansion seen in fungal growth. Mycelium Tower reimagines apartments as flexible, living elements that grow together like a forest.
         </p>
 
-        {/* Design Approach Subheading */}
         <h2 className="text-xl font-semibold mb-1">Design Approach</h2>
         <p className="mb-4">
           The building’s modular floors allow rotation and adaptability, responding to sunlight and natural airflow. Its stacked organic layout rejects rigid grids, creating a flexible structure that interacts dynamically with its environment.
         </p>
       </>
     ),
-    folder: "Building1",
-    images: importImages("Building1", 13),
+    folder: "building1",
+    images: importImages("building1", 13),
   },
   {
     name: "Shell Community",
     description: (
       <>
-   
-
         <p className="text-lg mb-4">
           A rounded habitat structure designed to maximize sunlight and natural airflow.
         </p>
@@ -69,15 +62,13 @@ const buildings: Building[] = [
         </p>
       </>
     ),
-    folder: "Building3",
-    images: importImages("Building3", 7),
+    folder: "building3",
+    images: importImages("building3", 7),
   },
   {
     name: "Lotus Canopy",
     description: (
       <>
-      
-
         <p className="text-lg mb-4">
           A water-harvesting canopy that supports the ecosystem below.
         </p>
@@ -93,8 +84,8 @@ const buildings: Building[] = [
         </p>
       </>
     ),
-    folder: "Building2",
-    images: importImages("Building2", 8),
+    folder: "building2",
+    images: importImages("building2", 8),
   },
 ];
 
@@ -152,6 +143,91 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
         <div ref={project3DRef} className="mb-6 mt-12 flex flex-col gap-6 relative">
           <h1 className="text-[6vw] font-bold tracking-wide text-center">Growing Habitats</h1>
 
+{/* First Gallery Slider - Thin edges, small outside arrows, smoother transition + dots */}
+<div className="gallery-slider relative w-full h-200 overflow-hidden cursor-pointer">
+  {Array.from({ length: 6 }).map((_, i) => {
+    const prev = i === 0 ? 5 : i - 1;
+    const next = i === 5 ? 0 : i + 1;
+    return (
+      <div
+        key={i}
+        className={`slide-container absolute top-0 left-0 w-full h-full transition-opacity duration-500 ease-in-out ${
+          i === 0 ? "opacity-100" : "opacity-0"
+        }`}
+        data-index={i}
+      >
+        <Image
+          src={`/images/GrowingHabitats/book/${i + 1}.png`}
+          alt={`Book Page ${i + 1}`}
+          fill
+          className="object-cover w-full h-full"
+        />
+
+        {/* Navigation */}
+        <div className="nav absolute inset-0 pointer-events-none">
+          <button
+            onClick={() => {
+              const slides = document.querySelectorAll<HTMLDivElement>(
+                ".slide-container"
+              );
+              slides.forEach((slide) => {
+                slide.classList.remove("opacity-100");
+                slide.classList.add("opacity-0");
+              });
+              slides[prev].classList.remove("opacity-0");
+              slides[prev].classList.add("opacity-100");
+            }}
+            className="prev absolute -left-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto rounded-l transition-all"
+          >
+            &#x2039;
+          </button>
+          <button
+            onClick={() => {
+              const slides = document.querySelectorAll<HTMLDivElement>(
+                ".slide-container"
+              );
+              slides.forEach((slide) => {
+                slide.classList.remove("opacity-100");
+                slide.classList.add("opacity-0");
+              });
+              slides[next].classList.remove("opacity-0");
+              slides[next].classList.add("opacity-100");
+            }}
+            className="next absolute -right-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto rounded-r transition-all"
+          >
+            &#x203a;
+          </button>
+        </div>
+
+        {/* Thin gradient blur edges */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 w-12 h-full bg-linear-to-r from-white/20 to-transparent"></div>
+          <div className="absolute top-0 right-0 w-12 h-full bg-linear-to-l from-white/20 to-transparent"></div>
+        </div>
+      </div>
+    );
+  })}
+
+  {/* Dots */}
+  <div className="nav-dots absolute bottom-2 w-full flex justify-center gap-2 pointer-events-auto">
+    {Array.from({ length: 6 }).map((_, i) => (
+      <button
+        key={i}
+        onClick={() => {
+          const slides = document.querySelectorAll<HTMLDivElement>(".slide-container");
+          slides.forEach((slide) => {
+            slide.classList.remove("opacity-100");
+            slide.classList.add("opacity-0");
+          });
+          slides[i].classList.remove("opacity-0");
+          slides[i].classList.add("opacity-100");
+        }}
+        className="w-3 h-3 rounded-full bg-black/60 hover:bg-black/80 transition-all"
+      ></button>
+    ))}
+  </div>
+</div>
+
           {/* 3D Canvas + Text */}
           <div className="flex flex-col md:flex-row gap-6">
             <div className="md:w-1/2 w-full h-96 md:h-128 shadow-md overflow-hidden relative">
@@ -191,13 +267,10 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
             <div className="md:w-1/2 w-full bg-gray-100 p-6 flex flex-col gap-4">
               <h2 className="text-2xl font-bold">Growing Habitats</h2>
               <p className="font-medium">3D Explorations of Nature and Architecture</p>
-              <p>
-Growing Habits is a 3D project that explores the intersection of architecture and natural growth patterns. Inspired by the ways plants, fungi, and animals build and interact with their environments, I created a series of 3D sculptures where each architectural form reflects specific characteristics from nature. Some pieces take cues from the way mushrooms grow, the structure of bird nests, or the movement and clustering of snails. The project is an artistic exploration of how organic systems can inform design, highlighting the patterns, strategies, and aesthetics of the natural world.
-
+              <p>Growing Habits is a 3D project that explores the intersection of architecture and natural growth patterns. Inspired by the ways plants, fungi, and animals build and interact with their environments, I created a series of 3D sculptures where each architectural form reflects specific characteristics from nature. Some pieces take cues from the way mushrooms grow, the structure of bird nests, or the movement and clustering of snails. The project is an artistic exploration of how organic systems can inform design, highlighting the patterns, strategies, and aesthetics of the natural world.
               </p>
             </div>
           </div>
-          
 
           {/* Gallery */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
@@ -221,54 +294,51 @@ Growing Habits is a 3D project that explores the intersection of architecture an
             ))}
           </div>
 
-     {/* Process & Video Section */}
-<div className="mt-16">
-  <button
-    onClick={() => setShowProcess(!showProcess)}
-    className="uppercase text-sm tracking-wider font-medium border-b border-black hover:text-[#ff2f00] transition-colors"
-  >
-    {showProcess ? "Hide process" : "See more about my process"}
-  </button>
+          {/* Process & Video Section */}
+          <div className="mt-16">
+            <button
+              onClick={() => setShowProcess(!showProcess)}
+              className="uppercase text-sm tracking-wider font-medium border-b border-black hover:text-[#ff2f00] transition-colors"
+            >
+              {showProcess ? "Hide process" : "See more about my process"}
+            </button>
 
-  <div
-    className={`transition-all duration-700 ease-in-out overflow-hidden ${
-      showProcess ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
-    }`}
-  >
-    <div className="bg-gray-100 p-8 flex flex-col gap-8">
-      <div className="max-w-3xl">
-        <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
-        <p className="text-gray-700 leading-relaxed">
-          For this project, I based my work on research into nature and various organic forms in structures,
-          focusing on how natural patterns and growth systems can inform architectural design. I explored
-          biomimicry in both nature and architecture, investigating ways to combine these two aspects to create
-          functional and harmonious designs. To develop my ideas, I used different 3D software, including Blender
-          and Nomad Sculpt, allowing me to experiment with forms, structures, and spatial relationships. In
-          addition, I created a simulation video to visualize how the building would interact with a specific
-          landscape, helping to convey the integration of the design within its environmental context.
-        </p>
-      </div>
+            <div
+              className={`transition-all duration-700 ease-in-out overflow-hidden ${
+                showProcess ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
+              }`}
+            >
+              <div className="bg-gray-100 p-8 flex flex-col gap-8">
+                <div className="max-w-3xl">
+                  <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
+                  <p className="text-gray-700 leading-relaxed">
+                    For this project, I based my work on research into nature and various organic forms in structures,
+                    focusing on how natural patterns and growth systems can inform architectural design. I explored
+                    biomimicry in both nature and architecture, investigating ways to combine these two aspects to create
+                    functional and harmonious designs. To develop my ideas, I used different 3D software, including Blender
+                    and Nomad Sculpt, allowing me to experiment with forms, structures, and spatial relationships. In
+                    addition, I created a simulation video to visualize how the building would interact with a specific
+                    landscape, helping to convey the integration of the design within its environmental context.
+                  </p>
+                </div>
 
-  
-{/* Standalone Video Section */}
-<div className="w-full max-w-3xl mx-auto mt-12">
-  <h3 className="text-2xl font-bold mb-4 text-center">Simulation Video</h3>
-  <div className="relative w-full h-0 pb-[56.25%]"> {/* 16:9 aspect ratio */}
-    <video
-      className="absolute top-0 left-0 w-full h-full object-cover rounded-md shadow-lg"
-      controls
-      poster="/images/my-local-placeholder.png"
-    >
-      <source src="/videos/GrowingHabitatsv/video.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  </div>
-</div>
-
-    </div>
-  </div>
-</div>
-
+                {/* Standalone Video Section */}
+                <div className="w-full max-w-3xl mx-auto mt-12">
+                  <h3 className="text-2xl font-bold mb-4 text-center">Simulation Video</h3>
+                  <div className="relative w-full h-0 pb-[56.25%]">
+                    <video
+                      className="absolute top-0 left-0 w-full h-full object-cover rounded-md shadow-lg"
+                      controls
+                      poster="/images/my-local-placeholder.png"
+                    >
+                      <source src="/videos/GrowingHabitatsv/video.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Project Divider */}
           <div className="mt-8">
