@@ -5,6 +5,20 @@ import { SliceComponentProps } from "@prismicio/react";
 import Image from "next/image";
 import ProjectDivider from "../../components/ProjectDivider";
 
+import SideMenu, {MenuItem} from "../../components/SideMenu";
+
+
+
+
+
+export const TrafficMenuItems: MenuItem[] = [
+
+    { id: "#motion", label: "Motion of Departure", short: "01" },
+    { id: "#layer", label: "Layer by Layer", short: "02" },
+    { id: "#animations", label: "Mute & Unmute", short: "03" },
+
+];
+
 interface PrintMatterProps extends Partial<SliceComponentProps<Content.PrintsSlice>> {
   isVisible: boolean;
   onClose: () => void;
@@ -265,47 +279,15 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
       </button>
 
 
-{/* Bookmark-style side menu – square, shaking, tooltip always visible */}
-<div className="fixed left-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-6 items-center">
-
-  {[
+<SideMenu
+  items={[
     { id: "#motion", label: "Motion of Departure", short: "01" },
     { id: "#layer", label: "Layer by Layer", short: "02" },
     { id: "#animations", label: "Mute & Unmute", short: "03" },
-  ].map((project) => {
-
-    const isActive = activeSection === project.id;
-
-    return (
-      <button
-        key={project.id}
-        onClick={() => onTabClick(project.id)}
-        aria-label={`Jump to ${project.label}`}
-        className="relative group flex flex-col items-center transition-all duration-300"
-      >
-        {/* Square button */}
-        <div
-          className={`w-12 h-12  flex items-center justify-center text-base font-semibold tracking-tight border transition-all duration-300
-          ${isActive
-            ? "bg-black text-white border-black scale-110"
-            : "bg-black text-gray-400 border-gray-200 animate-shake hover:animate-none hover:text-[#ff2f00]"
-          }`}
-        >
-          {project.short}
-        </div>
-
-        {/* Tooltip label */}
-        <span
-          className="absolute left-16 top-1/2 -translate-y-1/2 bg-black/90 text-white text-xs px-3 py-1.5 rounded shadow-lg
-          opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none"
-        >
-          {project.label}
-        </span>
-      </button>
-    )
-  })}
-</div>
-
+  ]}
+  activeSection={activeSection}
+  onTabClick={onTabClick}
+/>
 
 
       <div className="p-10 max-w-7xl mx-auto">
