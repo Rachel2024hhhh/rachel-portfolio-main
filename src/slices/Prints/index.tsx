@@ -266,7 +266,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   }, [isVisible, onClose]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-white overflow-auto">
+    <div className="fixed inset-0 z-50 bg-white overflow-auto overflow-x-hidden">
       <button
         className="absolute top-4 right-4 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
         onClick={onClose}
@@ -292,7 +292,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 
 {/* MOTION OF DEPARTURE */}
 <div id="motion" ref={motionRef} className="mb-6 mt-12 flex flex-col gap-6">
-  <h1 className="text-[6vw] font-bold tracking-wide whitespace-nowrap text-center">
+  <h1 className="text-[6vw] font-bold tracking-wide  text-center break-word">
     MOTION OF DEPARTURE
   </h1>
 
@@ -329,7 +329,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   </div>
 
   {/* Motion Description inside the section */}
-  <div className="flex flex-col md:flex-row gap-6 mt-6">
+  <div className="flex flex-col md:flex-row gap-6 mt-6 overflow-x-hidden">
     <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
       <h2 className="text-2xl font-bold">Motion of Departure</h2>
       <h3 className="text-xl font-medium">Data Visualization Project</h3>
