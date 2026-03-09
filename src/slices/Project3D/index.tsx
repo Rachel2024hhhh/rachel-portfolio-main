@@ -307,20 +307,23 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
                   </p>
                 </div>
 
-                {/* Standalone Video Section */}
-                <div className="w-full max-w-3xl mx-auto mt-12">
-                  <h3 className="text-2xl font-bold mb-4 text-center">Simulation Video</h3>
-                  <div className="relative w-full h-0 pb-[56.25%]">
-                    <video
-                      className="absolute top-0 left-0 w-full h-full object-cover rounded-md shadow-lg"
-                      controls
-                      poster="/images/my-local-placeholder."
-                    >
-                      <source src="/videos/GrowingHabitatsv/video.mp4" type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                </div>
+          {/* Standalone Video Section */}
+<div className="w-full max-w-3xl mx-auto mt-12">
+  <h3 className="text-2xl font-bold mb-4 text-center">Simulation Video</h3>
+
+  <div
+    className="relative w-full h-0 pb-[56.25%] rounded-md shadow-lg overflow-hidden bg-center bg-cover"
+    style={{ backgroundImage: "url('/images/GrowingHabitats/placeholder.webp')" }}
+  >
+    <video
+      className="absolute top-0 left-0 w-full h-full object-cover"
+      controls
+    >
+      <source src="/videos/GrowingHabitatsv/video.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
               </div>
             </div>
           </div>
