@@ -8,9 +8,6 @@ import ProjectDivider from "../../components/ProjectDivider";
 import SideMenu, {MenuItem} from "../../components/SideMenu";
 
 
-
-
-
 export const TrafficMenuItems: MenuItem[] = [
 
     { id: "#motion", label: "Motion of Departure", short: "01" },
@@ -342,13 +339,12 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
     </div>
 
     <div className="md:w-1/2 w-full bg-gray-100 p-6">
-      <p className="font-semibold">Concept:</p>
+    
       <p>
         This project addresses the human impact of large scale migration by giving each individual their own space within a dataset. Migration is most often understood through aggregated data—millions of people reduced to numbers, flows, and codes an approach that obscures personal stories and lived experiences. By assigning each data point its own page, the project resists this flattening effect and affirms the right of every person to be represented individually.
         Motion is used as a generative tool to reflect migratory movement itself. Rather than presenting the data as static information, movement unfolds across the sequence of pages, echoing displacement, transition, and passage through space. The gradual shifts, repetitions, and rhythms within the motion highlight migration as an ongoing process rather than a fixed outcome, reinforcing the idea that behind every data point is a life in motion.
       </p>
 
-      <p className="mt-6 font-semibold">Outcome:</p>
       <p>
         The final book transforms abstract data into a tangible, human-centered narrative.
         By visually separating each individual, the project restores personal presence and
