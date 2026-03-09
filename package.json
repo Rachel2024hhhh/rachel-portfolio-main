@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "slicemachine": "start-slicemachine"
+    "slicemachine": "start-slicemachine",
+    "vercel-build": "next build"
   },
   "dependencies": {
     "@google-analytics/data": "^5.2.1",
