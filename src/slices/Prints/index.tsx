@@ -30,6 +30,9 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
   const [showProcessMute, setShowProcessMute] = useState(false);
 
 
+const wasDragged = useRef(false);   // ← add this once in your component for both galleries 
+
+
 // Layer by Layer hooks
 // ----------------------
 const layerGalleryRef = useRef<HTMLDivElement>(null);
@@ -555,7 +558,6 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
     ))}
   </div>
 
- 
 {/* Layer by Layer Horizontal Drag Gallery */}
 <div className="mt-8 max-w-6xl mx-auto relative">
   <h3 className="text-2xl font-bold mb-4">Gallery</h3>
@@ -565,6 +567,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
     className="relative flex gap-6 whitespace-nowrap h-96 md:h-125 cursor-grab overflow-x-hidden drag-pause-on-hover scrollbar-hidden touch-pan-x"
     onMouseDown={(e) => {
       layerIsDragging.current = true;
+      wasDragged.current = false; // reset
       layerStartX.current = e.pageX - (layerGalleryRef.current?.offsetLeft || 0);
       layerScrollLeft.current = layerGalleryRef.current!.scrollLeft;
     }}
@@ -576,6 +579,11 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
       const x = e.pageX - (layerGalleryRef.current?.offsetLeft || 0);
       const walk = (x - layerStartX.current) * 1.2;
       layerGalleryRef.current!.scrollLeft = layerScrollLeft.current - walk;
+
+      // Mark as drag if moved more than a few pixels
+      if (Math.abs(walk) > 5) {
+        wasDragged.current = true;
+      }
     }}
   >
     <div className="flex gap-6 min-w-max">
@@ -599,6 +607,10 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
           key={idx}
           className="shrink-0 w-64 md:w-72 h-full relative bg-gray-200 overflow-hidden cursor-grab"
           onClick={() => {
+            if (wasDragged.current) {
+              wasDragged.current = false; // reset for next interaction
+              return;
+            }
             setLayerGalleryIndex(idx);
             setShowLayerGalleryModal(true);
           }}
@@ -777,6 +789,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
     className="relative flex gap-6 whitespace-nowrap h-96 md:h-125 cursor-grab overflow-x-hidden drag-pause-on-hover scrollbar-hidden touch-pan-x"
     onMouseDown={(e) => {
       isDragging.current = true;
+      wasDragged.current = false; // reset
       startX.current = e.pageX - (galleryRef.current?.offsetLeft || 0);
       scrollLeft.current = galleryRef.current!.scrollLeft;
     }}
@@ -786,8 +799,13 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
       if (!isDragging.current) return;
       e.preventDefault();
       const x = e.pageX - (galleryRef.current?.offsetLeft || 0);
-      const walk = (x - startX.current) * 1.2; // scroll speed
+      const walk = (x - startX.current) * 1.2;
       galleryRef.current!.scrollLeft = scrollLeft.current - walk;
+
+      // Mark as drag if moved more than a few pixels
+      if (Math.abs(walk) > 5) {
+        wasDragged.current = true;
+      }
     }}
   >
     <div className="flex gap-6 min-w-max">
@@ -811,6 +829,10 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
           key={idx}
           className="shrink-0 w-64 md:w-72 h-full relative bg-gray-200 overflow-hidden cursor-grab"
           onClick={() => {
+            if (wasDragged.current) {
+              wasDragged.current = false; // reset for next interaction
+              return;
+            }
             setGalleryModalIndex(idx);
             setShowGalleryModal(true);
           }}
@@ -855,7 +877,6 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
     </div>
   )}
 </div>
-
 {/* ✅ Process Section for Mute & Unmute */}
 <div className="mt-8">
   <button
