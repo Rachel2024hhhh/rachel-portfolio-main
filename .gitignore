@@ -14,7 +14,7 @@ yarn-error.log
 
 # Ignore all images by default, then track the ones you want explicitly
 public/images/**/*
-!public/images/EarthOcean/**
+!public/images/GrowingHabitats/**
 !public/images/LayerbyLayer/**
 !public/images/MuteUnmute/**
 !public/images/Traffic/**
