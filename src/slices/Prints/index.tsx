@@ -562,7 +562,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 
   <div
     ref={layerGalleryRef}
-    className="relative flex gap-6 whitespace-nowrap h-96 md:h-125 cursor-grab overflow-x-hidden drag-pause-on-hover scrollbar-hidden"
+    className="relative flex gap-6 whitespace-nowrap h-96 md:h-125 cursor-grab overflow-x-hidden drag-pause-on-hover scrollbar-hidden touch-pan-x"
     onMouseDown={(e) => {
       layerIsDragging.current = true;
       layerStartX.current = e.pageX - (layerGalleryRef.current?.offsetLeft || 0);
@@ -574,7 +574,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
       if (!layerIsDragging.current) return;
       e.preventDefault();
       const x = e.pageX - (layerGalleryRef.current?.offsetLeft || 0);
-      const walk = (x - layerStartX.current) * 1.2; // scroll speed, slightly faster
+      const walk = (x - layerStartX.current) * 1.2;
       layerGalleryRef.current!.scrollLeft = layerScrollLeft.current - walk;
     }}
   >
@@ -607,7 +607,8 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
             src={src}
             alt={`Layer by Layer gallery ${idx + 1}`}
             fill
-            className="object-cover"
+            className="object-cover pointer-events-none"
+            draggable={false}
           />
         </div>
       ))}
@@ -773,7 +774,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 
   <div
     ref={galleryRef}
-    className="relative flex gap-6 whitespace-nowrap h-96 md:h-125 cursor-grab overflow-x-hidden drag-pause-on-hover scrollbar-hidden"
+    className="relative flex gap-6 whitespace-nowrap h-96 md:h-125 cursor-grab overflow-x-hidden drag-pause-on-hover scrollbar-hidden touch-pan-x"
     onMouseDown={(e) => {
       isDragging.current = true;
       startX.current = e.pageX - (galleryRef.current?.offsetLeft || 0);
@@ -818,7 +819,8 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
             src={src}
             alt={`Mute & Unmute gallery ${idx + 1}`}
             fill
-            className="object-cover"
+            className="object-cover pointer-events-none"
+            draggable={false}
           />
         </div>
       ))}
@@ -853,7 +855,6 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
     </div>
   )}
 </div>
-
 
 {/* ✅ Process Section for Mute & Unmute */}
 <div className="mt-8">
