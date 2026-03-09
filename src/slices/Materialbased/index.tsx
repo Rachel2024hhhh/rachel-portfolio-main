@@ -165,7 +165,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
       </h4>
     </div>
     <div className="md:w-1/2 w-full bg-gray-100 p-6">
-      <p className="font-semibold">Concept:</p>
+   
       <p>
 
 This project explores the visual language of urban signage, transforming the everyday forms of traffic signs into a suspended, color-driven installation. By deconstructing the shapes, colors, and inherent meanings of these signs, I created new compositions that reinterpret their functional logic as a visual grammar. Acrylic sheets in varied hues were cut and arranged to hang in space, allowing the viewer to experience the dynamic relationships between shape, color, and perception. Urban Syntax investigates how familiar symbols can be reimagined as abstract elements, highlighting the dialogue between structure, meaning, and visual experience in our daily environment.
