@@ -32,3 +32,4 @@ public/images/**/*
 *.swo
 *.tmp
 
+.DS_Store
