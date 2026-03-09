@@ -488,7 +488,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
       src="/images/LayerbyLayer/view.png"
       alt="Layer by Layer main image"
       fill
-      className="object-contain"
+      className="object-cover"
     />
   </div>
 
