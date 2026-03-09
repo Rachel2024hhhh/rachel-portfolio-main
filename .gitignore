@@ -1,6 +1,6 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
+# ----------------------
+# Dependencies
+# ----------------------
 /node_modules
 /.pnp
 .pnp.*
@@ -10,59 +10,51 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# ----------------------
+# Testing
+# ----------------------
 /coverage
 
-# next.js
+# ----------------------
+# Next.js / build files
+# ----------------------
 /.next/
 /out/
-
-# production
 /build
 
-# misc
+# ----------------------
+# Miscellaneous
+# ----------------------
 .DS_Store
 *.pem
+*.tsbuildinfo
+next-env.d.ts
 
-# debug
+# Debug logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# Environment files
 .env*
 
-# vercel
+# Vercel deployment
 .vercel
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-*.DS_Store
-.DS_Store
-.DS_Store
-public/images/3dmodels-images/Growing Habitats/*
+# ----------------------
+# Public folder exceptions
+# ----------------------
+# Keep models ignored, but allow all other images
+public/models/
+
+# Hero images, 3D textures, and 3dmodels-images (spaces escaped)
 public/images/hero/*
 public/images/3DTextures/*
+public/images/3dmodels-images/Growing\ Habitats/*
+
 # Camera RAW files
 *.CR2
 *.cr2
 *.RAW
-*.raw
-.next/
-*.CR2
-*.cr2
-*.RAW
-*.raw
-.next/
-*.CR2
-*.cr2
-*.RAW
-*.raw
-public/
-public/
-public/
-public/models/
-.DS_Store
-.DS_Store
+*.raw.DS_Store
