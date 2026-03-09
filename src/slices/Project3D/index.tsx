@@ -166,7 +166,7 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
                       <Html center>
                         <div className="flex flex-col items-center gap-3">
                           <Image
-                            src="/images/my-local-placeholder.png"
+                            src="/images/GrowingHabitats/placeholder.png"
                             alt="3D model loading"
                             width={100}
                             height={100}
