@@ -16,7 +16,7 @@ interface Building {
 
 // --- IMAGE LOADER ---
 const importImages = (folder: string, count: number) =>
-  Array.from({ length: count }, (_, i) => `/images/GrowingHabitats/${folder}/${i + 1}.png`);
+  Array.from({ length: count }, (_, i) => `/images/GrowingHabitats/${folder}/${i + 1}.webp`);
 
 // --- DATA ---
 
@@ -157,7 +157,7 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
         data-index={i}
       >
         <Image
-          src={`/images/GrowingHabitats/book/${i + 1}.png`}
+          src={`/images/GrowingHabitats/book/${i + 1}.webp`}
           alt={`Book Page ${i + 1}`}
           fill
           className="object-cover w-full h-full"
@@ -242,7 +242,7 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
                       <Html center>
                         <div className="flex flex-col items-center gap-3">
                           <Image
-                            src="/images/GrowingHabitats/placeholder.png"
+                            src="/images/GrowingHabitats/placeholder.webp"
                             alt="3D model loading"
                             width={100}
                             height={100}

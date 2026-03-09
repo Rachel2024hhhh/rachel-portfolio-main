@@ -6,9 +6,6 @@ import ProjectDivider from "../../components/ProjectDivider";
 import SideMenu, {MenuItem} from "../../components/SideMenu";
 
 
-
-
-
 export const TrafficMenuItems: MenuItem[] = [
   { id: "#section1", label: "Traffic as Language", short: "01" },
   { id: "#section2", label: "Earth in the Ocean", short: "02" },
