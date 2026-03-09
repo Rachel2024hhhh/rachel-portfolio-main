@@ -145,19 +145,12 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
           <h1 className="text-[6vw] font-bold tracking-wide text-center">Growing Habitats</h1>
 
 
-
 {/* First Gallery Slider */}
 <div className="gallery-slider relative w-full h-200 overflow-hidden cursor-pointer">
-  {[
-    "/images/GrowingHabitats/book/1.webp",
-    "/images/GrowingHabitats/book/2.webp",
-    "/images/GrowingHabitats/book/3.webp",
-    "/images/GrowingHabitats/book/4.webp",
-    "/images/GrowingHabitats/book/5.webp",
-    "/images/GrowingHabitats/book/6.webp",
-  ].map((src, i) => {
-    const prev = i === 0 ? 5 : i - 1;
-    const next = i === 5 ? 0 : i + 1;
+  {Array.from({ length: 8 }, (_, i) => `/images/GrowingHabitats/book/${i + 1}.webp`).map((src, i) => {
+    const prev = i === 0 ? 7 : i - 1;
+    const next = i === 7 ? 0 : i + 1;
+
     return (
       <div
         key={i}
@@ -174,27 +167,51 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
           unoptimized
         />
 
-        {/* Navigation */}
+        {/* Navigation – same placement, but smarter logic */}
         <div className="nav absolute inset-0 pointer-events-none">
           <button
             onClick={() => {
+              // Find CURRENT visible slide (not assuming this button's index)
               const slides = document.querySelectorAll<HTMLDivElement>(".slide-container");
-              slides.forEach((slide) => slide.classList.remove("opacity-100"));
-              slides.forEach((slide) => slide.classList.add("opacity-0"));
-              slides[prev].classList.remove("opacity-0");
-              slides[prev].classList.add("opacity-100");
+              let currentIdx = 0;
+              slides.forEach((slide, idx) => {
+                if (slide.classList.contains("opacity-100")) {
+                  currentIdx = idx;
+                }
+              });
+
+              const targetIdx = currentIdx === 0 ? 7 : currentIdx - 1;
+
+              slides.forEach((slide) => {
+                slide.classList.remove("opacity-100");
+                slide.classList.add("opacity-0");
+              });
+              slides[targetIdx].classList.remove("opacity-0");
+              slides[targetIdx].classList.add("opacity-100");
             }}
             className="prev absolute -left-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto rounded-l transition-all"
           >
             &#x2039;
           </button>
+
           <button
             onClick={() => {
               const slides = document.querySelectorAll<HTMLDivElement>(".slide-container");
-              slides.forEach((slide) => slide.classList.remove("opacity-100"));
-              slides.forEach((slide) => slide.classList.add("opacity-0"));
-              slides[next].classList.remove("opacity-0");
-              slides[next].classList.add("opacity-100");
+              let currentIdx = 0;
+              slides.forEach((slide, idx) => {
+                if (slide.classList.contains("opacity-100")) {
+                  currentIdx = idx;
+                }
+              });
+
+              const targetIdx = currentIdx === 7 ? 0 : currentIdx + 1;
+
+              slides.forEach((slide) => {
+                slide.classList.remove("opacity-100");
+                slide.classList.add("opacity-0");
+              });
+              slides[targetIdx].classList.remove("opacity-0");
+              slides[targetIdx].classList.add("opacity-100");
             }}
             className="next absolute -right-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto rounded-r transition-all"
           >
@@ -202,7 +219,7 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
           </button>
         </div>
 
-        {/* Thin gradient blur edges */}
+        {/* Thin gradient blur edges – unchanged */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-0 w-12 h-full bg-linear-to-r from-white/20 to-transparent"></div>
           <div className="absolute top-0 right-0 w-12 h-full bg-linear-to-l from-white/20 to-transparent"></div>
@@ -211,7 +228,6 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
     );
   })}
 </div>
-
 
           {/* 3D Canvas + Text */}
           <div className="flex flex-col md:flex-row gap-6">
