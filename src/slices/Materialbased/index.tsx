@@ -209,15 +209,15 @@ Next, I transferred the compositions into a physical format using acrylic sheets
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
-          "/images/Traffic/process/1.webp",
-          "/images/Traffic/process/2.webp",
-          "/images/Traffic/process/3.webp",
-          "/images/Traffic/process/4.webp",
-          "/images/Traffic/process/5.webp",
-          "/images/Traffic/process/6.webp",
-          "/images/Traffic/process/7.webp",
-          "/images/Traffic/process/8.webp",
-          "/images/Traffic/process/9.webp",
+          "/images/traffic/process/1.webp",
+          "/images/traffic/process/2.webp",
+          "/images/traffic/process/3.webp",
+          "/images/traffic/process/4.webp",
+          "/images/traffic/process/5.webp",
+          "/images/traffic/process/6.webp",
+          "/images/traffic/process/7.webp",
+          "/images/traffic/process/8.webp",
+          "/images/traffic/process/9.webp",
         ].map((src, i) => (
           <img
             key={i}
@@ -252,20 +252,20 @@ Next, I transferred the compositions into a physical format using acrylic sheets
 <div className="relative w-full h-125 overflow-hidden group  shadow-md cursor-pointer">
   {/* Base Image */}
   <img
-    src="/images/EarthOcean/mainocean/1.webp"
+    src="/images/earthocean/mainocean/1.webp"
     alt="Earth in the Ocean main"
     className="w-full h-200 object-cover relative  overflow-hidden group
     transition-opacity duration-400 group-hover:opacity-0 z-10"
-    onClick={() => openLightbox("/images/EarthOcean/mainocean/1.webp")}
+    onClick={() => openLightbox("/images/earthocean/mainocean/1.webp")}
   />
 
   {/* Hover Images */}
   {[
-    { src: "/images/EarthOcean/mainocean/1.webp", duration: 400, delay: 0 },
-    { src: "/images/EarthOcean/mainocean/2.webp", duration: 800, delay: 200 },
-    { src: "/images/EarthOcean/mainocean/3.webp", duration: 1200, delay: 400 },
-    { src: "/images/EarthOcean/mainocean/4.webp", duration: 1600, delay: 600 },
-    { src: "/images/EarthOcean/mainocean/5.webp", duration: 2000, delay: 800 },
+    { src: "/images/earthocean/mainocean/1.webp", duration: 400, delay: 0 },
+    { src: "/images/earthocean/mainocean/2.webp", duration: 800, delay: 200 },
+    { src: "/images/earthocean/mainocean/3.webp", duration: 1200, delay: 400 },
+    { src: "/images/earthocean/mainocean/4.webp", duration: 1600, delay: 600 },
+    { src: "/images/earthocean/mainocean/5.webp", duration: 2000, delay: 800 },
   ].map((img, idx) => (
     <img
       key={idx}
@@ -286,15 +286,15 @@ Next, I transferred the compositions into a physical format using acrylic sheets
           {/* Modular Gallery */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
             {[
-              "/images/EarthOcean/gallery/1.webp",
-              "/images/EarthOcean/gallery/2.webp",
-              "/images/EarthOcean/gallery/3.webp",
-              "/images/EarthOcean/gallery/4.webp",
-              "/images/EarthOcean/gallery/5.webp",
-              "/images/EarthOcean/gallery/6.webp",
-              "/images/EarthOcean/gallery/7.webp",
-              "/images/EarthOcean/gallery/8.webp",
-              "/images/EarthOcean/gallery/9.webp",
+              "/images/earthocean/gallery/1.webp",
+              "/images/earthocean/gallery/2.webp",
+              "/images/earthocean/gallery/3.webp",
+              "/images/earthocean/gallery/4.webp",
+              "/images/earthocean/gallery/5.webp",
+              "/images/earthocean/gallery/6.webp",
+              "/images/earthocean/gallery/7.webp",
+              "/images/earthocean/gallery/8.webp",
+              "/images/earthocean/gallery/9.webp",
             ].map((src, i) => (
               <div
                 key={i}
@@ -373,11 +373,11 @@ Next, I transferred the compositions into a physical format using acrylic sheets
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
         {[
-          "/images/EarthOcean/process/1.webp",
-          "/images/EarthOcean/process/2.webp",
-          "/images/EarthOcean/process/3.webp",
-          "/images/EarthOcean/process/4.webp",
-          "/images/EarthOcean/process/5.webp",
+          "/images/earthOcean/process/1.webp",
+          "/images/earthOcean/process/2.webp",
+          "/images/earthOcean/process/3.webp",
+          "/images/earthOcean/process/4.webp",
+          "/images/earthOcean/process/5.webp",
         ].map((src, i) => (
           <img
             key={i}

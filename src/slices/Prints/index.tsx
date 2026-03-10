@@ -548,10 +548,10 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   {/* Four images */}
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
     {[
-      "/images/layerbyLayer/layoutimages/1.webp",
-      "/images/layerbyLayer/layoutimages/2.webp",
-      "/images/layerbyLayer/layoutimages/3.webp",
-      "/images/layerbyLayer/layoutimages/4.webp",
+      "/images/layerbylayer/layoutimages/1.webp",
+      "/images/layerbylayer/layoutimages/2.webp",
+      "/images/layerbylayer/layoutimages/3.webp",
+      "/images/layerbylayer/layoutimages/4.webp",
     ].map((src, idx) => (
       <div
         key={idx}
@@ -598,20 +598,20 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   >
     <div className="flex gap-6 min-w-max">
       {[
-        "/images/layerbyLayer/imagesection/1.webp",
-        "/images/layerbyLayer/imagesection/2.webp",
-        "/images/layerbyLayer/imagesection/3.webp",
-        "/images/layerbyLayer/imagesection/4.webp",
-        "/images/layerbyLayer/imagesection/5.webp",
-        "/images/layerbyLayer/imagesection/6.webp",
-        "/images/layerbyLayer/imagesection/7.webp",
-        "/images/layerbyLayer/imagesection/8.webp",
-        "/images/layerbyLayer/imagesection/9.webp",
-        "/images/layerbyLayer/imagesection/10.webp",
-        "/images/layerbyLayer/imagesection/11.webp",
-        "/images/layerbyLayer/imagesection/12.webp",
-        "/images/layerbyLayer/imagesection/13.webp",
-        "/images/layerbyLayer/imagesection/14.webp",
+        "/images/layerbylayer/imagesection/1.webp",
+        "/images/layerbylayer/imagesection/2.webp",
+        "/images/layerbylayer/imagesection/3.webp",
+        "/images/layerbylayer/imagesection/4.webp",
+        "/images/layerbylayer/imagesection/5.webp",
+        "/images/layerbylayer/imagesection/6.webp",
+        "/images/layerbylayer/imagesection/7.webp",
+        "/images/layerbylayer/imagesection/8.webp",
+        "/images/layerbylayer/imagesection/9.webp",
+        "/images/layerbylayer/imagesection/10.webp",
+        "/images/layerbylayer/imagesection/11.webp",
+        "/images/layerbylayer/imagesection/12.webp",
+        "/images/layerbylayer/imagesection/13.webp",
+        "/images/layerbylayer/imagesection/14.webp",
       ].map((src, idx) => (
         <div
           key={idx}
@@ -655,7 +655,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 
         <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
           <Image
-            src={`/images/LayerbyLayer/imagesection/${layerGalleryIndex + 1}.webp`}
+            src={`/images/layerbylayer/imagesection/${layerGalleryIndex + 1}.webp`}
             alt={`Layer by Layer modal ${layerGalleryIndex + 1}`}
             fill
             className="object-contain"
@@ -697,7 +697,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="relative h-64 bg-gray-200">
           <Image
-            src="/images/LayerbyLayer/process/1.webp"
+            src="/images/layerbylayer/process/1.webp"
             alt="Layer by Layer process image 1"
             fill
             className="object-cover"
