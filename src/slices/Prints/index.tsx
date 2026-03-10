@@ -830,20 +830,20 @@ By combining <strong>pixelated photography</strong> with expressive <strong>typo
   >
     <div className="flex gap-6 min-w-max">
       {[
-        "/images/MuteUnmute/ALLWORK/1.webp",
-        "/images/MuteUnmute/ALLWORK/2.webp",
-        "/images/MuteUnmute/ALLWORK/3.webp",
-        "/images/MuteUnmute/ALLWORK/4.webp",
-        "/images/MuteUnmute/ALLWORK/5.webp",
-        "/images/MuteUnmute/ALLWORK/6.webp",
-        "/images/MuteUnmute/ALLWORK/7.webp",
-        "/images/MuteUnmute/ALLWORK/8.webp",
-        "/images/MuteUnmute/ALLWORK/9.webp",
-        "/images/MuteUnmute/ALLWORK/10.webp",
-        "/images/MuteUnmute/ALLWORK/11.webp",
-        "/images/MuteUnmute/ALLWORK/12.webp",
-        "/images/MuteUnmute/ALLWORK/13.webp",
-        "/images/MuteUnmute/ALLWORK/14.webp",
+        "/images/MuteUnmute/allwork/1.webp",
+        "/images/MuteUnmute/allwork/2.webp",
+        "/images/MuteUnmute/allwork/3.webp",
+        "/images/MuteUnmute/allwork/4.webp",
+        "/images/MuteUnmute/allwork/5.webp",
+        "/images/MuteUnmute/allwork/6.webp",
+        "/images/MuteUnmute/allwork/7.webp",
+        "/images/MuteUnmute/allwork/8.webp",
+        "/images/MuteUnmute/allwork/9.webp",
+        "/images/MuteUnmute/allwork/10.webp",
+        "/images/MuteUnmute/allwork/11.webp",
+        "/images/MuteUnmute/allwork/12.webp",
+        "/images/MuteUnmute/allwork/13.webp",
+        "/images/MuteUnmute/allwork/14.webp",
       ].map((src, idx) => (
         <div
           key={idx}
