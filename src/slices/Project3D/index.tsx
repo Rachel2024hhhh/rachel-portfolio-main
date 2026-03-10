@@ -132,75 +132,77 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
         <div ref={project3DRef} className="mb-6 mt-12 flex flex-col gap-6 relative">
           <h1 className="text-[6vw] font-bold tracking-wide text-center">Growing Habitats</h1>
 
-          {/* First Gallery Slider - your front "gallery thing" opener */}
-          <div className="gallery-slider relative w-full h-200 overflow-hidden cursor-pointer">
-            {Array.from({ length: 8 }, (_, i) => `/images/growinghabitats/book/${i + 1}.webp`).map((src, i) => {
-              return (
-                <div
-                  key={i}
-                  className={`slide-container absolute top-0 left-0 w-full h-full transition-opacity duration-500 ease-in-out ${
-                    i === 0 ? "opacity-100" : "opacity-0"
-                  }`}
-                  data-index={i}
-                >
-                  <Image
-                    src={src}
-                    alt={`Book Page ${i + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 80vw"
-                    priority={i === 0} // Faster load for first visible slide
-                  />
+       {/* First Gallery Slider – book pages opener */}
+<div className="gallery-slider relative w-full h-200 overflow-hidden cursor-pointer">
+  {Array.from({ length: 8 }, (_, i) => `/images/growinghabitats/book/${i + 1}.webp`).map((src, i) => (
+    <div
+      key={i}
+      className={`slide-container absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out ${
+        i === 0 ? "opacity-100" : "opacity-0"
+      }`}
+      data-index={i}
+    >
+      <Image
+        src={src}
+        alt={`Book Page ${i + 1}`}
+        fill
+        className="object-cover"
+        sizes="(max-width: 768px) 100vw, 80vw"
+        priority={i === 0} // Ensures first image loads eagerly for above-the-fold
+        quality={85}       // Balances size/quality; adjust if needed
+        // unoptimized     // Uncomment temporarily if still broken after fixes (bypasses optimizer)
+      />
 
-                  <div className="nav absolute inset-0 pointer-events-none">
-                    <button
-                      onClick={() => {
-                        const slides = document.querySelectorAll<HTMLDivElement>(".slide-container");
-                        let currentIdx = 0;
-                        slides.forEach((slide, idx) => {
-                          if (slide.classList.contains("opacity-100")) currentIdx = idx;
-                        });
-                        const targetIdx = currentIdx === 0 ? 7 : currentIdx - 1;
-                        slides.forEach((slide) => {
-                          slide.classList.remove("opacity-100");
-                          slide.classList.add("opacity-0");
-                        });
-                        slides[targetIdx].classList.remove("opacity-0");
-                        slides[targetIdx].classList.add("opacity-100");
-                      }}
-                      className="prev absolute -left-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto  transition-all"
-                    >
-                      ‹
-                    </button>
-                    <button
-                      onClick={() => {
-                        const slides = document.querySelectorAll<HTMLDivElement>(".slide-container");
-                        let currentIdx = 0;
-                        slides.forEach((slide, idx) => {
-                          if (slide.classList.contains("opacity-100")) currentIdx = idx;
-                        });
-                        const targetIdx = currentIdx === 7 ? 0 : currentIdx + 1;
-                        slides.forEach((slide) => {
-                          slide.classList.remove("opacity-100");
-                          slide.classList.add("opacity-0");
-                        });
-                        slides[targetIdx].classList.remove("opacity-0");
-                        slides[targetIdx].classList.add("opacity-100");
-                      }}
-                      className="next absolute -right-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto rounded-r transition-all"
-                    >
-                      ›
-                    </button>
-                  </div>
+      {/* Navigation */}
+      <div className="nav absolute inset-0 pointer-events-none">
+        <button
+          onClick={() => {
+            const slides = document.querySelectorAll<HTMLDivElement>(".slide-container");
+            let currentIdx = 0;
+            slides.forEach((slide, idx) => {
+              if (slide.classList.contains("opacity-100")) currentIdx = idx;
+            });
+            const targetIdx = currentIdx === 0 ? 7 : currentIdx - 1;
+            slides.forEach((slide) => {
+              slide.classList.remove("opacity-100");
+              slide.classList.add("opacity-0");
+            });
+            slides[targetIdx].classList.remove("opacity-0");
+            slides[targetIdx].classList.add("opacity-100");
+          }}
+          className="prev absolute -left-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto rounded-l transition-all"
+        >
+          ‹
+        </button>
+        <button
+          onClick={() => {
+            const slides = document.querySelectorAll<HTMLDivElement>(".slide-container");
+            let currentIdx = 0;
+            slides.forEach((slide, idx) => {
+              if (slide.classList.contains("opacity-100")) currentIdx = idx;
+            });
+            const targetIdx = currentIdx === 7 ? 0 : currentIdx + 1;
+            slides.forEach((slide) => {
+              slide.classList.remove("opacity-100");
+              slide.classList.add("opacity-0");
+            });
+            slides[targetIdx].classList.remove("opacity-0");
+            slides[targetIdx].classList.add("opacity-100");
+          }}
+          className="next absolute -right-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto rounded-r transition-all"
+        >
+          ›
+        </button>
+      </div>
 
-                  <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-0 left-0 w-12 h-full bg-linear-to-r from-white/20 to-transparent" />
-                    <div className="absolute top-0 right-0 w-12 h-full bg-linear-to-l from-white/20 to-transparent" />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+      {/* Gradient edges */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-0 w-12 h-full bg-linear-to-r from-white/20 to-transparent" />
+        <div className="absolute top-0 right-0 w-12 h-full bg-linear-to-l from-white/20 to-transparent" />
+      </div>
+    </div>
+  ))}
+</div>
 
           {/* 3D Canvas + Text */}
           <div className="flex flex-col md:flex-row gap-6">
