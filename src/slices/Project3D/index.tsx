@@ -132,25 +132,33 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
         <div ref={project3DRef} className="mb-6 mt-12 flex flex-col gap-6 relative">
           <h1 className="text-[6vw] font-bold tracking-wide text-center">Growing Habitats</h1>
 
-       {/* First Gallery Slider – book pages opener */}
-<div className="gallery-slider relative w-full h-200 overflow-hidden cursor-pointer">
+{/* First Gallery Slider – with placeholder fallback */}
+<div className="gallery-slider relative w-full h-200 overflow-hidden cursor-pointer bg-gray-200">  {/* added bg-gray-200 as outer fallback */}
   {Array.from({ length: 8 }, (_, i) => `/images/growinghabitats/book/${i + 1}.webp`).map((src, i) => (
     <div
       key={i}
-      className={`slide-container absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out ${
+      className={`slide-container absolute top-0 left-0 w-full h-full transition-opacity duration-500 ease-in-out ${
         i === 0 ? "opacity-100" : "opacity-0"
       }`}
       data-index={i}
     >
+      {/* Placeholder background + text – visible if image fails */}
+      <div className="absolute inset-0 bg-gray-300 flex items-center justify-center text-gray-600 text-xl font-medium">
+        Loading Book Page {i + 1}...
+      </div>
+
       <Image
         src={src}
         alt={`Book Page ${i + 1}`}
         fill
         className="object-cover"
         sizes="(max-width: 768px) 100vw, 80vw"
-        priority={i === 0} // Ensures first image loads eagerly for above-the-fold
-        quality={85}       // Balances size/quality; adjust if needed
-        // unoptimized     // Uncomment temporarily if still broken after fixes (bypasses optimizer)
+        priority={i === 0}
+        unoptimized  // ← Temporary: removes optimizer; fix source then remove
+        onError={(e) => {
+          console.error(`Failed to load slider image: ${src}`, e);
+          // Optional: e.target.style.display = 'none'; to hide broken img
+        }}
       />
 
       {/* Navigation */}
@@ -349,7 +357,7 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
 
         {/* Active Building Modal */}
         {activeBuilding && (
-          <div className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 overflow-auto">
+          <div className="fixed inset-0 z-100 bg-black/90 flex items-center justify-center p-4 overflow-auto">
             <div className="bg-white w-full max-w-6xl p-8 relative">
               <button
                 className="absolute top-4 right-4 text-3xl font-bold"
