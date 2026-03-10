@@ -311,10 +311,10 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 
     {/* Hover Images */}
     {[
-      { src: "/images/data/main/main2.png", duration: 400, delay: 0 },
-      { src: "/images/data/main/main3.png", duration: 700, delay: 200 },
-      { src: "/images/data/main/main4.png", duration: 1000, delay: 400 },
-      { src: "/images/data/main/main5.png", duration: 1300, delay: 600 },
+      { src: "/images/data/main/main2.webp", duration: 400, delay: 0 },
+      { src: "/images/data/main/main3.webp", duration: 700, delay: 200 },
+      { src: "/images/data/main/main4.webp", duration: 1000, delay: 400 },
+      { src: "/images/data/main/main5.webp", duration: 1300, delay: 600 },
     ].map((img, idx) => (
       <Image
         key={idx}
@@ -367,10 +367,10 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   {/* Four images – same width as text block above, responsive */}
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
     {[
-      "/images/data/small/1.png",
-      "/images/data/small/2.png",
-      "/images/data/small/3.png",
-      "/images/data/small/4.png",
+      "/images/data/small/1.webp",
+      "/images/data/small/2.webp",
+      "/images/data/small/3.webp",
+      "/images/data/small/4.webp",
     ].map((src, idx) => (
       <div
         key={idx}
@@ -548,10 +548,10 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   {/* Four images */}
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
     {[
-      "/images/LayerbyLayer/layoutimages/1.png",
-      "/images/LayerbyLayer/layoutimages/2.png",
-      "/images/LayerbyLayer/layoutimages/3.png",
-      "/images/LayerbyLayer/layoutimages/4.png",
+      "/images/LayerbyLayer/layoutimages/1.webp",
+      "/images/LayerbyLayer/layoutimages/2.webp",
+      "/images/LayerbyLayer/layoutimages/3.webp",
+      "/images/LayerbyLayer/layoutimages/4.webp",
     ].map((src, idx) => (
       <div
         key={idx}
@@ -598,20 +598,20 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   >
     <div className="flex gap-6 min-w-max">
       {[
-        "/images/LayerbyLayer/imagesection/1.png",
-        "/images/LayerbyLayer/imagesection/2.png",
-        "/images/LayerbyLayer/imagesection/3.png",
-        "/images/LayerbyLayer/imagesection/4.png",
-        "/images/LayerbyLayer/imagesection/5.png",
-        "/images/LayerbyLayer/imagesection/6.png",
-        "/images/LayerbyLayer/imagesection/7.png",
-        "/images/LayerbyLayer/imagesection/8.png",
-        "/images/LayerbyLayer/imagesection/9.png",
-        "/images/LayerbyLayer/imagesection/10.png",
-        "/images/LayerbyLayer/imagesection/11.png",
-        "/images/LayerbyLayer/imagesection/12.png",
-        "/images/LayerbyLayer/imagesection/13.png",
-        "/images/LayerbyLayer/imagesection/14.png",
+        "/images/LayerbyLayer/imagesection/1.webp",
+        "/images/LayerbyLayer/imagesection/2.webp",
+        "/images/LayerbyLayer/imagesection/3.webp",
+        "/images/LayerbyLayer/imagesection/4.webp",
+        "/images/LayerbyLayer/imagesection/5.webp",
+        "/images/LayerbyLayer/imagesection/6.webp",
+        "/images/LayerbyLayer/imagesection/7.webp",
+        "/images/LayerbyLayer/imagesection/8.webp",
+        "/images/LayerbyLayer/imagesection/9.webp",
+        "/images/LayerbyLayer/imagesection/10.webp",
+        "/images/LayerbyLayer/imagesection/11.webp",
+        "/images/LayerbyLayer/imagesection/12.webp",
+        "/images/LayerbyLayer/imagesection/13.webp",
+        "/images/LayerbyLayer/imagesection/14.webp",
       ].map((src, idx) => (
         <div
           key={idx}
@@ -655,7 +655,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 
         <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
           <Image
-            src={`/images/LayerbyLayer/imagesection/${layerGalleryIndex + 1}.png`}
+            src={`/images/LayerbyLayer/imagesection/${layerGalleryIndex + 1}.webp`}
             alt={`Layer by Layer modal ${layerGalleryIndex + 1}`}
             fill
             className="object-contain"
@@ -667,65 +667,66 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 </div>
 
   {/* Process Section */}
-  <div className="mt-8">
-    <button
-      onClick={() => setShowProcessLayer(!showProcessLayer)}
-      className="uppercase text-sm tracking-wider font-medium border-b border-black hover:text-[#ff2f00] transition-colors"
-    >
-      {showProcessLayer ? "Hide process" : "See more about my process"}
-    </button>
+<div className="mt-8">
+  <button
+    onClick={() => setShowProcessLayer(!showProcessLayer)}
+    className="uppercase text-sm tracking-wider font-medium border-b border-black hover:text-[#ff2f00] transition-colors"
+  >
+    {showProcessLayer ? "Hide process" : "See more about my process"}
+  </button>
 
-    <div
-      className={`transition-all duration-700 ease-in-out overflow-hidden ${
-        showProcessLayer ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
-      }`}
-    >
-      <div className="bg-gray-100 p-8 flex flex-col gap-8">
+  <div
+    className={`transition-all duration-700 ease-in-out overflow-hidden ${
+      showProcessLayer ? "max-h-[2000px] opacity-100 mt-8" : "max-h-0 opacity-0"
+    }`}
+  >
+    <div className="bg-gray-100 p-8 flex flex-col gap-8">
 
-        <div className="max-w-3xl">
-          <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
+      <div className="max-w-3xl">
+        <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
 
-          <p className="mt-6 font-semibold">Process:</p>
+        <p className="mt-6 font-semibold">Process:</p>
 
-          <p>
-            Each photograph was constructed layer by layer,
-            building complex visual narratives that mirror the
-            meditative and cumulative nature of spiritual practice.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="relative h-64 bg-gray-200">
-            <Image
-              src="/images/LayerbyLayer/process/1.webp"
-              alt="Layer by Layer process image 1"
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          <div className="relative h-64 bg-gray-200">
-            <Image
-              src="/images/LayerbyLayer/process/2.webp"
-              alt="Layer by Layer process image 2"
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          <div className="relative h-64 bg-gray-200">
-            <Image
-              src="/images/LayerbyLayer/process/3.webp"
-              alt="Layer by Layer process image 3"
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
-
+        <p>
+          Each photograph was constructed layer by layer,
+          building complex visual narratives that mirror the
+          meditative and cumulative nature of spiritual practice.
+        </p>
       </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="relative h-64 bg-gray-200">
+          <Image
+            src="/images/LayerbyLayer/process/1.webp"
+            alt="Layer by Layer process image 1"
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        <div className="relative h-64 bg-gray-200">
+          <Image
+            src="/images/LayerbyLayer/process/2.webp"
+            alt="Layer by Layer process image 2"
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        <div className="relative h-64 bg-gray-200">
+          <Image
+            src="/images/LayerbyLayer/process/3.webp"
+            alt="Layer by Layer process image 3"
+            fill
+            className="object-cover"
+          />
+        </div>
+      </div>
+
     </div>
   </div>
+</div>
+
 </div>
 
         <ProjectDivider />
@@ -829,20 +830,20 @@ By combining <strong>pixelated photography</strong> with expressive <strong>typo
   >
     <div className="flex gap-6 min-w-max">
       {[
-        "/images/MuteUnmute/ALLWORK/1.png",
-        "/images/MuteUnmute/ALLWORK/2.png",
-        "/images/MuteUnmute/ALLWORK/3.png",
-        "/images/MuteUnmute/ALLWORK/4.png",
-        "/images/MuteUnmute/ALLWORK/5.png",
-        "/images/MuteUnmute/ALLWORK/6.png",
-        "/images/MuteUnmute/ALLWORK/7.png",
-        "/images/MuteUnmute/ALLWORK/8.png",
-        "/images/MuteUnmute/ALLWORK/9.png",
-        "/images/MuteUnmute/ALLWORK/10.png",
-        "/images/MuteUnmute/ALLWORK/11.png",
-        "/images/MuteUnmute/ALLWORK/12.png",
-        "/images/MuteUnmute/ALLWORK/13.png",
-        "/images/MuteUnmute/ALLWORK/14.png",
+        "/images/MuteUnmute/ALLWORK/1.webp",
+        "/images/MuteUnmute/ALLWORK/2.webp",
+        "/images/MuteUnmute/ALLWORK/3.webp",
+        "/images/MuteUnmute/ALLWORK/4.webp",
+        "/images/MuteUnmute/ALLWORK/5.webp",
+        "/images/MuteUnmute/ALLWORK/6.webp",
+        "/images/MuteUnmute/ALLWORK/7.webp",
+        "/images/MuteUnmute/ALLWORK/8.webp",
+        "/images/MuteUnmute/ALLWORK/9.webp",
+        "/images/MuteUnmute/ALLWORK/10.webp",
+        "/images/MuteUnmute/ALLWORK/11.webp",
+        "/images/MuteUnmute/ALLWORK/12.webp",
+        "/images/MuteUnmute/ALLWORK/13.webp",
+        "/images/MuteUnmute/ALLWORK/14.webp",
       ].map((src, idx) => (
         <div
           key={idx}
@@ -886,7 +887,7 @@ By combining <strong>pixelated photography</strong> with expressive <strong>typo
 
         <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
           <Image
-            src={`/images/MuteUnmute/ALLWORK/${galleryModalIndex + 1}.png`}
+            src={`/images/MuteUnmute/ALLWORK/${galleryModalIndex + 1}.webp`}
             alt={`Mute & Unmute modal ${galleryModalIndex + 1}`}
             fill
             className="object-contain"
@@ -896,6 +897,8 @@ By combining <strong>pixelated photography</strong> with expressive <strong>typo
     </div>
   )}
 </div>
+
+
 {/* ✅ Process Section for Mute & Unmute */}
 <div className="mt-8">
   <button
@@ -907,7 +910,7 @@ By combining <strong>pixelated photography</strong> with expressive <strong>typo
 
   <div
     className={`transition-all duration-700 ease-in-out overflow-hidden ${
-      showProcessMute ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
+      showProcessMute ? "max-h-[2000px] opacity-100 mt-8" : "max-h-0 opacity-0"
     }`}
   >
     <div className="bg-gray-100 p-8 flex flex-col gap-8">
@@ -932,6 +935,9 @@ The core idea was to <strong>create onomatopoeic sounds</strong> inspired by the
           "/images/MuteUnmute/process/1.webp",
           "/images/MuteUnmute/process/2.webp",
           "/images/MuteUnmute/process/3.webp",
+          "/images/MuteUnmute/process/4.webp",
+          "/images/MuteUnmute/process/5.webp",
+          "/images/MuteUnmute/process/6.webp",
         ].map((src, idx) => (
           <div key={idx} className="relative w-full h-64 md:h-72 bg-gray-200 overflow-hidden">
             <Image
@@ -947,6 +953,7 @@ The core idea was to <strong>create onomatopoeic sounds</strong> inspired by the
     </div>
   </div>
 </div>
+
 
 </div>
 
