@@ -17,7 +17,7 @@ interface Building {
 // --- IMAGE LOADER ---
 const importImages = (folder: string, count: number) =>
   Array.from({ length: count }, (_, i) =>
-    require(`../../../public/images/GrowingHabitats/${folder}/${i + 1}.webp`).default
+    require(`../../../public/images/growinghabitats/${folder}/${i + 1}.webp`).default
   );
 // --- DATA ---
 
@@ -147,7 +147,7 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
 
 {/* First Gallery Slider */}
 <div className="gallery-slider relative w-full h-200 overflow-hidden cursor-pointer">
-  {Array.from({ length: 8 }, (_, i) => `/images/GrowingHabitats/book/${i + 1}.webp`).map((src, i) => {
+  {Array.from({ length: 8 }, (_, i) => `/images/growinghabitats/book/${i + 1}.webp`).map((src, i) => {
     const prev = i === 0 ? 7 : i - 1;
     const next = i === 7 ? 0 : i + 1;
 
@@ -243,7 +243,7 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
                       <Html center>
                         <div className="flex flex-col items-center gap-3">
                           <Image
-                            src="/images/GrowingHabitats/placeholder1.webp"
+                            src="/images/growinghabitats/placeholder1.webp"
                             alt="3D model loading"
                             width={100}
                             height={100}
@@ -349,7 +349,7 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
     <h3 className="text-2xl font-bold mb-4 text-center">Simulation Video</h3>
 
     <div className="relative w-full aspect-video rounded-md shadow-lg overflow-hidden bg-center bg-cover"
-         style={{ backgroundImage: "url('/images/GrowingHabitats/placeholder.webp')" }}
+         style={{ backgroundImage: "url('/images/growinghabitats/placeholder.webp')" }}
     >
       <video
         className="absolute inset-0 w-full h-full object-cover"
