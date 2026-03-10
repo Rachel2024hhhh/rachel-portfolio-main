@@ -182,50 +182,56 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
     </p>
   </div>
 </div>
-  {/* Process Panel */}
-  <div className="mt-8">
-    <button
-      onClick={() => setShowProcess1(!showProcess1)}
-      className="uppercase text-sm tracking-wider font-medium border-b border-black hover:text-[#ff2f00] transition-colors"
-    >
-      {showProcess1 ? "Hide process" : "See more about my process"}
-    </button>
+ 
 
-    <div
-      className={`transition-all duration-700 ease-in-out overflow-hidden ${
-        showProcess1 ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
-      }`}
-    >
-      <div className="bg-gray-100 p-8 flex flex-col gap-8">
-        <div className="max-w-3xl">
-          <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
-          <p className="text-gray-700 leading-relaxed">
+{/* Process Panel */}
+<div className="mt-8">
+  <button
+    onClick={() => setShowProcess1(!showProcess1)}
+    className="uppercase text-sm tracking-wider font-medium border-b border-black hover:text-[#ff2f00] transition-colors "
+  >
+    {showProcess1 ? "Hide process" : "See more about my process"}
+  </button>
+
+  <div
+    className={`transition-all duration-700 ease-in-out overflow-hidden ${
+      showProcess1 ? "max-h-500 opacity-100 mt-8" : "max-h-0 opacity-0"
+    }`}
+  >
+    <div className="bg-gray-100 p-8 flex flex-col gap-8">
+      <div className="max-w-3xl">
+        <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
+        <p className="text-gray-700 leading-relaxed">
 To develop this project, I began by exploring the city and capturing multiple photographs of traffic elements, signs, and urban details. I analyzed these elements, categorizing them based on color, edges, or shapes, and assigned values and meanings to each. Using this system, I created several compositions that translated these visual observations into organized designs.
 
 Next, I transferred the compositions into a physical format using acrylic sheets, which I then cut precisely with a laser cutter. The final installation is designed to hang in the air, allowing viewers to interact with the pieces and experience the work from multiple perspectives.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            "/images/Traffic/process/1.webp",
-            "/images/Traffic/process/2.webp",
-            "/images/Traffic/process/3.webp",
-            "/images/Traffic/process/4.webp",
-            "/images/Traffic/process/5.webp",
-            "/images/Traffic/process/6.webp",
-          ].map((src, i) => (
-            <img
-              key={i}
-              src={src}
-              alt={`Process ${i + 1}`}
-              className="h-64 object-cover cursor-pointer"
-              onClick={() => openLightbox(src)}
-            />
-          ))}
-        </div>
+        </p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          "/images/Traffic/process/1.webp",
+          "/images/Traffic/process/2.webp",
+          "/images/Traffic/process/3.webp",
+          "/images/Traffic/process/4.webp",
+          "/images/Traffic/process/5.webp",
+          "/images/Traffic/process/6.webp",
+          "/images/Traffic/process/7.webp",
+          "/images/Traffic/process/8.webp",
+          "/images/Traffic/process/9.webp",
+        ].map((src, i) => (
+          <img
+            key={i}
+            src={src}
+            alt={`Process ${i + 1}`}
+            className="h-64 object-cover cursor-pointer"
+            onClick={() => openLightbox(src)}
+          />
+        ))}
       </div>
     </div>
   </div>
+</div>
+
 </div>
         <ProjectDivider />
 
@@ -289,8 +295,6 @@ Next, I transferred the compositions into a physical format using acrylic sheets
               "/images/EarthOcean/gallery/7.webp",
               "/images/EarthOcean/gallery/8.webp",
               "/images/EarthOcean/gallery/9.webp",
-             
-
             ].map((src, i) => (
               <div
                 key={i}
@@ -334,54 +338,61 @@ Next, I transferred the compositions into a physical format using acrylic sheets
     </p>
   </div>
 </div>
-          {/* Process Panel */}
-          <div className="mt-8">
-            <button
-              onClick={() => setShowProcess2(!showProcess2)}
-              className="uppercase text-sm tracking-wider font-medium border-b border-black hover:text-[#ff2f00] transition-colors"
-            >
-              {showProcess2 ? "Hide process" : "See more about my process"}
-            </button>
+       
 
-            <div className={`transition-all duration-700 ease-in-out overflow-hidden ${showProcess2 ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"}`}>
-         <div className="bg-gray-100 p-8 flex flex-col gap-8">
-  <div className="max-w-3xl">
-    <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
-    
-    <p className="text-gray-700 leading-relaxed">
-      The process began with extensive experimentation using different types of clay, including <strong>porcelain</strong> and various <strong>earthenware</strong>. Each material offered unique possibilities and challenges, shaping the way I approached form, texture, and structure.
-    </p>
+{/* Process Panel */}
+<div className="mt-8">
+  <button
+    onClick={() => setShowProcess2(!showProcess2)}
+    className="uppercase text-sm tracking-wider font-medium border-b border-black hover:text-[#ff2f00] transition-colors"
+  >
+    {showProcess2 ? "Hide process" : "See more about my process"}
+  </button>
 
-    <p className="text-gray-700 leading-relaxed">
-      Working with ceramics demands <strong>patience, gentleness, and humility</strong>. Hours of careful building and shaping can be disrupted by cracking or breaking, and each failure is a lesson in adaptation. This tension between fragility and control informed the organic, flowing quality of the work.
-    </p>
+  <div
+    className={`transition-all duration-700 ease-in-out overflow-hidden ${
+      showProcess2 ? "max-h-[2000px] opacity-100 mt-8" : "max-h-0 opacity-0"
+    }`}
+  >
+    <div className="bg-gray-100 p-8 flex flex-col gap-8">
+      <div className="max-w-3xl">
+        <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
+        
+        <p className="text-gray-700 leading-relaxed">
+          The process began with extensive experimentation using different types of clay, including <strong>porcelain</strong> and various <strong>earthenware</strong>. Each material offered unique possibilities and challenges, shaping the way I approached form, texture, and structure.
+        </p>
 
-    <p className="text-gray-700 leading-relaxed">
-      Multiple experiments guided the development of each piece, allowing me to explore <strong>layering, texture, and natural forms</strong>. Through this hands-on process, I discovered how ceramics can capture the rhythm, intelligence, and resilience inherent in natural systems, translating marine-inspired biomimicry into tangible objects.
-    </p>
+        <p className="text-gray-700 leading-relaxed">
+          Working with ceramics demands <strong>patience, gentleness, and humility</strong>. Hours of careful building and shaping can be disrupted by cracking or breaking, and each failure is a lesson in adaptation. This tension between fragility and control informed the organic, flowing quality of the work.
+        </p>
+
+        <p className="text-gray-700 leading-relaxed">
+          Multiple experiments guided the development of each piece, allowing me to explore <strong>layering, texture, and natural forms</strong>. Through this hands-on process, I discovered how ceramics can capture the rhythm, intelligence, and resilience inherent in natural systems, translating marine-inspired biomimicry into tangible objects.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+        {[
+          "/images/EarthOcean/process/1.webp",
+          "/images/EarthOcean/process/2.webp",
+          "/images/EarthOcean/process/4.webp",
+          "/images/EarthOcean/process/3.webp",
+          "/images/EarthOcean/process/5.webp",
+        ].map((src, i) => (
+          <img
+            key={i}
+            src={src}
+            alt={`Process ${i + 1}`}
+            className="h-64 object-cover cursor-pointer"
+            onClick={() => openLightbox(src)}
+          />
+        ))}
+      </div>
+    </div>
   </div>
+</div>
 
 
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-                  {[
-                    "/images/EarthOcean/process/1.webp",
-                    "/images/EarthOcean/process/2.webp",
-                    "/images/EarthOcean/process/4.webp",
-                    "/images/EarthOcean/process/3.webp",
-                   "/images/EarthOcean/process/5.webp",
-                  ].map((src, i) => (
-                    <img
-                      key={i}
-                      src={src}
-                      alt={`Process ${i + 1}`}
-                      className="h-64 object-cover cursor-pointer"
-                      onClick={() => openLightbox(src)}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <ProjectDivider />
