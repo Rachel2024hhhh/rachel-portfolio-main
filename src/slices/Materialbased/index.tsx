@@ -139,16 +139,16 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
 <div className="w-full relative mt-6 h-200 flex overflow-hidden">
   <div className="w-1/2 h-full overflow-hidden">
     <img
-      src="/images/Traffic/main/1.webp"
+      src="/images/traffic/main/1.webp"
       className="w-full h-full object-cover shadow-md"
-      onClick={() => openLightbox("/images/Traffic/main/1.webp")}
+      onClick={() => openLightbox("/images/traffic/main/1.webp")}
     />
   </div>
   <div className="w-1/2 h-full overflow-hidden">
     <img
-      src="/images/Traffic/main/2.webp"
+      src="/images/traffic/main/2.webp"
       className="w-full h-full object-cover shadow-md"
-      onClick={() => openLightbox("/images/Traffic/main/2.webp")}
+      onClick={() => openLightbox("/images/traffic/main/2.webp")}
     />
   </div>
 </div>
