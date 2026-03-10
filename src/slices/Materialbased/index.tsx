@@ -373,11 +373,11 @@ Next, I transferred the compositions into a physical format using acrylic sheets
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
         {[
-          "/images/earthOcean/process/1.webp",
-          "/images/earthOcean/process/2.webp",
-          "/images/earthOcean/process/3.webp",
-          "/images/earthOcean/process/4.webp",
-          "/images/earthOcean/process/5.webp",
+          "/images/earthocean/process/1.webp",
+          "/images/earthocean/process/2.webp",
+          "/images/earthocean/process/3.webp",
+          "/images/earthocean/process/4.webp",
+          "/images/earthocean/process/5.webp",
         ].map((src, i) => (
           <img
             key={i}
