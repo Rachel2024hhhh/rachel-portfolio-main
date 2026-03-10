@@ -98,16 +98,14 @@ const Model: React.FC<{
   return <primitive object={scene} scale={scale} position={position} />;
 };
 
-const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({
-  isVisible,
-  onClose,
-}) => {
+const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ isVisible, onClose }) => {
   if (!isVisible) return null;
 
   const project3DRef = useRef<HTMLDivElement>(null);
   const [activeBuilding, setActiveBuilding] = useState<Building | null>(null);
   const [mounted, setMounted] = useState(false);
   const [showProcess, setShowProcess] = useState(false);
+  // Removed unused videoLoaded state
 
   useEffect(() => setMounted(true), []);
 
@@ -132,14 +130,12 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({
 
       <div className="p-10">
         <div ref={project3DRef} className="mb-6 mt-12 flex flex-col gap-6 relative">
-          <h1 className="text-[6vw] font-bold tracking-wide text-center">
-            Growing Habitats
-          </h1>
+          <h1 className="text-[6vw] font-bold tracking-wide text-center">Growing Habitats</h1>
 
-          {/* First Gallery Slider – book pages */}
-          <div className="gallery-slider relative w-full h-[50 md:h-100] overflow-hidden cursor-pointer">
-            {Array.from({ length: 8 }, (_, i) => `/images/growinghabitats/book/${i + 1}.webp`).map(
-              (src, i) => (
+          {/* First Gallery Slider - your front "gallery thing" opener */}
+          <div className="gallery-slider relative w-full h-200 overflow-hidden cursor-pointer">
+            {Array.from({ length: 8 }, (_, i) => `/images/growinghabitats/book/${i + 1}.webp`).map((src, i) => {
+              return (
                 <div
                   key={i}
                   className={`slide-container absolute top-0 left-0 w-full h-full transition-opacity duration-500 ease-in-out ${
@@ -152,8 +148,8 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({
                     alt={`Book Page ${i + 1}`}
                     fill
                     className="object-cover"
-                    priority={i === 0}
                     sizes="(max-width: 768px) 100vw, 80vw"
+                    priority={i === 0} // Faster load for first visible slide
                   />
 
                   <div className="nav absolute inset-0 pointer-events-none">
@@ -172,7 +168,7 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({
                         slides[targetIdx].classList.remove("opacity-0");
                         slides[targetIdx].classList.add("opacity-100");
                       }}
-                      className="prev absolute -left-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto rounded-l transition-all"
+                      className="prev absolute -left-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto  transition-all"
                     >
                       ‹
                     </button>
@@ -198,17 +194,17 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({
                   </div>
 
                   <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-0 left-0 w-12 h-full 'bg-gradient-to-r' from-white/20 to-transparent" />
-                    <div className="absolute top-0 right-0 w-12 h-full 'bg-gradient-to-l' from-white/20 to-transparent" />
+                    <div className="absolute top-0 left-0 w-12 h-full bg-linear-to-r from-white/20 to-transparent" />
+                    <div className="absolute top-0 right-0 w-12 h-full bg-linear-to-l from-white/20 to-transparent" />
                   </div>
                 </div>
-              )
-            )}
+              );
+            })}
           </div>
 
           {/* 3D Canvas + Text */}
           <div className="flex flex-col md:flex-row gap-6">
-            <div className="md:w-1/2 w-full h-96 md:h-125 shadow-md overflow-hidden relative">
+            <div className="md:w-1/2 w-full h-96 md:h-128 shadow-md overflow-hidden relative">
               {mounted && (
                 <Canvas
                   camera={{ position: [0, 0, 5], fov: 45 }}
@@ -228,19 +224,15 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({
                             alt="3D model loading"
                             width={100}
                             height={100}
-                            className="opacity-80"
+                            className="opacity-100"
                           />
-                          <p className="text-sm font-medium text-gray-300">Loading 3D model…</p>
+                          <p className="text-sm font-medium text-gray-300">Loading model…</p>
                         </div>
                       </Html>
                     }
                   >
                     <Bounds fit clip observe margin={1.2}>
-                      <Model
-                        path="/models/myModel.glb"
-                        scale={[0.02, 0.02, 0.02]}
-                        position={[0, 0.8, 0]}
-                      />
+                      <Model path="/models/myModel.glb" scale={[0.02, 0.02, 0.02]} position={[0, 0.8, 0]} />
                     </Bounds>
                   </Suspense>
 
@@ -260,24 +252,13 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({
               <h2 className="text-2xl font-bold">Growing Habitats</h2>
               <p className="font-medium">3D Explorations of Nature and Architecture</p>
               <p>
-                Growing Habitats is a 3D project that explores the intersection of{" "}
-                <strong>architecture and natural growth patterns</strong>. Inspired by the ways
-                plants, fungi, and animals build and interact with their environments, I created a
-                series of 3D sculptures where each architectural form reflects specific
-                characteristics from nature.
+                Growing Habitats is a 3D project that explores the intersection of <strong>architecture and natural growth patterns</strong>. Inspired by the ways plants, fungi, and animals build and interact with their environments, I created a series of 3D sculptures where each architectural form reflects specific characteristics from nature.
               </p>
               <p>
-                In this phase of my practice, I focused on <strong>3D sculpting</strong> as a way to
-                translate my need for building, movement, and interactivity into space. I started
-                working with <strong>Nomad Sculpt</strong> and, more recently,{" "}
-                <strong>Blender</strong>, experimenting with how forms can exist and flow in three
-                dimensions.
+                In this phase of my practice, I focused on <strong>3D sculpting</strong> as a way to translate my need for building, movement, and interactivity into space. I started working with <strong>Nomad Sculpt</strong> and, more recently, <strong>Blender</strong>, experimenting with how forms can exist and flow in three dimensions.
               </p>
               <p>
-                Some pieces take cues from mushroom growth, bird nests, or the clustering of snails,
-                transforming observations into architectural forms that reflect{" "}
-                <strong>interconnectedness, adaptability, and coexistence</strong> between humans and
-                the natural world.
+                Some pieces take cues from mushroom growth, bird nests, or the clustering of snails, transforming observations into architectural forms that reflect <strong>interconnectedness, adaptability, and coexistence</strong> between humans and the natural world.
               </p>
             </div>
           </div>
@@ -323,27 +304,16 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({
                 <div className="max-w-3xl">
                   <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
                   <p className="text-gray-700 leading-relaxed">
-                    The process began with exploring different landscapes, observing how{" "}
-                    <strong>nature grows within human-made environments</strong>. I took extensive
-                    photographs to document the ways flora and fauna expand, adapt, and inhabit
-                    spaces alongside architecture.
+                    The process began with exploring different landscapes, observing how <strong>nature grows within human-made environments</strong>. I took extensive photographs to document the ways flora and fauna expand, adapt, and inhabit spaces alongside architecture.
                   </p>
                   <p className="text-gray-700 leading-relaxed">
-                    This research extended to studying the behaviors and homes of plants and animals,
-                    focusing on <strong>how they build, nest, and interact with their surroundings</strong>
-                    . These observations became the foundation for my design explorations.
+                    This research extended to studying the behaviors and homes of plants and animals, focusing on <strong>how they build, nest, and interact with their surroundings</strong>. These observations became the foundation for my design explorations.
                   </p>
                   <p className="text-gray-700 leading-relaxed">
-                    I then translated these insights into sketches, which were later modeled in{" "}
-                    <strong>Nomad Sculpt</strong> and, subsequently, <strong>Blender</strong>. This
-                    step allowed me to experiment with <em>forms, spatial relationships, and movement</em>{" "}
-                    in three dimensions.
+                    I then translated these insights into sketches, which were later modeled in <strong>Nomad Sculpt</strong> and, subsequently, <strong>Blender</strong>. This step allowed me to experiment with <em>forms, spatial relationships, and movement</em> in three dimensions.
                   </p>
                   <p className="text-gray-700 leading-relaxed">
-                    A small simulation video was created to visualize how these shapes could function
-                    within an environment. While it is not as refined as I would have liked, it
-                    provides a general view of <strong>interactivity, integration, and the potential behavior</strong>{" "}
-                    of the forms in space.
+                    A small simulation video was created to visualize how these shapes could function within an environment. While it is not as refined as I would have liked, it provides a general view of <strong>interactivity, integration, and the potential behavior</strong> of the forms in space.
                   </p>
                 </div>
 
@@ -377,7 +347,7 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({
 
         {/* Active Building Modal */}
         {activeBuilding && (
-          <div className="fixed inset-0 z-100 bg-black/90 flex items-center justify-center p-4 overflow-auto">
+          <div className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 overflow-auto">
             <div className="bg-white w-full max-w-6xl p-8 relative">
               <button
                 className="absolute top-4 right-4 text-3xl font-bold"
