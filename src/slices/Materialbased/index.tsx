@@ -351,7 +351,7 @@ Next, I transferred the compositions into a physical format using acrylic sheets
 
   <div
     className={`transition-all duration-700 ease-in-out overflow-hidden ${
-      showProcess2 ? "max-h-[2000px] opacity-100 mt-8" : "max-h-0 opacity-0"
+      showProcess2 ? "max-h-500 opacity-100 mt-8" : "max-h-0 opacity-0"
     }`}
   >
     <div className="bg-gray-100 p-8 flex flex-col gap-8">
@@ -375,8 +375,8 @@ Next, I transferred the compositions into a physical format using acrylic sheets
         {[
           "/images/EarthOcean/process/1.webp",
           "/images/EarthOcean/process/2.webp",
-          "/images/EarthOcean/process/4.webp",
           "/images/EarthOcean/process/3.webp",
+          "/images/EarthOcean/process/4.webp",
           "/images/EarthOcean/process/5.webp",
         ].map((src, i) => (
           <img
