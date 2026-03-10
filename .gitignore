@@ -33,3 +33,5 @@ public/images/**/*
 *.tmp
 
 .DS_Store
+public_backup/
+public_backup/
