@@ -55,7 +55,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 
 
   // --- IMAGE SEQUENCE ANIMATION ---
-  const allImages = Array.from({ length: 52 }, (_, i) => `/images/data/animation/databook${i + 1}.png`);
+  const allImages = Array.from({ length: 52 }, (_, i) => `/images/data/animation/databook${i + 1}.webp`);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -303,7 +303,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   <div className="relative w-full h-200 overflow-hidden group">
     {/* Main Image */}
     <Image
-      src="/images/data/main/main1.png"
+      src="/images/data/main/main1.webp"
       alt="Main Image 1"
       fill
       className="object-cover transition-opacity duration-400 group-hover:opacity-0 z-10"
@@ -332,30 +332,37 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   </div>
 
   {/* Motion Description inside the section */}
-  <div className="flex flex-col md:flex-row gap-6 mt-6 overflow-x-hidden">
-    <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
-      <h2 className="text-2xl font-bold">Motion of Departure</h2>
-      <h3 className="text-xl font-medium">Data Visualization Project</h3>
-      <h4 className="text-gray-700 font-extralight">
-        Exploring migration data
-      </h4>
-    </div>
-
-    <div className="md:w-1/2 w-full bg-gray-100 p-6">
-    
-      <p>
-        This project addresses the human impact of large scale migration by giving each individual their own space within a dataset. Migration is most often understood through aggregated data—millions of people reduced to numbers, flows, and codes an approach that obscures personal stories and lived experiences. By assigning each data point its own page, the project resists this flattening effect and affirms the right of every person to be represented individually.
-        Motion is used as a generative tool to reflect migratory movement itself. Rather than presenting the data as static information, movement unfolds across the sequence of pages, echoing displacement, transition, and passage through space. The gradual shifts, repetitions, and rhythms within the motion highlight migration as an ongoing process rather than a fixed outcome, reinforcing the idea that behind every data point is a life in motion.
-      </p>
-
-      <p>
-        The final book transforms abstract data into a tangible, human-centered narrative.
-        By visually separating each individual, the project restores personal presence and
-        emphasizes the humanity behind the numbers, challenging the dehumanizing effect of
-        aggregated statistics.
-      </p>
-    </div>
+<div className="flex flex-col md:flex-row gap-6 mt-6 overflow-x-hidden">
+  <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
+    <h2 className="text-2xl font-bold">Motion of Departure</h2>
+    <h3 className="text-xl font-medium">Data Visualization Project</h3>
+    <h4 className="text-gray-700 font-extralight">
+      <strong>Exploring Migration Through Individual Stories</strong>
+    </h4>
   </div>
+
+  <div className="md:w-1/2 w-full bg-gray-100 p-6">
+    <p>
+      This project addresses the human impact of large-scale <strong>migration</strong> by giving each individual their own space within a dataset. Migration is often reduced to aggregated numbers — millions of people flattened into flows, codes, and statistics — obscuring the <em>personal stories</em> behind each movement.
+    </p>
+
+    <p>
+      By assigning each data point its own page, the project resists this flattening effect and affirms the right of every person to be represented <strong>individually</strong>.
+    </p>
+
+    <p>
+      As someone who grew up in <strong>Cuba</strong> under a <em>dictatorship</em>, I have personally witnessed family and friends disperse across the world, experiencing first-hand what it means to leave everything behind. I remember receiving letters, always feeling reduced to a number, an impression, a line in a bureaucratic process — even though I deeply respect the work of immigration agents. This project is personal because it seeks to restore that <strong>human presence</strong> and dignity, giving each individual the space they deserve.
+    </p>
+
+    <p>
+      <strong>Motion</strong> is used as a generative tool to reflect migratory movement itself. Rather than presenting static data, movement unfolds across the sequence of pages, echoing <em>displacement, transition, and passage through space</em>. The gradual shifts, repetitions, and rhythms within this motion highlight migration as an ongoing process rather than a fixed outcome, emphasizing that behind every data point is a life in motion.
+    </p>
+
+    <p>
+      The final book transforms abstract data into a tangible, <strong>human-centered narrative</strong>. By visually separating each individual, it restores personal presence and emphasizes the <em>humanity</em> behind the numbers, challenging the dehumanizing effect of aggregated statistics.
+    </p>
+  </div>
+</div>
 
   {/* Four images – same width as text block above, responsive */}
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
@@ -456,17 +463,27 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
             </div>
 
             {/* Column 3: Project Description / Explanation */}
-            <div className="md:w-1/3 w-full bg-gray-50 p-6 flex flex-col gap-2">
-              <p className="font-semibold">Project Description:</p>
-              <p>
-                The layout and movement of elements throughout the book were generated using a
-                custom script that assigns each entry a unique position. This method ensures that
-                each individual occupies a distinct space, reflecting both the diversity of
-                experiences and the complexity of the dataset. The combination of algorithmic
-                organization and visual design reinforces the concept of individuality within a
-                large system.
-              </p>
-            </div>
+           <div className="md:w-1/2 w-full bg-gray-100 p-6">
+  <p>
+    For the process of Motion of Departure, I developed a <strong>custom script in InDesign</strong> — my first time writing a script for a project — to generate each page and create the visual motion of the dataset. This allowed me to explore how design and programming can work together to translate abstract migration data into a tangible narrative.
+  </p>
+
+  <p>
+    I carefully planned the layouts, considering page sizes, spacing, and structure, and tested different configurations to see what would work visually while remaining feasible in InDesign. Each row of information — including values like <strong>case number</strong>, <strong>birth country</strong>, and other data points — was mapped to a visual element that moves across the page, echoing the rhythm of migration itself.
+  </p>
+
+  <p>
+    Motion is central to the project. Elements move left to right across the page, and when they reach the end, they reverse direction. This continuous movement mirrors <em>displacement, transition, and passage</em>, reinforcing the idea that migration is a process, not a static event.
+  </p>
+
+  <p>
+    The <strong>dot</strong> is the main visual indicator, inspired by my childhood love of flipping books. Each step of the dot marks progress and movement, giving a subtle sense of animation while guiding the viewer through the sequence. This design choice creates a <em>tactile, playful rhythm</em> within a highly structured dataset, balancing precision and human presence.
+  </p>
+
+  <p>
+    Overall, this phase was an intense process of experimentation, planning, and reflection — combining <strong>data, design, and motion</strong> to create a narrative that is both personal and human-centered.
+  </p>
+</div>
           </div>
         </div>
       </div>
@@ -488,52 +505,45 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   {/* Main Static Image */}
   <div className="w-full h-200 relative bg-gray-300 flex items-center justify-center">
     <Image
-      src="/images/LayerbyLayer/view.png"
+      src="/images/LayerbyLayer/view.webp"
       alt="Layer by Layer main image"
       fill
       className="object-cover"
     />
   </div>
 
-  <div className="flex flex-col md:flex-row gap-6">
-    <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
-      <h2 className="text-2xl font-bold">Layer by Layer</h2>
-      <h3 className="text-xl font-medium">Photography Project</h3>
-      <h4 className="text-gray-700 font-extralight">
-        Spirituality in the Mundane
-      </h4>
-    </div>
 
-    <div className="md:w-1/2 w-full bg-gray-100 p-6">
-      <p className="font-semibold">Concept:</p>
-      <div>
-        <p>
-          This project explores spirituality within the mundane by examining how ritual, intention,
-          and cultural memory can emerge from everyday objects and routines.
-        </p>
 
-        <p>
-          Central to the project is the technique of layering: each object is photographed,
-          printed, and then physically layered with another, photographed again,
-          and repeated in a process of accumulation.
-        </p>
-
-        <p>
-          Through this method, the act of layering itself becomes a ritual,
-          a way of creating a presence or essence that exists within the medium
-          and the process.
-        </p>
-
-        <p className="mt-6 font-semibold">Outcome:</p>
-
-        <p>
-          The final images capture moments where the ordinary becomes extraordinary,
-          illustrating a quiet, meditative spirituality that emerges through the
-          accumulation of layers.
-        </p>
-      </div>
-    </div>
+<div className="flex flex-col md:flex-row gap-6">
+  <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
+    <h2 className="text-2xl font-bold">Layer by Layer</h2>
+    <h3 className="text-xl font-medium">Photography Project</h3>
+    <h4 className="text-gray-700 font-extralight">
+      <strong>Layers, Ritual, and the Everyday</strong>
+    </h4>
   </div>
+
+  <div className="md:w-1/2 w-full bg-gray-100 p-6">
+    <p>
+      As a visual artist growing up in the <strong>Caribbean</strong>, I was immersed in traditions where <em>spirituality</em> is rooted in nature and everyday life. Rituals, offerings, and symbolic connections to the elements taught me to see meaning in the ordinary — speaking to a tree, honoring the earth, or sensing unseen energies in daily actions.
+    </p>
+
+    <p>
+      Living in the Netherlands, I often miss that intimate connection with cultural spirituality. This project became a personal exploration of how the <strong>mundane</strong> can carry profound meaning.
+    </p>
+
+    <p>
+      To reflect the multiple layers of spirituality, I translated the idea into a visual <strong>layering process</strong>: placing objects, photographing them, layering another on top, and re-photographing, while playing with <em>illusion</em> and <em>perspective</em>. Each layer builds depth, presence, and subtle ritual, mirroring how spirituality unfolds in everyday life.
+    </p>
+
+    <p>
+      The work remains deeply personal — a meditation on <strong>presence, observation, and accumulation</strong>, connecting memory, ritual, and the quiet energies that surround us.
+    </p>
+  </div>
+</div>
+
+
+
 
   {/* Four images */}
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
@@ -687,7 +697,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="relative h-64 bg-gray-200">
             <Image
-              src="/images/LayerbyLayer/process/1.png"
+              src="/images/LayerbyLayer/process/1.webp"
               alt="Layer by Layer process image 1"
               fill
               className="object-cover"
@@ -696,7 +706,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 
           <div className="relative h-64 bg-gray-200">
             <Image
-              src="/images/LayerbyLayer/process/2.png"
+              src="/images/LayerbyLayer/process/2.webp"
               alt="Layer by Layer process image 2"
               fill
               className="object-cover"
@@ -705,7 +715,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 
           <div className="relative h-64 bg-gray-200">
             <Image
-              src="/images/LayerbyLayer/process/3.png"
+              src="/images/LayerbyLayer/process/3.webp"
               alt="Layer by Layer process image 3"
               fill
               className="object-cover"
@@ -730,38 +740,47 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   {/* Click-through Image */}
   <div className="w-full h-200 flex items-center justify-center ">
     <img
-      src="/images/MuteUnmute/main.png"
+      src="/images/MuteUnmute/main.webp"
       alt="Mute-Unmute Interactive"
       className="w-full h-full object-cover"
     />
   </div>
 
-  <div className="flex flex-col md:flex-row gap-6">
-    <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
-      <h2 className="text-2xl font-bold">Mute & Unmute</h2>
-      <h3 className="text-xl font-medium">Photography and Typography</h3>
-      <h4 className="text-gray-700 font-extralight">Spirituality in the Mundane</h4>
-    </div>
-
-    <div className="md:w-1/2 w-full bg-gray-100 p-6">
-      <p className="font-semibold">Concept:</p>
-      <p>
-        This project investigates the presence of spirituality within the mundane, exploring how ritual, intention, and cultural heritage can be found in everyday objects and routines. Growing up in Cuba, I experienced a culture deeply rooted in spiritual traditions, where even the simplest daily habits carry layers of meaning. I wanted to translate this sense of spirituality into photography—not only through the final images, but also through the process of creating them.
-      </p>
-
-
-      <p className="mt-6 font-semibold">Outcome:</p>
-      <p>
-        The final images reveal subtle connections between the ordinary and the transcendent, emphasizing that spirituality is not always grand or overt—it can be discovered in small, intentional gestures and in the quiet rhythm of daily life. The work encourages viewers to look closer at the layers around them, both in the physical world and in their own experiences.
-      </p>
-    </div>
+<div className="flex flex-col md:flex-row gap-6">
+  <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
+    <h2 className="text-2xl font-bold">Mute & Unmute</h2>
+    <h3 className="text-xl font-medium">Photography and Typography</h3>
+    <h4 className="text-gray-700 font-extralight">A Study in Close-Up</h4>
   </div>
+
+  <div className="md:w-1/2 w-full bg-gray-100 p-6">
+      
+<p>
+This project began with the randomly assigned word <strong>“Close-Up.”</strong>  
+During a school visit to two exhibitions, we were asked to move through the space in <em>complete silence</em>, documenting our observations only through notes and sketches.
+
+Without conversation, every small action became noticeable —  
+<em>footsteps</em>, <em>bottles opening</em>, <em>objects clicking</em>, subtle movements filling the room with quiet sound.
+
+These moments led me to think about <strong>onomatopoeic sounds</strong> — words that imitate real sounds — and how they could translate the <em>action of closing</em>, touching, or interacting into <strong>typography</strong>.
+
+To expand this idea, I moved outside the exhibition space and began photographing the city, searching for moments where sound could be <em>imagined through image</em>. The intention was to reveal that these small sonic interactions exist <strong>everywhere in our surroundings</strong>.
+
+The photographs were intentionally <strong>pixelated</strong>.  
+For me, a <em>pixel</em> represents the most fundamental <strong>close-up unit</strong> of an image.
+
+
+By combining <strong>pixelated photography</strong> with expressive <strong>typographic onomatopoeia</strong>, the project explores how the idea of <strong>Close-Up</strong> can operate visually and conceptually — connecting <em>image, sound, and text</em>.
+</p>
+
+  </div>
+</div>
 
 {/* Two static images – fully fitting and responsive */}
 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
   <div className="relative w-full h-96 md:h-125">
     <Image
-      src="/images/MuteUnmute/small1.png"
+      src="/images/MuteUnmute/small1.webp"
       alt="Mute & Unmute – final detail 1"
       fill
       className="object-cover"
@@ -771,7 +790,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 
   <div className="relative w-full h-96 md:h-125">
     <Image
-      src="/images/MuteUnmute/small2.png"
+      src="/images/MuteUnmute/small2.webp"
       alt="Mute & Unmute – final detail 2"
       fill
       className="object-cover"
@@ -910,9 +929,9 @@ The core idea was to <strong>create onomatopoeic sounds</strong> inspired by the
       {/* Images for Process */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
-          "/images/MuteUnmute/process/1.png",
-          "/images/MuteUnmute/process/2.png",
-          "/images/MuteUnmute/process/3.jpg",
+          "/images/MuteUnmute/process/1.webp",
+          "/images/MuteUnmute/process/2.webp",
+          "/images/MuteUnmute/process/3.webp",
         ].map((src, idx) => (
           <div key={idx} className="relative w-full h-64 md:h-72 bg-gray-200 overflow-hidden">
             <Image

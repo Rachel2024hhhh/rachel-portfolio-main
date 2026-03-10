@@ -266,11 +266,24 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
             </div>
 
             <div className="md:w-1/2 w-full bg-gray-100 p-6 flex flex-col gap-4">
-              <h2 className="text-2xl font-bold">Growing Habitats</h2>
-              <p className="font-medium">3D Explorations of Nature and Architecture</p>
-              <p>Growing Habits is a 3D project that explores the intersection of architecture and natural growth patterns. Inspired by the ways plants, fungi, and animals build and interact with their environments, I created a series of 3D sculptures where each architectural form reflects specific characteristics from nature. Some pieces take cues from the way mushrooms grow, the structure of bird nests, or the movement and clustering of snails. The project is an artistic exploration of how organic systems can inform design, highlighting the patterns, strategies, and aesthetics of the natural world.
-              </p>
-            </div>
+  <h2 className="text-2xl font-bold">Growing Habitats</h2>
+  <p className="font-medium">3D Explorations of Nature and Architecture</p>
+
+  <p>
+    Growing Habitats is a 3D project that explores the intersection of <strong>architecture and natural growth patterns</strong>. Inspired by the ways plants, fungi, and animals build and interact with their environments, I created a series of 3D sculptures where each architectural form reflects specific characteristics from nature.
+  </p>
+
+  <p>
+    In this phase of my practice, I focused on <strong>3D sculpting</strong> as a way to translate my need for building, movement, and interactivity into space. I started working with <strong>Nomad Sculpt</strong> and, more recently, <strong>Blender</strong>, experimenting with how forms can exist and flow in three dimensions.
+  </p>
+
+  <p>
+    Some pieces take cues from mushroom growth, bird nests, or the clustering of snails, transforming observations into architectural forms that reflect <strong>interconnectedness, adaptability, and coexistence</strong> between humans and the natural world.
+  </p>
+</div>
+
+
+
           </div>
 
           {/* Gallery */}
@@ -309,40 +322,51 @@ const PrintMatter3D: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ 
                 showProcess ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
               }`}
             >
-              <div className="bg-gray-100 p-8 flex flex-col gap-8">
-                <div className="max-w-3xl">
-                  <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
-                  <p className="text-gray-700 leading-relaxed">
-                    For this project, I based my work on research into nature and various organic forms in structures,
-                    focusing on how natural patterns and growth systems can inform architectural design. I explored
-                    biomimicry in both nature and architecture, investigating ways to combine these two aspects to create
-                    functional and harmonious designs. To develop my ideas, I used different 3D software, including Blender
-                    and Nomad Sculpt, allowing me to experiment with forms, structures, and spatial relationships. In
-                    addition, I created a simulation video to visualize how the building would interact with a specific
-                    landscape, helping to convey the integration of the design within its environmental context.
-                  </p>
-                </div>
+             
+<div className="bg-gray-100 p-8 flex flex-col gap-8">
+  <div className="max-w-3xl">
+    <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
 
-        
-{/* Standalone Video Section */}
-<div className="w-full max-w-3xl mx-auto mt-12">
-  <h3 className="text-2xl font-bold mb-4 text-center">Simulation Video</h3>
+    <p className="text-gray-700 leading-relaxed">
+      The process began with exploring different landscapes, observing how <strong>nature grows within human-made environments</strong>. I took extensive photographs to document the ways flora and fauna expand, adapt, and inhabit spaces alongside architecture.
+    </p>
 
-  <div className="relative w-full aspect-video rounded-md shadow-lg overflow-hidden bg-center bg-cover"
-       style={{ backgroundImage: "url('/images/GrowingHabitats/placeholder.webp')" }}
-  >
-    <video
-      className="absolute inset-0 w-full h-full object-cover"
-      controls
-      playsInline
-      preload="metadata"
+    <p className="text-gray-700 leading-relaxed">
+      This research extended to studying the behaviors and homes of plants and animals, focusing on <strong>how they build, nest, and interact with their surroundings</strong>. These observations became the foundation for my design explorations.
+    </p>
+
+    <p className="text-gray-700 leading-relaxed">
+      I then translated these insights into sketches, which were later modeled in <strong>Nomad Sculpt</strong> and, subsequently, <strong>Blender</strong>. This step allowed me to experiment with <em>forms, spatial relationships, and movement</em> in three dimensions.
+    </p>
+
+    <p className="text-gray-700 leading-relaxed">
+      A small simulation video was created to visualize how these shapes could function within an environment. While it is not as refined as I would have liked, it provides a general view of <strong>interactivity, integration, and the potential behavior</strong> of the forms in space.
+    </p>
+  </div>
+
+  {/* Standalone Video Section */}
+  <div className="w-full max-w-3xl mx-auto mt-12">
+    <h3 className="text-2xl font-bold mb-4 text-center">Simulation Video</h3>
+
+    <div className="relative w-full aspect-video rounded-md shadow-lg overflow-hidden bg-center bg-cover"
+         style={{ backgroundImage: "url('/images/GrowingHabitats/placeholder.webp')" }}
     >
-      <source src="/videos/GrowingHabitatsv/video.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        controls
+        playsInline
+        preload="metadata"
+      >
+        <source src="/videos/GrowingHabitatsv/video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
   </div>
 </div>
-              </div>
+
+
+
+             
             </div>
           </div>
 
