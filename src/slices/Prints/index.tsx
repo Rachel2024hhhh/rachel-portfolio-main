@@ -548,10 +548,10 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   {/* Four images */}
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
     {[
-      "/images/LayerbyLayer/layoutimages/1.webp",
-      "/images/LayerbyLayer/layoutimages/2.webp",
-      "/images/LayerbyLayer/layoutimages/3.webp",
-      "/images/LayerbyLayer/layoutimages/4.webp",
+      "/images/layerbyLayer/layoutimages/1.webp",
+      "/images/layerbyLayer/layoutimages/2.webp",
+      "/images/layerbyLayer/layoutimages/3.webp",
+      "/images/layerbyLayer/layoutimages/4.webp",
     ].map((src, idx) => (
       <div
         key={idx}
@@ -598,20 +598,20 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   >
     <div className="flex gap-6 min-w-max">
       {[
-        "/images/LayerbyLayer/imagesection/1.webp",
-        "/images/LayerbyLayer/imagesection/2.webp",
-        "/images/LayerbyLayer/imagesection/3.webp",
-        "/images/LayerbyLayer/imagesection/4.webp",
-        "/images/LayerbyLayer/imagesection/5.webp",
-        "/images/LayerbyLayer/imagesection/6.webp",
-        "/images/LayerbyLayer/imagesection/7.webp",
-        "/images/LayerbyLayer/imagesection/8.webp",
-        "/images/LayerbyLayer/imagesection/9.webp",
-        "/images/LayerbyLayer/imagesection/10.webp",
-        "/images/LayerbyLayer/imagesection/11.webp",
-        "/images/LayerbyLayer/imagesection/12.webp",
-        "/images/LayerbyLayer/imagesection/13.webp",
-        "/images/LayerbyLayer/imagesection/14.webp",
+        "/images/layerbyLayer/imagesection/1.webp",
+        "/images/layerbyLayer/imagesection/2.webp",
+        "/images/layerbyLayer/imagesection/3.webp",
+        "/images/layerbyLayer/imagesection/4.webp",
+        "/images/layerbyLayer/imagesection/5.webp",
+        "/images/layerbyLayer/imagesection/6.webp",
+        "/images/layerbyLayer/imagesection/7.webp",
+        "/images/layerbyLayer/imagesection/8.webp",
+        "/images/layerbyLayer/imagesection/9.webp",
+        "/images/layerbyLayer/imagesection/10.webp",
+        "/images/layerbyLayer/imagesection/11.webp",
+        "/images/layerbyLayer/imagesection/12.webp",
+        "/images/layerbyLayer/imagesection/13.webp",
+        "/images/layerbyLayer/imagesection/14.webp",
       ].map((src, idx) => (
         <div
           key={idx}
@@ -706,7 +706,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 
         <div className="relative h-64 bg-gray-200">
           <Image
-            src="/images/LayerbyLayer/process/2.webp"
+            src="/images/layerbylayer/process/2.webp"
             alt="Layer by Layer process image 2"
             fill
             className="object-cover"
@@ -715,7 +715,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 
         <div className="relative h-64 bg-gray-200">
           <Image
-            src="/images/LayerbyLayer/process/3.webp"
+            src="/images/layerbylayer/process/3.webp"
             alt="Layer by Layer process image 3"
             fill
             className="object-cover"
@@ -741,7 +741,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
   {/* Click-through Image */}
   <div className="w-full h-200 flex items-center justify-center ">
     <img
-      src="/images/MuteUnmute/main.webp"
+      src="/images/muteunmute/main.webp"
       alt="Mute-Unmute Interactive"
       className="w-full h-full object-cover"
     />
@@ -781,7 +781,7 @@ By combining <strong>pixelated photography</strong> with expressive <strong>typo
 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
   <div className="relative w-full h-96 md:h-125">
     <Image
-      src="/images/MuteUnmute/small1.webp"
+      src="/images/muteunmute/small1.webp"
       alt="Mute & Unmute – final detail 1"
       fill
       className="object-cover"
@@ -791,7 +791,7 @@ By combining <strong>pixelated photography</strong> with expressive <strong>typo
 
   <div className="relative w-full h-96 md:h-125">
     <Image
-      src="/images/MuteUnmute/small2.webp"
+      src="/images/muteunmute/small2.webp"
       alt="Mute & Unmute – final detail 2"
       fill
       className="object-cover"
@@ -830,20 +830,20 @@ By combining <strong>pixelated photography</strong> with expressive <strong>typo
   >
     <div className="flex gap-6 min-w-max">
       {[
-        "/images/MuteUnmute/allwork/1.webp",
-        "/images/MuteUnmute/allwork/2.webp",
-        "/images/MuteUnmute/allwork/3.webp",
-        "/images/MuteUnmute/allwork/4.webp",
-        "/images/MuteUnmute/allwork/5.webp",
-        "/images/MuteUnmute/allwork/6.webp",
-        "/images/MuteUnmute/allwork/7.webp",
-        "/images/MuteUnmute/allwork/8.webp",
-        "/images/MuteUnmute/allwork/9.webp",
-        "/images/MuteUnmute/allwork/10.webp",
-        "/images/MuteUnmute/allwork/11.webp",
-        "/images/MuteUnmute/allwork/12.webp",
-        "/images/MuteUnmute/allwork/13.webp",
-        "/images/MuteUnmute/allwork/14.webp",
+        "/images/muteunmute/allwork/1.webp",
+        "/images/muteunmute/allwork/2.webp",
+        "/images/muteunmute/allwork/3.webp",
+        "/images/muteunmute/allwork/4.webp",
+        "/images/muteunmute/allwork/5.webp",
+        "/images/muteunmute/allwork/6.webp",
+        "/images/muteunmute/allwork/7.webp",
+        "/images/muteunmute/allwork/8.webp",
+        "/images/muteunmute/allwork/9.webp",
+        "/images/muteunmute/allwork/10.webp",
+        "/images/muteunmute/allwork/11.webp",
+        "/images/muteunmute/allwork/12.webp",
+        "/images/muteunmute/allwork/13.webp",
+        "/images/muteunmute/allwork/14.webp",
       ].map((src, idx) => (
         <div
           key={idx}
@@ -887,7 +887,7 @@ By combining <strong>pixelated photography</strong> with expressive <strong>typo
 
         <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
           <Image
-            src={`/images/MuteUnmute/ALLWORK/${galleryModalIndex + 1}.webp`}
+            src={`/images/muteunmute/allwork/${galleryModalIndex + 1}.webp`}
             alt={`Mute & Unmute modal ${galleryModalIndex + 1}`}
             fill
             className="object-contain"
@@ -932,12 +932,12 @@ The core idea was to <strong>create onomatopoeic sounds</strong> inspired by the
       {/* Images for Process */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
-          "/images/MuteUnmute/process/1.webp",
-          "/images/MuteUnmute/process/2.webp",
-          "/images/MuteUnmute/process/3.webp",
-          "/images/MuteUnmute/process/4.webp",
-          "/images/MuteUnmute/process/5.webp",
-          "/images/MuteUnmute/process/6.webp",
+          "/images/muteunmute/process/1.webp",
+          "/images/muteunmute/process/2.webp",
+          "/images/muteunmute/process/3.webp",
+          "/images/muteunmute/process/4.webp",
+          "/images/muteunmute/process/5.webp",
+          "/images/muteunmute/process/6.webp",
         ].map((src, idx) => (
           <div key={idx} className="relative w-full h-64 md:h-72 bg-gray-200 overflow-hidden">
             <Image
