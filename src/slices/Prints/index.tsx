@@ -677,7 +677,7 @@ const [galleryModalIndex, setGalleryModalIndex] = useState(0);
 
   <div
     className={`transition-all duration-700 ease-in-out overflow-hidden ${
-      showProcessLayer ? "max-h-[2000px] opacity-100 mt-8" : "max-h-0 opacity-0"
+      showProcessLayer ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
     }`}
   >
     <div className="bg-gray-100 p-8 flex flex-col gap-8">
@@ -910,7 +910,7 @@ By combining <strong>pixelated photography</strong> with expressive <strong>typo
 
   <div
     className={`transition-all duration-700 ease-in-out overflow-hidden ${
-      showProcessMute ? "max-h-[2000px] opacity-100 mt-8" : "max-h-0 opacity-0"
+      showProcessMute ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
     }`}
   >
     <div className="bg-gray-100 p-8 flex flex-col gap-8">
