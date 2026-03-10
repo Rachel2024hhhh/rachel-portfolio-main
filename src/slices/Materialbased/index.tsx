@@ -141,14 +141,14 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
     <img
       src="/images/Traffic/main/1.webp"
       className="w-full h-full object-cover shadow-md"
-      onClick={() => openLightbox("/images/Traffic/main/1.png")}
+      onClick={() => openLightbox("/images/Traffic/main/1.webp")}
     />
   </div>
   <div className="w-1/2 h-full overflow-hidden">
     <img
       src="/images/Traffic/main/2.webp"
       className="w-full h-full object-cover shadow-md"
-      onClick={() => openLightbox("/images/Traffic/main/2.png")}
+      onClick={() => openLightbox("/images/Traffic/main/2.webp")}
     />
   </div>
 </div>
@@ -207,12 +207,12 @@ Next, I transferred the compositions into a physical format using acrylic sheets
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            "/images/Traffic/process/1.png",
-            "/images/Traffic/process/2.png",
-            "/images/Traffic/process/3.png",
-            "/images/Traffic/process/4.png",
-            "/images/Traffic/process/5.png",
-            "/images/Traffic/process/6.png",
+            "/images/Traffic/process/1.webp",
+            "/images/Traffic/process/2.webp",
+            "/images/Traffic/process/3.webp",
+            "/images/Traffic/process/4.webp",
+            "/images/Traffic/process/5.webp",
+            "/images/Traffic/process/6.webp",
           ].map((src, i) => (
             <img
               key={i}
@@ -250,7 +250,7 @@ Next, I transferred the compositions into a physical format using acrylic sheets
     alt="Earth in the Ocean main"
     className="w-full h-200 object-cover relative  overflow-hidden group
     transition-opacity duration-400 group-hover:opacity-0 z-10"
-    onClick={() => openLightbox("/images/EarthOcean/mainocean/1.png")}
+    onClick={() => openLightbox("/images/EarthOcean/mainocean/1.webp")}
   />
 
   {/* Hover Images */}
