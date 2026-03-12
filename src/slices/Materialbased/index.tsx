@@ -120,6 +120,9 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
       />
 
       <div className="p-10 max-w-7xl mx-auto">
+
+
+
         {/* Urban Syntax */}
         <div
           id="section1"
@@ -131,7 +134,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
           </h1>
 
           {/* Two perfectly aligned images side by side – now using Next Image + relative wrapper */}
-          <div className="w-full relative mt-6 h-[50vh] md:h-200 flex overflow-hidden rounded-lg shadow-lg">
+          <div className="w-full relative mt-6 h-[50vh] md:h-200 flex overflow-hidden  shadow-lg">
             <div className="relative w-1/2 h-full">
               <Image
                 src="/images/traffic/main/1.webp"
@@ -195,7 +198,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
 
             <div
               className={`transition-all duration-700 ease-in-out overflow-hidden ${
-                showProcess1 ? "max-h-96 opacity-100 mt-8" : "max-h-0 opacity-0"
+                showProcess1 ? "max-h-500 opacity-100 mt-8" : "max-h-0 opacity-0"
               }`}
             >
               <div className="bg-gray-100 p-8 flex flex-col gap-8">
@@ -222,12 +225,16 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
                     "/images/traffic/process/8.webp",
                     "/images/traffic/process/9.webp",
                   ].map((src, i) => (
-                    <div key={i} className="relative h-64 overflow-hidden  shadow-sm cursor-pointer">
+                    <div 
+                      key={i} 
+                      className="relative overflow-hidden shadow-sm cursor-pointer bg-gray-50"
+                    >
                       <Image
                         src={src}
                         alt={`Process image ${i + 1}`}
-                        fill
-                        className="object-cover transition-transform duration-500 hover:scale-105"
+                        width={800}
+                        height={1200}
+                        className="w-full h-auto object-cover transition-transform duration-500 hover:scale-105"
                         onClick={() => openLightbox(src)}
                         sizes="(max-width: 768px) 100vw, 33vw"
                       />
@@ -237,6 +244,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
               </div>
             </div>
           </div>
+
         </div>
 
         <ProjectDivider />
@@ -330,11 +338,11 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
 
             <div className="md:w-1/2 w-full bg-gray-100 p-6">
               <p>
-                This project emerged from my personal <strong>necessity of creating, sculpting, and layering</strong>. I love the process of building something from nothing — starting from a basic element, then adding layers, shaping, and refining. Ceramics allows me to experience this process fully, translating the act of creation into a tangible form.
+                This project emerged from my personal <strong>necessity of creating, sculpting, and layering</strong>. I love the process of building something from nothing starting from a basic element, then adding layers, shaping, and refining. Ceramics allows me to experience this process fully, translating the act of creation into a tangible form.
               </p>
 
               <p>
-                Earth in the Ocean is an experimental exploration of <strong>biomimicry</strong> through ceramics. The project investigates how natural systems — from marine ecosystems to the growth patterns of plants and organisms — can inspire <em>form, structure, and materiality</em>.
+                Earth in the Ocean is an experimental exploration of <strong>biomimicry</strong> through ceramics. The project investigates how natural systems from marine ecosystems to the growth patterns of plants and organisms  can inspire <em>form, structure, and materiality</em>.
               </p>
 
               <p>
@@ -358,7 +366,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
 
             <div
               className={`transition-all duration-700 ease-in-out overflow-hidden ${
-                showProcess2 ? "max-h-96 opacity-100 mt-8" : "max-h-0 opacity-0"
+                showProcess2 ? "max-h-500 opacity-100 mt-8" : "max-h-0 opacity-0"
               }`}
             >
               <div className="bg-gray-100 p-8 flex flex-col gap-8">
@@ -378,26 +386,32 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-                  {[
-                    "/images/earthocean/process/1.webp",
-                    "/images/earthocean/process/2.webp",
-                    "/images/earthocean/process/3.webp",
-                    "/images/earthocean/process/4.webp",
-                    "/images/earthocean/process/5.webp",
-                  ].map((src, i) => (
-                    <div key={i} className="relative h-64 overflow-hidden  shadow-sm cursor-pointer">
-                      <Image
-                        src={src}
-                        alt={`Earth in the Ocean process image ${i + 1}`}
-                        fill
-                        className="object-cover transition-transform duration-500 hover:scale-105"
-                        onClick={() => openLightbox(src)}
-                        sizes="(max-width: 768px) 100vw, 20vw"
-                      />
-                    </div>
-                  ))}
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+  {[
+    "/images/earthocean/process/1.webp",
+    "/images/earthocean/process/2.webp",
+    "/images/earthocean/process/3.webp",
+    "/images/earthocean/process/4.webp",
+    "/images/earthocean/process/5.webp",
+  ].map((src, i) => (
+    <div 
+      key={i} 
+      className="relative w-full aspect-4/5 overflow-hidden shadow-sm cursor-pointer bg-gray-50"
+    >
+      <Image
+        src={src}
+        alt={`Earth in the Ocean process image ${i + 1}`}
+        fill
+        className="object-cover transition-transform duration-500 hover:scale-105"
+        onClick={() => openLightbox(src)}
+        sizes="(max-width: 768px) 100vw, 20vw"
+      />
+    </div>
+  ))}
+</div>
+
+
+                
               </div>
             </div>
           </div>

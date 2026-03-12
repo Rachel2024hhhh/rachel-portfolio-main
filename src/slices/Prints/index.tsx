@@ -362,6 +362,9 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
             ))}
           </div>
 
+
+  {/* Process Images */}
+
           <div className="mt-8">
             <button
               onClick={() => setShowProcessMotion(!showProcessMotion)}
@@ -388,17 +391,19 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
                         tabIndex={0}
                         aria-label="Start / pause / resume book page flip animation"
                       >
-                        <div className="relative w-full h-full flex items-center justify-center">
-                          <Image
-                            key={currentIndex}
-                            src={allImages[currentIndex]}
-                            alt={`Motion of Departure – page ${currentIndex + 1} of ${allImages.length}`}
-                            fill
-                            className="object-contain"
-                            sizes="(max-width: 768px) 100vw, 33vw"
-                            priority={currentIndex <= 5}
-                          />
-                        </div>
+                       
+
+<div className="relative w-full h-full flex items-center justify-center">
+  <img
+    key={currentIndex}
+    src={allImages[currentIndex]}
+    alt={`Motion of Departure – page ${currentIndex + 1} of ${allImages.length}`}
+    className="w-full h-full object-contain"
+    loading="eager"
+  />
+</div>
+
+
 
                         {!isAnimating && (
                           <div className="absolute inset-0 flex items-center justify-center bg-black/30 text-white text-center text-lg font-bold pointer-events-none">
@@ -457,11 +462,16 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
                       </p>
                     </div>
                   </div>
+
+                  
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+
+
 
         <ProjectDivider />
 
@@ -851,6 +861,9 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
             )}
           </div>
 
+
+
+        {/* Process MUTE & UNMUTE */}
           <div className="mt-8">
             <button
               onClick={() => setShowProcessMute(!showProcessMute)}
