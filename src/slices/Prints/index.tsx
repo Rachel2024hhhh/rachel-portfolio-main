@@ -76,101 +76,6 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
     }
   }, [isVisible]);
 
-  // --- TYPING ANIMATION ---
-  const typingLines = useMemo(
-    () => [
-      "// ==========================================",
-      "// STEP 1: Ensure enough pages",
-      "// ==========================================",
-      "// Check if any documents are open",
-      "if (app.documents.length > 0) {",
-      " var doc = app.activeDocument;",
-      " var totalPagesNeeded = 301;",
-      " var pagesToAdd = totalPagesNeeded - doc.pages.length;",
-      " for (var i = 0; i < pagesToAdd; i++) doc.pages.add();",
-      "} else {",
-      " alert(\"No active document open.\");",
-      "",
-      "// ==========================================",
-      "// STEP 2: Setup page and grid parameters",
-      "// ==========================================",
-      "var pageWidthPt = 500;",
-      "var pageHeightPt = 500;",
-      "var gridWidthPt = 400;",
-      "var gridHeightPt = 380;",
-      "var rows = 5;",
-      "var cols = 5;",
-      "var rectPaddingPt = 0;",
-      "var headingRowHeightPt = 50;",
-      "var headingToGridSpacingPt = 5;",
-      "var totalContentHeight = headingRowHeightPt + headingToGridSpacingPt + gridHeightPt;",
-      "var offsetX = (pageWidthPt - gridWidthPt) / 2;",
-      "var offsetY = (pageHeightPt - totalContentHeight) / 2;",
-      "var rectWidthPt = (gridWidthPt / cols) - (rectPaddingPt * (cols - 1) / cols);",
-      "var rectHeightPt = (gridHeightPt - rectPaddingPt * (rows - 1)) / rows;",
-      "// Actual rectangle creation skipped",
-      "",
-      "// ==========================================",
-      "// STEP 3: Place headings and values",
-      "// ==========================================",
-      "// Headings and values placement logic shown",
-      "// Actual object creation skipped",
-      "",
-      "// ==========================================",
-      "// STEP 4: Place dots with predefined colors",
-      "// ==========================================",
-      "// Logic for colored dots per page shown",
-      "// Actual ovals creation skipped",
-      "",
-      "// ==========================================",
-      "// STEP 5: Delete the grid rectangles",
-      "// ==========================================",
-      "// Grid rectangle removal logic",
-      "",
-      "// ==========================================",
-      "// STEP 6: Place entryDates and latestPersonDepartedDates vertically",
-      "// ==========================================",
-      "// LEFT SIDE: entryDates, LOWER HALF, rotated 90 degrees",
-      "// RIGHT SIDE: latestPersonDepartedDates, UPPER HALF, rotated 90 degrees",
-      "// Vertical shifts applied: leftVerticalShift = 80, rightVerticalShift = 100",
-      "// Horizontal offsets: leftOffsetAdjust = 30, rightOffsetAdjust = 30",
-      "// Safe margin applied",
-      "// Each page calculates positions independently",
-      "// Actual rectangles and textFrames skipped",
-    ],
-    []
-  );
-
-  const [typedBuffer, setTypedBuffer] = useState("");
-  const [currentLineIndex, setCurrentLineIndex] = useState(0);
-  const [currentCharIndex, setCurrentCharIndex] = useState(0);
-  const [typingSpeed] = useState(30);
-  const typingContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!isVisible || !isAnimating) return;
-
-    const timeout = setTimeout(() => {
-      if (currentLineIndex < typingLines.length) {
-        const line = typingLines[currentLineIndex];
-        if (currentCharIndex < line.length) {
-          setTypedBuffer((prev) => prev + line[currentCharIndex]);
-          setCurrentCharIndex((prev) => prev + 1);
-        } else {
-          setTypedBuffer((prev) => prev + "\n");
-          setCurrentLineIndex((prev) => prev + 1);
-          setCurrentCharIndex(0);
-        }
-
-        if (typingContainerRef.current) {
-          typingContainerRef.current.scrollTop = typingContainerRef.current.scrollHeight;
-        }
-      }
-    }, typingSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [typedBuffer, currentLineIndex, currentCharIndex, isAnimating, isVisible, typingLines, typingSpeed]);
-
   // --- Tabs / Scroll + Active Section ---
   const motionRef = useRef<HTMLDivElement>(null);
   const layerRef = useRef<HTMLDivElement>(null);
@@ -266,8 +171,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
         onTabClick={onTabClick}
       />
 
-
-          {/* PROJECTS SECTION */}
+      {/* PROJECTS SECTION */}
 
       <div className="p-10 max-w-7xl mx-auto">
 
@@ -362,8 +266,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
             ))}
           </div>
 
-
-  {/* Process Images */}
+          {/* Process Images */}
 
           <div className="mt-8">
             <button
@@ -385,25 +288,21 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
                   <div className="flex flex-col md:flex-row gap-6 w-full">
                     <Suspense fallback={<div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-600">Loading animation...</div>}>
                       <div
-                        className="md:w-1/3 w-full aspect-square flex items-center justify-center bg-gray-100 cursor-pointer relative overflow-visible"
+                        className="md:w-3/7 w-full aspect-square flex items-center justify-center bg-gray-100 cursor-pointer relative overflow-visible"
                         onClick={handleBookClick}
                         role="button"
                         tabIndex={0}
                         aria-label="Start / pause / resume book page flip animation"
                       >
-                       
-
-<div className="relative w-full h-full flex items-center justify-center">
-  <img
-    key={currentIndex}
-    src={allImages[currentIndex]}
-    alt={`Motion of Departure – page ${currentIndex + 1} of ${allImages.length}`}
-    className="w-full h-full object-contain"
-    loading="eager"
-  />
-</div>
-
-
+                        <div className="relative w-full h-full flex items-center justify-center">
+                          <img
+                            key={currentIndex}
+                            src={allImages[currentIndex]}
+                            alt={`Motion of Departure – page ${currentIndex + 1} of ${allImages.length}`}
+                            className="w-full h-full object-contain"
+                            loading="eager"
+                          />
+                        </div>
 
                         {!isAnimating && (
                           <div className="absolute inset-0 flex items-center justify-center bg-black/30 text-white text-center text-lg font-bold pointer-events-none">
@@ -425,28 +324,15 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
                       </div>
                     </Suspense>
 
-                    <div
-                      ref={typingContainerRef}
-                      className="md:w-1/3 w-full aspect-square bg-gray-800 shadow-inner overflow-y-auto p-6 select-none"
-                    >
-                      <pre
-                        className={`text-green-400 font-mono m-0 whitespace-pre-wrap break-word text-sm leading-relaxed ${
-                          (currentCharIndex > 0 || !isAnimating) &&
-                          "after:content-['|'] after:animate-blink"
-                        }`}
-                      >
-                        {typedBuffer ||
-                          "// Click the book image to begin the page-flip & code generation simulation..."}
-                      </pre>
-                    </div>
+                    {/* Typing container removed — gap remains as per original layout */}
 
                     <div className="md:w-1/2 w-full bg-gray-100 p-6">
                       <p>
-                        For the process of Motion of Departure, I developed a <strong>custom script in InDesign</strong> — my first time writing a script for a project — to generate each page and create the visual motion of the dataset. This allowed me to explore how design and programming can work together to translate abstract migration data into a tangible narrative.
+                        For the process of Motion of Departure, I developed a <strong>custom script in InDesign</strong> This allowed me to explore how design and programming can work together to translate abstract migration data into a tangible narrative.
                       </p>
 
                       <p>
-                        I carefully planned the layouts, considering page sizes, spacing, and structure, and tested different configurations to see what would work visually while remaining feasible in InDesign. Each row of information — including values like <strong>case number</strong>, <strong>birth country</strong>, and other data points — was mapped to a visual element that moves across the page, echoing the rhythm of migration itself.
+                        I carefully planned the layouts, considering page sizes, spacing, and structure, and tested different configurations to see what would work visually while remaining feasible in InDesign. Each row of information including values like <strong>case number</strong>, <strong>birth country</strong>, and other data points was mapped to a visual element that moves across the page, echoing the rhythm of migration itself.
                       </p>
 
                       <p>
@@ -458,20 +344,15 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
                       </p>
 
                       <p>
-                        Overall, this phase was an intense process of experimentation, planning, and reflection — combining <strong>data, design, and motion</strong> to create a narrative that is both personal and human-centered.
+                        Overall, this phase was an intense process of experimentation, planning, and reflection combining <strong>data, design, and motion</strong> to create a narrative that is both personal and human-centered.
                       </p>
                     </div>
                   </div>
-
-                  
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-
-
 
         <ProjectDivider />
 
@@ -700,15 +581,15 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
             MUTE & UNMUTE
           </h1>
 
-         <div className="w-full h-200 relative flex items-center justify-center">
-  <Image
-    src="/images/muteunmute/main.webp"
-    alt="Mute-Unmute Interactive"
-    fill
-    className="object-cover"
-    priority
-  />
-</div>
+          <div className="w-full h-200 relative flex items-center justify-center">
+            <Image
+              src="/images/muteunmute/main.webp"
+              alt="Mute-Unmute Interactive"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
 
           <div className="flex flex-col md:flex-row gap-6">
             <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
@@ -861,9 +742,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
             )}
           </div>
 
-
-
-        {/* Process MUTE & UNMUTE */}
+          {/* Process MUTE & UNMUTE */}
           <div className="mt-8">
             <button
               onClick={() => setShowProcessMute(!showProcessMute)}
