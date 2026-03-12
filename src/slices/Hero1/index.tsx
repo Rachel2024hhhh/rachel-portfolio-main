@@ -71,7 +71,7 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
                 {slice.primary?.tag_line ?? "Your Tagline Here"}
               </span>
               <span className="block tag-line-description text-black font-normal text-lg md:text-xl tracking-tight leading-snug italic mt-4">
-                {slice.primary?.tag_line_description ?? "Your Tagline Here"}
+               {slice.primary.tag_line_description}
               </span>
             </div>
           </div>
