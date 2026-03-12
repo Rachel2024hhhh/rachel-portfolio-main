@@ -270,6 +270,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
           {/* PROJECTS SECTION */}
 
       <div className="p-10 max-w-7xl mx-auto">
+
         {/* MOTION OF DEPARTURE */}
         <div id="motion" ref={motionRef} className="mb-6 mt-12 flex flex-col gap-6">
           <h1 className="text-[6vw] font-bold tracking-wide text-center break-word">
@@ -472,7 +473,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
 
           <div className="w-full h-200 relative bg-gray-300 flex items-center justify-center">
             <Image
-              src="/images/LayerbyLayer/view.webp"
+              src="/images/layerbylayer/view.webp"
               alt="Layer by Layer main image"
               fill
               className="object-cover"
