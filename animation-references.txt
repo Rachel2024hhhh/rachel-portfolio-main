@@ -1,0 +1,1 @@
+images/data/animation/databook${i + 1}.webp`);
