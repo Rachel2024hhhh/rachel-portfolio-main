@@ -266,6 +266,9 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
         onTabClick={onTabClick}
       />
 
+
+          {/* PROJECTS SECTION */}
+
       <div className="p-10 max-w-7xl mx-auto">
         {/* MOTION OF DEPARTURE */}
         <div id="motion" ref={motionRef} className="mb-6 mt-12 flex flex-col gap-6">
