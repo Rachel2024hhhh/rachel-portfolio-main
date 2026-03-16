@@ -364,7 +364,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
 
           <div className="w-full h-200 relative bg-gray-300 flex items-center justify-center">
             <Image
-              src="/images/layerbylayer/view.webp"
+              src="/images/layerbylayer/main.webp"
               alt="Layer by Layer main image"
               fill
               className="object-cover"
@@ -460,7 +460,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
  "/images/layerbylayer/imagesection/5.png",
  "/images/layerbylayer/imagesection/6.png",
   "/images/layerbylayer/imagesection/7.png",
-
+   "/images/layerbylayer/imagesection/8.png",
 
                  
                 ].map((src, idx) => (
@@ -544,7 +544,26 @@ The home became both studio and source. Instead of searching for extraordinary m
   
 
  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-  <div className="relative h-60 bg-gray-200 overflow-hidden">
+
+  <div className="relative h-60 overflow-hidden">
+    <Image
+      src="/images/layerbylayer/process/1.png"
+      alt="Layer by Layer process image 1"
+      fill
+      className="object-contain p-1"
+    />
+  </div>
+
+  <div className="relative h-60 overflow-hidden">
+    <Image
+      src="/images/layerbylayer/process/2.png"
+      alt="Layer by Layer process image 2"
+      fill
+      className="object-contain p-1"
+    />
+  </div>
+
+  <div className="relative h-60 overflow-hidden">
     <Image
       src="/images/layerbylayer/process/3.png"
       alt="Layer by Layer process image 3"
@@ -553,7 +572,7 @@ The home became both studio and source. Instead of searching for extraordinary m
     />
   </div>
 
-  <div className="relative h-60 bg-gray-200 overflow-hidden">
+  <div className="relative h-60 overflow-hidden">
     <Image
       src="/images/layerbylayer/process/4.png"
       alt="Layer by Layer process image 4"
@@ -561,6 +580,9 @@ The home became both studio and source. Instead of searching for extraordinary m
       className="object-contain p-1"
     />
   </div>
+
+
+  
 </div>
 
               </div>
