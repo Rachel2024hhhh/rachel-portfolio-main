@@ -450,20 +450,14 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
             >
               <div className="flex gap-6 min-w-max">
                 {[
-                  "/images/layerbylayer/imagesection/1.webp",
-                  "/images/layerbylayer/imagesection/2.webp",
-                  "/images/layerbylayer/imagesection/3.webp",
-                  "/images/layerbylayer/imagesection/4.webp",
-                  "/images/layerbylayer/imagesection/5.webp",
-                  "/images/layerbylayer/imagesection/6.webp",
-                  "/images/layerbylayer/imagesection/7.webp",
-                  "/images/layerbylayer/imagesection/8.webp",
-                  "/images/layerbylayer/imagesection/9.webp",
-                  "/images/layerbylayer/imagesection/10.webp",
-                  "/images/layerbylayer/imagesection/11.webp",
-                  "/images/layerbylayer/imagesection/12.webp",
-                  "/images/layerbylayer/imagesection/13.webp",
-                  "/images/layerbylayer/imagesection/14.webp",
+                  "/images/layerbylayer/imagesection/1.png",
+                  "/images/layerbylayer/imagesection/2.png",
+                  "/images/layerbylayer/imagesection/3.png",
+                  "/images/layerbylayer/imagesection/4.png",
+                  "/images/layerbylayer/imagesection/5.png",
+                  "/images/layerbylayer/imagesection/6.png",
+                  "/images/layerbylayer/imagesection/7.png",
+                 
                 ].map((src, idx) => (
                   <div
                     key={idx}
