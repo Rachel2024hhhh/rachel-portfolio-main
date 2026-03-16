@@ -453,7 +453,15 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
           
 
 
-          
+ "/images/layerbylayer/imagesection/1.png",
+ "/images/layerbylayer/imagesection/2.png",
+ "/images/layerbylayer/imagesection/3.png",
+ "/images/layerbylayer/imagesection/4.png",
+ "/images/layerbylayer/imagesection/5.png",
+ "/images/layerbylayer/imagesection/6.png",
+  "/images/layerbylayer/imagesection/7.png",
+
+
                  
                 ].map((src, idx) => (
                   <div
@@ -494,7 +502,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
 
                   <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
                     <Image
-                      src={`/images/layerbylayer/imagesection/${layerGalleryIndex + 1}.webp`}
+                      src={`/images/layerbylayer/imagesection/${layerGalleryIndex + 1}.png`}
                       alt={`Layer by Layer modal ${layerGalleryIndex + 1}`}
                       fill
                       className="object-contain"
@@ -525,40 +533,36 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
                   <p className="mt-6 font-semibold">Process:</p>
 
                   <p>
-                    Each photograph was constructed layer by layer,
-                    building complex visual narratives that mirror the
-                    meditative and cumulative nature of spiritual practice.
+                    The layering process in this photography project became more than a visual technique. It turned into a way of thinking about how meaning is built slowly, through repetition and attention. Each image was constructed step by step, using objects found around my home. These everyday items  ordinary, familiar, often overlooked  became the foundation of the work. By selecting them intentionally, I began to see how the mundane can hold quiet traces of ritual and spirituality.
+
+The act of gathering objects from my immediate environment mirrored the way rituals are formed in daily life. Small gestures repeated over time, simple arrangements, and familiar materials can transform ordinary spaces into moments of reflection. Through layering, I was able to create depth not only in the image itself, but in the idea that meaning accumulates gradually. Just as spiritual practice develops through consistency and presence, each photograph grew through careful addition, allowing the composition to evolve organically.
+
+The home became both studio and source. Instead of searching for extraordinary materials, I focused on what was already there. This decision reinforced the concept that spirituality does not always exist in grand gestures or sacred spaces, but within everyday routines, objects, and habits. By layering these elements, the photographs reflect how ordinary life can quietly hold ritualistic structure — repetition, attention, pause, and transformation.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="relative h-64 bg-gray-200">
-                    <Image
-                      src="/images/layerbylayer/process/1.webp"
-                      alt="Layer by Layer process image 1"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
+  
 
-                  <div className="relative h-64 bg-gray-200">
-                    <Image
-                      src="/images/layerbylayer/process/2.webp"
-                      alt="Layer by Layer process image 2"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div className="relative h-60 bg-gray-200 overflow-hidden">
+    <Image
+      src="/images/layerbylayer/process/3.png"
+      alt="Layer by Layer process image 3"
+      fill
+      className="object-contain p-4"
+    />
+  </div>
 
-                  <div className="relative h-64 bg-gray-200">
-                    <Image
-                      src="/images/layerbylayer/process/3.webp"
-                      alt="Layer by Layer process image 3"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
+  <div className="relative h-60 bg-gray-200 overflow-hidden">
+    <Image
+      src="/images/layerbylayer/process/4.png"
+      alt="Layer by Layer process image 4"
+      fill
+      className="object-contain p-4"
+    />
+  </div>
+</div>
+
               </div>
             </div>
           </div>
