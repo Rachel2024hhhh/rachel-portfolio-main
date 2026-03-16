@@ -549,7 +549,7 @@ The home became both studio and source. Instead of searching for extraordinary m
       src="/images/layerbylayer/process/3.png"
       alt="Layer by Layer process image 3"
       fill
-      className="object-contain p-4"
+      className="object-contain p-1"
     />
   </div>
 
@@ -558,7 +558,7 @@ The home became both studio and source. Instead of searching for extraordinary m
       src="/images/layerbylayer/process/4.png"
       alt="Layer by Layer process image 4"
       fill
-      className="object-contain p-4"
+      className="object-contain p-1"
     />
   </div>
 </div>
