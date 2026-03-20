@@ -252,3 +252,17 @@
   animation: shake 1s ease-in-out infinite;
  
 }
+
+
+
+
+
+/* globals.css or your main stylesheet */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50%      { opacity: 1.00; transform: scale(1.03); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
