@@ -32,9 +32,6 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
 
   return (
     <>
-      
-
-      {/* FIXED HERO */}
       <section
         data-slice-type={slice.slice_type}
         data-slice-variation={slice.variation}
@@ -64,26 +61,45 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
                 {slice.primary.tag_line_description}
               </span>
 
-             
-             {/* ── Clickable Experiments Trigger ── */}
-<div className="mt-6 md:mt-8">
-  <ExperimentsTriggerAndModal
-    triggerClassName="
-      group
-      inline-flex items-center 
-      text-black
-      text-lg md:text-xl font-italic uppercase tracking-[0.12em]
-      cursor-pointer
-      transition-colors duration-300
-      hover:text-[#ff2f00]
-      animate-[float_4s_ease-in-out_infinite]
-    "
-  />
+              <div className="mt-6 md:mt-8 flex gap-4">
+
+
+               {/* TOP RIGHT GLASS BUTTONS */}
+<div className="absolute top-6 right-6 z-50 flex gap-3">
+  <button
+    onClick={() => setShowAboutMe(true)}
+    className="px-4 py-2 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-sm md:text-base hover:text-[#ff2f00] transition-colors"
+  >
+    About
+  </button>
+
+  <button
+    onClick={() => setShowContact(true)}
+    className="px-4 py-2 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-sm md:text-base hover:text-[#ff2f00] transition-colors"
+  >
+    Contact
+  </button>
 </div>
+
+              </div>
+
+              <div className="mt-6 md:mt-8">
+                <ExperimentsTriggerAndModal
+                  triggerClassName="
+                    group
+                    inline-flex items-center 
+                    text-black
+                    text-lg md:text-xl font-italic uppercase tracking-[0.12em]
+                    cursor-pointer
+                    transition-colors duration-300
+                    hover:text-[#ff2f00]
+                    animate-[float_4s_ease-in-out_infinite]
+                  "
+                />
+              </div>
             </div>
           </div>
 
-          {/* BOTTOM BUTTONS – abrir proyectos */}
           <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-40 w-full max-w-lg md:max-w-2xl">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 justify-center">
               <button
@@ -118,7 +134,6 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
         </div>
       </section>
 
-      {/* MODALS / OVERLAYS */}
       {showAboutMe && <AboutMe3DEffect onClose={() => setShowAboutMe(false)} />}
       {showContact && <ContactModal onClose={() => setShowContact(false)} />}
       {showPrints && <PrintMatter isVisible={showPrints} onClose={() => setShowPrints(false)} />}
