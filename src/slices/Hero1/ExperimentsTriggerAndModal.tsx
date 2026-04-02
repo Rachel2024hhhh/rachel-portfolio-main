@@ -13,12 +13,10 @@ interface ExperimentItem {
 
 interface ExperimentsTriggerAndModalProps {
   triggerClassName?: string;
-  positionClassName?: string;
 }
 
 export default function ExperimentsTriggerAndModal({
   triggerClassName = "",
-  positionClassName = "",
 }: ExperimentsTriggerAndModalProps) {
   const [showExperiments, setShowExperiments] = useState(false);
 
@@ -38,13 +36,14 @@ export default function ExperimentsTriggerAndModal({
     { id: 2, type: "image", src: "images/experiments/4.webp", caption: "Light leak test", aspect: "aspect-square" },
     { id: 3, type: "image", src: "images/experiments/3.webp", caption: "Material scan", aspect: "aspect-[3/4]" },
     { id: 4, type: "image", src: "images/experiments/6.webp", caption: "Data rupture", aspect: "aspect-square" },
-    { id: 5, type: "video", src: "videos/experiments/1.mp4", caption: "3D lidar scan", aspect: "aspect-[4/5]" },
+    { id: 5, type: "video", src: "videos/experiments/1.mp4", caption: "Blender lidar ", aspect: "aspect-[4/5]" },
     { id: 6, type: "image", src: "images/experiments/8.webp", caption: "Neon residue", aspect: "aspect-video" },
     { id: 7, type: "image", src: "images/experiments/2.webp", caption: "Static study I", aspect: "aspect-[3/4]" },
     { id: 8, type: "video", src: "videos/experiments/3.mp4", caption: "Kinetic blur test", aspect: "aspect-[3/4]" },
     { id: 9, type: "image", src: "images/experiments/1.webp", caption: "Framing distortion", aspect: "aspect-[4/5]" },
     { id: 10, type: "image", src: "images/experiments/5.webp", caption: "Surface scan", aspect: "aspect-square" },
-   
+     { id: 11, type: "video", src: "videos/experiments/4.mp4", caption: "Blender Music Visualization", aspect: "aspect-[8/5]" },
+
   ];
 
   return (

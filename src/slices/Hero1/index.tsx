@@ -44,52 +44,35 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
             </div>
 
             <div className="col-start-1 md:row-start-1 flex flex-col justify-center">
-              <h1 className="mb-2 md:mb-8 text-[clamp(2.5rem,20vmin,13rem)] leading-none tracking-tighter whitespace-nowrap">
-                <span className="block first-name-gold uppercase">
-                  {slice.primary?.first_name ?? "First Name"}
-                </span>
-                <span className="block last-name-gold uppercase">
-                  {slice.primary?.last_name ?? "Last Name"}
-                </span>
-              </h1>
+              {/* IMPROVED TYPOGRAPHY HIERARCHY */}
+              <div className="mb-8 md:mb-12 space-y-2">
+                <h1 className="text-[clamp(3rem,24vmin,16rem)] leading-[0.9] tracking-tighter whitespace-nowrap font-bold">
+                  <span className="block first-name-gold uppercase">
+                    {slice.primary?.first_name ?? "First Name"}
+                  </span>
+                  <span className="block last-name-gold uppercase">
+                    {slice.primary?.last_name ?? "Last Name"}
+                  </span>
+                </h1>
 
-              <span className="block tag-line-gradient text-2xl tracking-[.2em] md:text-4xl -mt-4">
-                {slice.primary?.tag_line ?? "Your Tagline Here"}
-              </span>
+                <div className="space-y-3 pt-2">
+                  <p className="tag-line-gradient text-xl md:text-2xl tracking-[0.15em] uppercase font-semibold letter-spacing-wide">
+                    {slice.primary?.tag_line ?? "Your Tagline Here"}
+                  </p>
 
-              <span className="block tag-line-description text-black font-normal text-lg md:text-xl tracking-tight leading-snug italic mt-4">
-                {slice.primary.tag_line_description}
-              </span>
-
-              <div className="mt-6 md:mt-8 flex gap-4">
-
-
-               {/* TOP RIGHT GLASS BUTTONS */}
-<div className="absolute top-6 right-6 z-50 flex gap-3">
-  <button
-    onClick={() => setShowAboutMe(true)}
-    className="px-4 py-2 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-sm md:text-base hover:text-[#ff2f00] transition-colors"
-  >
-    About
-  </button>
-
-  <button
-    onClick={() => setShowContact(true)}
-    className="px-4 py-2 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-sm md:text-base hover:text-[#ff2f00] transition-colors"
-  >
-    Contact
-  </button>
-</div>
-
+                  <p className="tag-line-description text-black font-normal text-base md:text-lg tracking-normal leading-relaxed italic max-w-md">
+                    {slice.primary.tag_line_description}
+                  </p>
+                </div>
               </div>
 
-              <div className="mt-6 md:mt-8">
+              <div className="mt-8 md:mt-12">
                 <ExperimentsTriggerAndModal
                   triggerClassName="
                     group
                     inline-flex items-center 
                     text-black
-                    text-lg md:text-xl font-italic uppercase tracking-[0.12em]
+                    text-base md:text-lg font-medium uppercase tracking-[0.1em]
                     cursor-pointer
                     transition-colors duration-300
                     hover:text-[#ff2f00]
@@ -98,33 +81,51 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
                 />
               </div>
             </div>
-          </div>
 
-          <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-40 w-full max-w-lg md:max-w-2xl">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 justify-center">
+            {/* TOP RIGHT GLASS BUTTONS */}
+            <div className="absolute top-6 right-6 z-50 flex gap-3">
               <button
-                className="w-full px-4 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-sm md:text-lg hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
-                onClick={() => setShowProject3D(true)}
+                onClick={() => setShowAboutMe(true)}
+                className="px-4 py-2 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors"
               >
-                Digital 3D
+                About
               </button>
 
               <button
-                className="w-full px-4 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-sm md:text-lg hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
+                onClick={() => setShowContact(true)}
+                className="px-4 py-2 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors"
+              >
+                Contact
+              </button>
+            </div>
+          </div>
+
+          {/* BOTTOM NAVIGATION BUTTONS */}
+          <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-40 w-full max-w-lg md:max-w-4xl">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 justify-center px-4">
+              <button
+                className="w-full px-3 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
+                onClick={() => setShowProject3D(true)}
+              >
+                Motion & 3D
+              </button>
+
+              <button
+                className="w-full px-3 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
                 onClick={() => setShowPrints(true)}
               >
                 Prints & Photography
               </button>
 
               <button
-                className="w-full px-4 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-sm md:text-lg hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
+                className="w-full px-3 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
                 onClick={() => setShowMaterial(true)}
               >
                 Material Based
               </button>
 
               <button
-                className="w-full px-4 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-sm md:text-lg hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
+                className="w-full px-3 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
                 onClick={() => setShowExperience(true)}
               >
                 Work Experience
