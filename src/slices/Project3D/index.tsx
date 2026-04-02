@@ -95,6 +95,21 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return arr;
 };
 
+// --- MODEL LOADER ---
+const Model: React.FC<{
+  path: string;
+  scale?: [number, number, number];
+  position?: [number, number, number];
+}> = ({ path, scale = [1, 1, 1], position = [0, 0, 0] }) => {
+  try {
+    const { scene } = useGLTF(path);
+    return <primitive object={scene} scale={scale} position={position} />;
+  } catch (error) {
+    // Silently fail - show nothing if model doesn't load
+    return null;
+  }
+};
+
 interface MergedComponentProps {
   isVisible: boolean;
   onClose: () => void;
@@ -285,8 +300,8 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                 </div>
 
                 <div className="absolute inset-0 pointer-events-none">
-                  <div className="absolute top-0 left-0 w-12 h-full bg-gradient-to-r from-white/20 to-transparent" />
-                  <div className="absolute top-0 right-0 w-12 h-full bg-gradient-to-l from-white/20 to-transparent" />
+                  <div className="absolute top-0 left-0 w-12 h-full bg-linear-to-r from-white/20 to-transparent" />
+                  <div className="absolute top-0 right-0 w-12 h-full bg-linear-to-l from-white/20 to-transparent" />
                 </div>
               </div>
             ))}
@@ -297,7 +312,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
             <div className="md:w-1/2 w-full h-96 md:h-128 shadow-md overflow-hidden relative">
               {mounted && (
                 <Canvas
-                  camera={{ position: [0, 0, 5], fov: 45 }}
+                  camera={{ position: [0, 0, 10], fov: 45 }}
                   gl={{ antialias: true, toneMappingExposure: 1 }}
                   shadows
                 >
@@ -314,18 +329,15 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                       </Html>
                     }
                   >
-                    <Bounds clip observe margin={1.2}>
-                      <mesh position={[0, 0.8, 0]}>
-                        <sphereGeometry args={[1, 32, 32]} />
-                        <meshStandardMaterial color="#8b5cf6" />
-                      </mesh>
+                    <Bounds fit clip observe margin={0.5}>
+                      <Model path="/models/tree.glb" scale={[0.02, 0.02, 0.02]} position={[0, 0, 0]} />
                     </Bounds>
                   </Suspense>
 
                   <OrbitControls
                     enablePan={false}
                     minDistance={2}
-                    maxDistance={8}
+                    maxDistance={15}
                     autoRotate
                     autoRotateSpeed={0.3}
                     enableDamping
