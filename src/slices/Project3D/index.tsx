@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useMemo, Suspense, useEffect } from "react";
+import React, { useState, useRef, useMemo, Suspense, useEffect, useCallback } from "react";
 import Image from "next/image";
 import ProjectDivider from "../../components/ProjectDivider";
 import { Canvas } from "@react-three/fiber";
@@ -86,7 +86,7 @@ export const ProjectMenuItems: MenuItem[] = [
 ];
 
 // --- SHUFFLE FUNCTION ---
-const shuffleArray = <T,>(array: T[]) => {
+const shuffleArray = <T,>(array: T[]): T[] => {
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -105,26 +105,30 @@ const Model: React.FC<{
   return <primitive object={scene} scale={scale} position={position} />;
 };
 
-const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = ({ isVisible, onClose }) => {
+interface MergedComponentProps {
+  isVisible: boolean;
+  onClose: () => void;
+}
+
+const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose }) => {
   if (!isVisible) return null;
 
   const project1Ref = useRef<HTMLDivElement>(null);
   const project2Ref = useRef<HTMLDivElement>(null);
-  const tab1Ref = useRef<HTMLButtonElement>(null);
-  const tab2Ref = useRef<HTMLButtonElement>(null);
 
   const [activeBuilding, setActiveBuilding] = useState<Building | null>(null);
   const [mounted, setMounted] = useState(false);
   const [showProcess1, setShowProcess1] = useState(false);
   const [showProcess2, setShowProcess2] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const [sliderStyle, setSliderStyle] = useState({ width: 0, left: 0 });
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxVideo, setLightboxVideo] = useState<string | null>(null);
 
   const tabContainerHeight = 70;
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const allGalleryImages = useMemo(
     () =>
@@ -136,19 +140,20 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
     []
   );
 
-  const onTabClick = (id: string) => {
+  const onTabClick = useCallback((id: string) => {
     const el = document.querySelector(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
 
-  const updateActiveTab = () => {
+  const updateActiveTab = useCallback(() => {
     const nav = document.querySelector("nav");
     if (!nav) return;
 
-    const navRect = nav.getBoundingClientRect();
     const sections = [
-      { id: "#project1", ref: project1Ref, tabRef: tab1Ref },
-      { id: "#project2", ref: project2Ref, tabRef: tab2Ref },
+      { id: "#project1", ref: project1Ref },
+      { id: "#project2", ref: project2Ref },
     ];
 
     for (const section of sections) {
@@ -162,47 +167,67 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
 
         if (window.scrollY >= offsetTop && window.scrollY < offsetBottom) {
           setActiveSection(section.id);
-          if (section.tabRef.current) {
-            const rect = section.tabRef.current.getBoundingClientRect();
-            setSliderStyle({
-              width: rect.width,
-              left: rect.left - navRect.left,
-            });
-          }
           break;
         }
       }
     }
-  };
+  }, []);
 
   useEffect(() => {
-    const onScroll = () => requestAnimationFrame(updateActiveTab);
+    const handleScroll = () => {
+      requestAnimationFrame(updateActiveTab);
+    };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", updateActiveTab);
     updateActiveTab();
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", updateActiveTab);
     };
-  }, []);
+  }, [updateActiveTab]);
 
-  const openVideoLightbox = (src: string) => {
+  const openVideoLightbox = useCallback((src: string) => {
     setLightboxVideo(src);
     setLightboxOpen(true);
-  };
+  }, []);
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setLightboxOpen(false);
     setLightboxVideo(null);
-  };
+  }, []);
+
+  const navigateSlider = useCallback((direction: "prev" | "next") => {
+    const slides = document.querySelectorAll<HTMLDivElement>(".slide-container");
+    if (slides.length === 0) return;
+
+    let currentIdx = 0;
+    slides.forEach((slide, idx) => {
+      if (slide.classList.contains("opacity-100")) {
+        currentIdx = idx;
+      }
+    });
+
+    const targetIdx = direction === "prev" 
+      ? (currentIdx === 0 ? slides.length - 1 : currentIdx - 1)
+      : (currentIdx === slides.length - 1 ? 0 : currentIdx + 1);
+
+    slides.forEach((slide) => {
+      slide.classList.remove("opacity-100");
+      slide.classList.add("opacity-0");
+    });
+
+    slides[targetIdx].classList.remove("opacity-0");
+    slides[targetIdx].classList.add("opacity-100");
+  }, []);
 
   return (
     <div className="fixed inset-0 z-50 bg-white overflow-auto">
       <button
         className="absolute top-4 right-4 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
         onClick={onClose}
+        aria-label="Close modal"
       >
         Close
       </button>
@@ -224,7 +249,7 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
           <h1 className="text-[6vw] font-bold tracking-wide text-center">Growing Habitats</h1>
 
           {/* First Gallery Slider */}
-          <div className="gallery-slider relative w-full h-200 overflow-hidden cursor-pointer bg-gray-200">
+          <div className="gallery-slider relative w-full h-200 overflow-hidden bg-gray-200">
             {Array.from({ length: 8 }, (_, i) => `/images/growinghabitats/book/${i + 1}.webp`).map((src, i) => (
               <div
                 key={i}
@@ -244,48 +269,29 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 80vw"
                   priority={i === 0}
-                  unoptimized
-                  onError={(e) => {
-                    console.error(`Failed to load slider image: ${src}`, e);
+                  onError={() => {
+                    console.error(`Failed to load slider image: ${src}`);
                   }}
                 />
 
                 <div className="nav absolute inset-0 pointer-events-none">
                   <button
-                    onClick={() => {
-                      const slides = document.querySelectorAll<HTMLDivElement>(".slide-container");
-                      let currentIdx = 0;
-                      slides.forEach((slide, idx) => {
-                        if (slide.classList.contains("opacity-100")) currentIdx = idx;
-                      });
-                      const targetIdx = currentIdx === 0 ? 7 : currentIdx - 1;
-                      slides.forEach((slide) => {
-                        slide.classList.remove("opacity-100");
-                        slide.classList.add("opacity-0");
-                      });
-                      slides[targetIdx].classList.remove("opacity-0");
-                      slides[targetIdx].classList.add("opacity-100");
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigateSlider("prev");
                     }}
-                    className="prev absolute -left-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto rounded-l transition-all"
+                    className="prev absolute left-0 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto transition-all"
+                    aria-label="Previous slide"
                   >
                     ‹
                   </button>
                   <button
-                    onClick={() => {
-                      const slides = document.querySelectorAll<HTMLDivElement>(".slide-container");
-                      let currentIdx = 0;
-                      slides.forEach((slide, idx) => {
-                        if (slide.classList.contains("opacity-100")) currentIdx = idx;
-                      });
-                      const targetIdx = currentIdx === 7 ? 0 : currentIdx + 1;
-                      slides.forEach((slide) => {
-                        slide.classList.remove("opacity-100");
-                        slide.classList.add("opacity-0");
-                      });
-                      slides[targetIdx].classList.remove("opacity-0");
-                      slides[targetIdx].classList.add("opacity-100");
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigateSlider("next");
                     }}
-                    className="next absolute -right-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto rounded-r transition-all"
+                    className="next absolute right-0 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto transition-all"
+                    aria-label="Next slide"
                   >
                     ›
                   </button>
@@ -321,7 +327,6 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
                             alt="3D model loading"
                             width={100}
                             height={100}
-                            className="opacity-100"
                           />
                           <p className="text-sm font-medium text-gray-300">Loading model…</p>
                         </div>
@@ -350,13 +355,13 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
             <div className="md:w-1/2 w-full bg-gray-100 p-6 flex flex-col gap-4">
               <h2 className="text-2xl font-bold">Growing Habitats</h2>
               <p className="font-medium">3D Explorations of Nature and Architecture</p>
-              <p>
+              <p className="text-gray-700">
                 Growing Habitats is a 3D project that explores the intersection of <strong>architecture and natural growth patterns</strong>. Inspired by the ways plants, fungi, and animals build and interact with their environments, I created a series of 3D sculptures where each architectural form reflects specific characteristics from nature.
               </p>
-              <p>
+              <p className="text-gray-700">
                 In this phase of my practice, I focused on <strong>3D sculpting</strong> as a way to translate my need for building, movement, and interactivity into space. I started working with <strong>Nomad Sculpt</strong> and, more recently, <strong>Blender</strong>, experimenting with how forms can exist and flow in three dimensions.
               </p>
-              <p>
+              <p className="text-gray-700">
                 Some pieces take cues from mushroom growth, bird nests, or the clustering of snails, transforming observations into architectural forms that reflect <strong>interconnectedness, adaptability, and coexistence</strong> between humans and the natural world.
               </p>
             </div>
@@ -366,7 +371,7 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
             {allGalleryImages.map(({ img, building }, index) => (
               <div
-                key={index}
+                key={`${building.name}-${index}`}
                 className="relative cursor-pointer overflow-hidden shadow-md bg-gray-100 group"
                 onClick={() => setActiveBuilding(building)}
               >
@@ -402,28 +407,27 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
               <div className="bg-gray-100 p-8 flex flex-col gap-8">
                 <div className="max-w-3xl">
                   <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
-                  <p className="text-gray-700 leading-relaxed">
-                    The process began with exploring different landscapes, observing how <strong>nature grows within human-made environments</strong>. I took extensive photographs to document the ways flora and fauna expand, adapt, and inhabit spaces alongside architecture.
-                  </p>
-                  <p className="text-gray-700 leading-relaxed">
-                    This research extended to studying the behaviors and homes of plants and animals, focusing on <strong>how they build, nest, and interact with their surroundings</strong>. These observations became the foundation for my design explorations.
-                  </p>
-                  <p className="text-gray-700 leading-relaxed">
-                    I then translated these insights into sketches, which were later modeled in <strong>Nomad Sculpt</strong> and, subsequently, <strong>Blender</strong>. This step allowed me to experiment with <em>forms, spatial relationships, and movement</em> in three dimensions.
-                  </p>
-                  <p className="text-gray-700 leading-relaxed">
-                    A small simulation video was created to visualize how these shapes could function within an environment. While it is not as refined as I would have liked, it provides a general view of <strong>interactivity, integration, and the potential behavior</strong> of the forms in space.
-                  </p>
+                  <div className="space-y-4 text-gray-700">
+                    <p className="leading-relaxed">
+                      The process began with exploring different landscapes, observing how <strong>nature grows within human-made environments</strong>. I took extensive photographs to document the ways flora and fauna expand, adapt, and inhabit spaces alongside architecture.
+                    </p>
+                    <p className="leading-relaxed">
+                      This research extended to studying the behaviors and homes of plants and animals, focusing on <strong>how they build, nest, and interact with their surroundings</strong>. These observations became the foundation for my design explorations.
+                    </p>
+                    <p className="leading-relaxed">
+                      I then translated these insights into sketches, which were later modeled in <strong>Nomad Sculpt</strong> and, subsequently, <strong>Blender</strong>. This step allowed me to experiment with <em>forms, spatial relationships, and movement</em> in three dimensions.
+                    </p>
+                    <p className="leading-relaxed">
+                      A small simulation video was created to visualize how these shapes could function within an environment. While it is not as refined as I would have liked, it provides a general view of <strong>interactivity, integration, and the potential behavior</strong> of the forms in space.
+                    </p>
+                  </div>
                 </div>
 
                 <div className="w-full max-w-3xl mx-auto mt-12">
                   <h3 className="text-2xl font-bold mb-4 text-center">Simulation Video</h3>
-                  <div
-                    className="relative w-full aspect-video rounded-md shadow-lg overflow-hidden bg-center bg-cover"
-                    style={{ backgroundImage: "url('/images/growinghabitats/placeholder.webp')" }}
-                  >
+                  <div className="relative w-full aspect-video rounded-md shadow-lg overflow-hidden bg-black">
                     <video
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="w-full h-full object-cover"
                       controls
                       playsInline
                       preload="metadata"
@@ -454,12 +458,12 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
             {[
-              "/videos/e-flux/1.mp4",
-              "/videos/e-flux/2.mp4",
-              "/videos/e-flux/3.mp4",
+              "/videos/eflux/1.mp4",
+              "/videos/eflux/2.mp4",
+              "/videos/eflux/3.mp4",
             ].map((src, i) => (
               <div
-                key={i}
+                key={`poster-${i}`}
                 className="relative cursor-pointer overflow-hidden group shadow-sm aspect-9/16 bg-black flex items-center justify-center"
                 onClick={() => openVideoLightbox(src)}
               >
@@ -470,13 +474,13 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
                   loop
                   muted
                   playsInline
-                  onError={(e) => {
-                    console.error(`Failed to load video: ${src}`, e);
+                  onError={() => {
+                    console.error(`Failed to load video: ${src}`);
                   }}
                 />
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
                   <div className="w-12 h-12 rounded-full bg-white/80 flex items-center justify-center">
-                    <span className="text-black text-lg font-bold">▶</span>
+                    <span className="text-black text-lg font-bold ml-0.5">▶</span>
                   </div>
                 </div>
               </div>
@@ -513,11 +517,12 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
 
       {/* Active Building Modal */}
       {activeBuilding && (
-        <div className="fixed inset-0 z-100 bg-black/90 flex items-center justify-center p-4 overflow-auto">
+        <div className="fixed inset-0 z-40 bg-black/90 flex items-center justify-center p-4 overflow-auto">
           <div className="bg-white w-full max-w-6xl p-8 relative">
             <button
               className="absolute top-4 right-4 text-3xl font-bold hover:text-[#ff2f00] transition-colors"
               onClick={() => setActiveBuilding(null)}
+              aria-label="Close modal"
             >
               ×
             </button>
@@ -531,7 +536,7 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {activeBuilding.images.slice(0, 8).map((img, i) => (
                 <div
-                  key={i}
+                  key={`detail-${i}`}
                   className="relative aspect-4/3 bg-gray-200 overflow-hidden shadow-md"
                 >
                   <Image
@@ -550,13 +555,17 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
       {/* VIDEO LIGHTBOX */}
       {lightboxOpen && lightboxVideo && (
         <div
-          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 overflow-hidden"
+          className="fixed inset-0 bg-black/95 z-40 flex items-center justify-center p-4 overflow-hidden"
           onClick={closeLightbox}
         >
-          <div className="relative w-full h-full max-w-3xl max-h-screen flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+          <div 
+            className="relative w-full h-full max-w-4xl max-h-[90vh] flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
-              className="absolute top-4 right-4 text-white text-3xl font-bold hover:text-[#ff2f00] transition-colors z-10"
+              className="absolute -top-12 right-0 text-white text-3xl font-bold hover:text-[#ff2f00] transition-colors z-10"
               onClick={closeLightbox}
+              aria-label="Close lightbox"
             >
               ×
             </button>
@@ -567,6 +576,9 @@ const MergedComponent: React.FC<{ isVisible: boolean; onClose: () => void }> = (
               controls
               autoPlay
               playsInline
+              onError={() => {
+                console.error(`Failed to play video: ${lightboxVideo}`);
+              }}
             />
           </div>
         </div>
