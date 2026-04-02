@@ -95,16 +95,6 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return arr;
 };
 
-// --- MODEL LOADER ---
-const Model: React.FC<{
-  path: string;
-  scale?: [number, number, number];
-  position?: [number, number, number];
-}> = ({ path, scale = [1, 1, 1], position = [0, 0, 0] }) => {
-  const { scene } = useGLTF(path);
-  return <primitive object={scene} scale={scale} position={position} />;
-};
-
 interface MergedComponentProps {
   isVisible: boolean;
   onClose: () => void;
@@ -269,9 +259,6 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 80vw"
                   priority={i === 0}
-                  onError={() => {
-                    console.error(`Failed to load slider image: ${src}`);
-                  }}
                 />
 
                 <div className="nav absolute inset-0 pointer-events-none">
@@ -298,8 +285,8 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                 </div>
 
                 <div className="absolute inset-0 pointer-events-none">
-                  <div className="absolute top-0 left-0 w-12 h-full bg-linear-to-r from-white/20 to-transparent" />
-                  <div className="absolute top-0 right-0 w-12 h-full bg-linear-to-l from-white/20 to-transparent" />
+                  <div className="absolute top-0 left-0 w-12 h-full bg-gradient-to-r from-white/20 to-transparent" />
+                  <div className="absolute top-0 right-0 w-12 h-full bg-gradient-to-l from-white/20 to-transparent" />
                 </div>
               </div>
             ))}
@@ -322,19 +309,16 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                     fallback={
                       <Html center>
                         <div className="flex flex-col items-center gap-3">
-                          <Image
-                            src="/images/growinghabitats/placeholder1.webp"
-                            alt="3D model loading"
-                            width={100}
-                            height={100}
-                          />
                           <p className="text-sm font-medium text-gray-300">Loading model…</p>
                         </div>
                       </Html>
                     }
                   >
                     <Bounds clip observe margin={1.2}>
-                      <Model path="/models/tree.glb" scale={[0.02, 0.02, 0.02]} position={[0, 0.8, 0]} />
+                      <mesh position={[0, 0.8, 0]}>
+                        <sphereGeometry args={[1, 32, 32]} />
+                        <meshStandardMaterial color="#8b5cf6" />
+                      </mesh>
                     </Bounds>
                   </Suspense>
 
@@ -474,9 +458,6 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                   loop
                   muted
                   playsInline
-                  onError={() => {
-                    console.error(`Failed to load video: ${src}`);
-                  }}
                 />
                 <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
                   <div className="w-12 h-12 rounded-full bg-white/80 flex items-center justify-center">
@@ -576,9 +557,6 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
               controls
               autoPlay
               playsInline
-              onError={() => {
-                console.error(`Failed to play video: ${lightboxVideo}`);
-              }}
             />
           </div>
         </div>
