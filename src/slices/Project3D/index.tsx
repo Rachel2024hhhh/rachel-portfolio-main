@@ -21,10 +21,12 @@ const buildings: Building[] = [
     name: "Spore Habitat",
     description: (
       <>
-        <p className="text-lg mb-4">A modular habitat that grows and adapts like a living organism.</p>
+        <p className="text-lg mb-4">
+          A modular habitat that grows and adapts like a living organism.
+        </p>
         <h2 className="text-xl font-semibold mb-1">Concept</h2>
         <p className="mb-4">
-          Inspired by the growth patterns of mushrooms and fungi, Mycelium Tower is a vertical, modular living structure where each unit stacks organically above the other. The design moves away from rigid, grid-based architecture, creating a building that adapts naturally to light, privacy, and circulation.
+          Inspired by the growth patterns of mushrooms and fungi, Mycelium Tower is a vertical, modular living structure where each unit stacks organically above the other. The design moves away from rigid, grid-based architecture, creating a building that adapts naturally to light, privacy, and circulation. Each floor can rotate, allowing the structure to respond to sunlight and environmental conditions, while the overall form mimics the organic clustering and expansion seen in fungal growth. Mycelium Tower reimagines apartments as flexible, living elements that grow together like a forest.
         </p>
         <h2 className="text-xl font-semibold mb-1">Design Approach</h2>
         <p className="mb-4">
@@ -39,14 +41,16 @@ const buildings: Building[] = [
     name: "Shell Community",
     description: (
       <>
-        <p className="text-lg mb-4">A rounded habitat structure designed to maximize sunlight and natural airflow.</p>
+        <p className="text-lg mb-4">
+          A rounded habitat structure designed to maximize sunlight and natural airflow.
+        </p>
         <h2 className="text-xl font-semibold mb-1">Concept</h2>
         <p className="mb-4">
-          Inspired by the way snails form communities, Shell Community reimagines the shell as the central feature of the structure.
+          Inspired by the way snails form communities, Shell Community reimagines the shell as the central feature of the structure. Unlike a natural shell, which offers protection, here the shell is made of glass, exposing the interior while optimizing energy absorption and natural light. The design flips the traditional role of the shell, turning it from a protective cover into a transparent, functional element that shapes the building's environment.
         </p>
         <h2 className="text-xl font-semibold mb-1">Design Approach</h2>
         <p className="mb-4">
-          The glass shell maximizes natural light and energy efficiency, while the rounded form promotes airflow and openness.
+          The glass shell maximizes natural light and energy efficiency, while the rounded form promotes airflow and openness. The structure prioritizes visibility and connectivity, contrasting with the protective nature of a natural shell.
         </p>
       </>
     ),
@@ -57,14 +61,16 @@ const buildings: Building[] = [
     name: "Lotus Canopy",
     description: (
       <>
-        <p className="text-lg mb-4">A water-harvesting canopy that supports the ecosystem below.</p>
+        <p className="text-lg mb-4">
+          A water-harvesting canopy that supports the ecosystem below.
+        </p>
         <h2 className="text-xl font-semibold mb-1">Concept</h2>
         <p className="mb-4">
-          Inspired by the lotus plant, Lotus Canopy is a vertical, rounded structure with a glass top that collects and channels water.
+          Inspired by the lotus plant, Lotus Canopy is a vertical, rounded structure with a glass top that collects and channels water. Beneath the canopy, a plate-like system gathers rainfall, directing it through a liana-like network that mimics natural water pathways in forest ecosystems. This system not only manages water efficiently but also nourishes the surrounding ground, creating fertile areas for plants to grow. The design highlights the connection between architecture and ecological cycles, turning the building into an active participant in its environment.
         </p>
         <h2 className="text-xl font-semibold mb-1">Design Approach</h2>
         <p className="mb-4">
-          Water collected from the glass canopy is channeled through a liana-like internal system to fertilize surrounding soil.
+          Water collected from the glass canopy is channeled through a liana-like internal system to fertilize surrounding soil. The rounded structure optimizes sunlight exposure and airflow, supporting plant growth while integrating seamlessly into the environment.
         </p>
       </>
     ),
@@ -89,27 +95,15 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return arr;
 };
 
-// --- MODEL COMPONENT WITH ERROR HANDLING ---
+// --- MODEL LOADER ---
 const Model: React.FC<{
   path: string;
   scale?: [number, number, number];
   position?: [number, number, number];
 }> = ({ path, scale = [1, 1, 1], position = [0, 0, 0] }) => {
-  try {
-    const { scene } = useGLTF(path);
-    if (!scene) {
-      console.warn(`Model scene is empty: ${path}`);
-      return null;
-    }
-    return <primitive object={scene} scale={scale} position={position} />;
-  } catch (error) {
-    console.error(`Failed to load model at ${path}:`, error);
-    return null;
-  }
+  const { scene } = useGLTF(path);
+  return <primitive object={scene} scale={scale} position={position} />;
 };
-
-// Preload model
-useGLTF.preload("/models/tree.glb");
 
 interface MergedComponentProps {
   isVisible: boolean;
@@ -121,7 +115,6 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
 
   const project1Ref = useRef<HTMLDivElement>(null);
   const project2Ref = useRef<HTMLDivElement>(null);
-  const orbitControlsRef = useRef<any>(null);
 
   const [activeBuilding, setActiveBuilding] = useState<Building | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -130,7 +123,6 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
   const [activeSection, setActiveSection] = useState("");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxVideo, setLightboxVideo] = useState<string | null>(null);
-  const [modelError, setModelError] = useState(false);
 
   const tabContainerHeight = 70;
 
@@ -156,6 +148,9 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
   }, []);
 
   const updateActiveTab = useCallback(() => {
+    const nav = document.querySelector("nav");
+    if (!nav) return;
+
     const sections = [
       { id: "#project1", ref: project1Ref },
       { id: "#project2", ref: project2Ref },
@@ -163,7 +158,8 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
 
     for (const section of sections) {
       if (section.ref.current) {
-        const offsetTop = section.ref.current.offsetTop - tabContainerHeight;
+        const offsetTop =
+          section.ref.current.offsetTop - tabContainerHeight;
         const offsetBottom =
           section.ref.current.offsetTop +
           section.ref.current.offsetHeight -
@@ -213,14 +209,9 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
       }
     });
 
-    const targetIdx =
-      direction === "prev"
-        ? currentIdx === 0
-          ? slides.length - 1
-          : currentIdx - 1
-        : currentIdx === slides.length - 1
-        ? 0
-        : currentIdx + 1;
+    const targetIdx = direction === "prev" 
+      ? (currentIdx === 0 ? slides.length - 1 : currentIdx - 1)
+      : (currentIdx === slides.length - 1 ? 0 : currentIdx + 1);
 
     slides.forEach((slide) => {
       slide.classList.remove("opacity-100");
@@ -233,9 +224,8 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
 
   return (
     <div className="fixed inset-0 z-50 bg-white overflow-auto">
-      {/* Close Button */}
       <button
-        className="fixed top-4 right-4 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
+        className="absolute top-4 right-4 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
         onClick={onClose}
         aria-label="Close modal"
       >
@@ -249,7 +239,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
         onTabClick={onTabClick}
       />
 
-      <div className="p-10 max-w-7xl mx-auto">
+      <div className="p-10">
         {/* ========== PROJECT 1: GROWING HABITATS ========== */}
         <div
           id="project1"
@@ -258,122 +248,99 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
         >
           <h1 className="text-[6vw] font-bold tracking-wide text-center">Growing Habitats</h1>
 
-          {/* Gallery Slider */}
-          <div className="gallery-slider relative w-full h-96 overflow-hidden bg-gray-200 shadow-md">
-            {Array.from({ length: 8 }, (_, i) => `/images/growinghabitats/book/${i + 1}.webp`).map(
-              (src, i) => (
-                <div
-                  key={i}
-                  className={`slide-container absolute top-0 left-0 w-full h-full transition-opacity duration-500 ease-in-out ${
-                    i === 0 ? "opacity-100" : "opacity-0"
-                  }`}
-                  data-index={i}
-                >
-                  <div className="absolute inset-0 bg-gray-300 flex items-center justify-center text-gray-600 text-xl font-medium z-0">
-                    Loading...
-                  </div>
-
-                  <Image
-                    src={src}
-                    alt={`Book Page ${i + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 80vw"
-                    priority={i === 0}
-                    unoptimized
-                  />
-
-                  <div className="nav absolute inset-0 pointer-events-none z-10">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigateSlider("prev");
-                      }}
-                      className="prev absolute left-0 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto transition-all"
-                      aria-label="Previous slide"
-                    >
-                      ‹
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigateSlider("next");
-                      }}
-                      className="next absolute right-0 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto transition-all"
-                      aria-label="Next slide"
-                    >
-                      ›
-                    </button>
-                  </div>
+          {/* First Gallery Slider */}
+          <div className="gallery-slider relative w-full h-200 overflow-hidden cursor-pointer bg-gray-200">
+            {Array.from({ length: 8 }, (_, i) => `/images/growinghabitats/book/${i + 1}.webp`).map((src, i) => (
+              <div
+                key={i}
+                className={`slide-container absolute top-0 left-0 w-full h-full transition-opacity duration-500 ease-in-out ${
+                  i === 0 ? "opacity-100" : "opacity-0"
+                }`}
+                data-index={i}
+              >
+                <div className="absolute inset-0 bg-gray-300 flex items-center justify-center text-gray-600 text-xl font-medium">
+                  Loading Book Page {i + 1}...
                 </div>
-              )
-            )}
+
+                <Image
+                  src={src}
+                  alt={`Book Page ${i + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 80vw"
+                  priority={i === 0}
+                  unoptimized
+                />
+
+                <div className="nav absolute inset-0 pointer-events-none">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigateSlider("prev");
+                    }}
+                    className="prev absolute -left-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto rounded-l transition-all"
+                    aria-label="Previous slide"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigateSlider("next");
+                    }}
+                    className="next absolute -right-4 top-0 w-20 h-full flex items-center justify-center text-white text-4xl bg-white/10 hover:bg-white/30 opacity-100 pointer-events-auto rounded-r transition-all"
+                    aria-label="Next slide"
+                  >
+                    ›
+                  </button>
+                </div>
+
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute top-0 left-0 w-12 h-full bg-linear-to-r from-white/20 to-transparent" />
+                  <div className="absolute top-0 right-0 w-12 h-full bg-linear-to-l from-white/20 to-transparent" />
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* 3D Canvas + Text */}
           <div className="flex flex-col md:flex-row gap-6">
-            <div className="md:w-1/2 w-full h-96 md:h-128 shadow-md overflow-hidden relative bg-gray-900">
-              {mounted ? (
-                modelError ? (
-                  <div className="w-full h-full flex items-center justify-center bg-gray-800">
-                    <div className="text-center text-white">
-                      <p className="text-lg font-medium mb-2">Unable to load 3D model</p>
-                      <p className="text-sm text-gray-400">
-                        The model file may be missing or corrupted
-                      </p>
-                    </div>
-                  </div>
-                ) : (
+            <div className="md:w-1/2 w-full h-96 md:h-128 shadow-md overflow-hidden relative">
+              {mounted && (
+                <Canvas
+                  camera={{ position: [0, 0, 5], fov: 45 }}
+                  gl={{ antialias: true, toneMappingExposure: 1 }}
+                  shadows
+                >
+                  <ambientLight intensity={0.7} />
+                  <directionalLight position={[10, 10, 10]} intensity={1.2} castShadow />
+                  <directionalLight position={[-10, 5, -5]} intensity={0.6} />
 
-              <Canvas
-  camera={{ position: [0, 0, 5], fov: 45 }}
-  gl={{ antialias: true, toneMappingExposure: 1 }}
-  shadows
-  onError={(error) => {
-    console.error("Canvas error:", error);
-    setModelError(true);
-  }}
->
-  <ambientLight intensity={0.7} />
-  <directionalLight position={[10, 10, 10]} intensity={1.2} castShadow />
-  <directionalLight position={[-10, 5, -5]} intensity={0.6} />
+                  <Suspense
+                    fallback={
+                      <Html center>
+                        <div className="flex flex-col items-center gap-3">
+                          <p className="text-sm font-medium text-gray-300">Loading model…</p>
+                        </div>
+                      </Html>
+                    }
+                  >
+                    <Bounds clip observe margin={1.2}>
+                      <Model path="/models/tree.glb" scale={[0.02, 0.02, 0.02]} position={[0, 0.8, 0]} />
+                    </Bounds>
+                  </Suspense>
 
-<Suspense
-  fallback={
-    <Html center>
-      <div className="flex flex-col items-center gap-3">
-        <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin" />
-        <p className="text-sm font-medium text-white">Loading model...</p>
-      </div>
-    </Html>
-  }
->
-  <Bounds clip observe margin={1.2}>
-    <Model
-      path="/models/tree.glb"
-      scale={[0.02, 0.02, 0.02]}
-      position={[0, 0.8, 0]}
-    />
-  </Bounds>
-</Suspense>
-
-  <OrbitControls
-    ref={orbitControlsRef}
-    enablePan={false}
-    minDistance={2}
-    maxDistance={8}
-    autoRotate
-    autoRotateSpeed={0.3}
-    enableDamping
-    dampingFactor={0.05}
-  />
-  <Environment preset="sunset" background blur={0.6} />
-</Canvas>
-                )
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gray-800">
-                  <p className="text-white">Loading...</p>
-                </div>
+                  <OrbitControls
+                    enablePan={false}
+                    minDistance={2}
+                    maxDistance={8}
+                    autoRotate
+                    autoRotateSpeed={0.3}
+                    enableDamping
+                    dampingFactor={0.05}
+                  />
+                  <Environment preset="sunset" background blur={0.6} />
+                </Canvas>
               )}
             </div>
 
@@ -381,17 +348,13 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
               <h2 className="text-2xl font-bold">Growing Habitats</h2>
               <p className="font-medium">3D Explorations of Nature and Architecture</p>
               <p className="text-gray-700">
-                Growing Habitats is a 3D project that explores the intersection of{" "}
-                <strong>architecture and natural growth patterns</strong>. Inspired by the ways
-                plants, fungi, and animals build and interact with their environments.
+                Growing Habitats is a 3D project that explores the intersection of <strong>architecture and natural growth patterns</strong>. Inspired by the ways plants, fungi, and animals build and interact with their environments, I created a series of 3D sculptures where each architectural form reflects specific characteristics from nature.
               </p>
               <p className="text-gray-700">
-                I focused on <strong>3D sculpting</strong> as a way to translate my need for
-                building, movement, and interactivity into space.
+                In this phase of my practice, I focused on <strong>3D sculpting</strong> as a way to translate my need for building, movement, and interactivity into space. I started working with <strong>Nomad Sculpt</strong> and, more recently, <strong>Blender</strong>, experimenting with how forms can exist and flow in three dimensions.
               </p>
               <p className="text-gray-700">
-                Some pieces take cues from mushroom growth, bird nests, or the clustering of
-                snails, transforming observations into architectural forms.
+                Some pieces take cues from mushroom growth, bird nests, or the clustering of snails, transforming observations into architectural forms that reflect <strong>interconnectedness, adaptability, and coexistence</strong> between humans and the natural world.
               </p>
             </div>
           </div>
@@ -400,7 +363,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
             {allGalleryImages.map(({ img, building }, index) => (
               <div
-                key={`${building.name}-${index}`}
+                key={index}
                 className="relative cursor-pointer overflow-hidden shadow-md bg-gray-100 group"
                 onClick={() => setActiveBuilding(building)}
               >
@@ -437,28 +400,28 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
               <div className="bg-gray-100 p-8 flex flex-col gap-8">
                 <div className="max-w-3xl">
                   <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
-                  <div className="space-y-4 text-gray-700">
-                    <p className="leading-relaxed">
-                      The process began with exploring different landscapes, observing how{" "}
-                      <strong>nature grows within human-made environments</strong>.
-                    </p>
-                    <p className="leading-relaxed">
-                      This research extended to studying the behaviors and homes of plants and
-                      animals, focusing on{" "}
-                      <strong>how they build, nest, and interact with their surroundings</strong>.
-                    </p>
-                    <p className="leading-relaxed">
-                      I then translated these insights into sketches, which were later modeled in{" "}
-                      <strong>Nomad Sculpt</strong> and <strong>Blender</strong>.
-                    </p>
-                  </div>
+                  <p className="text-gray-700 leading-relaxed">
+                    The process began with exploring different landscapes, observing how <strong>nature grows within human-made environments</strong>. I took extensive photographs to document the ways flora and fauna expand, adapt, and inhabit spaces alongside architecture.
+                  </p>
+                  <p className="text-gray-700 leading-relaxed">
+                    This research extended to studying the behaviors and homes of plants and animals, focusing on <strong>how they build, nest, and interact with their surroundings</strong>. These observations became the foundation for my design explorations.
+                  </p>
+                  <p className="text-gray-700 leading-relaxed">
+                    I then translated these insights into sketches, which were later modeled in <strong>Nomad Sculpt</strong> and, subsequently, <strong>Blender</strong>. This step allowed me to experiment with <em>forms, spatial relationships, and movement</em> in three dimensions.
+                  </p>
+                  <p className="text-gray-700 leading-relaxed">
+                    A small simulation video was created to visualize how these shapes could function within an environment. While it is not as refined as I would have liked, it provides a general view of <strong>interactivity, integration, and the potential behavior</strong> of the forms in space.
+                  </p>
                 </div>
 
-                <div className="w-full max-w-3xl mx-auto">
+                <div className="w-full max-w-3xl mx-auto mt-12">
                   <h3 className="text-2xl font-bold mb-4 text-center">Simulation Video</h3>
-                  <div className="relative w-full aspect-video shadow-lg overflow-hidden bg-black">
+                  <div
+                    className="relative w-full aspect-video rounded-md shadow-lg overflow-hidden bg-center bg-cover"
+                    style={{ backgroundImage: "url('/images/growinghabitats/placeholder.webp')" }}
+                  >
                     <video
-                      className="w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-cover"
                       controls
                       playsInline
                       preload="metadata"
@@ -478,33 +441,41 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
         </div>
 
         {/* ========== PROJECT 2: e-flux POSTERS ========== */}
-        <div id="project2" ref={project2Ref} className="mb-6 mt-12 flex flex-col gap-6">
-          <h1 className="text-[6vw] font-bold tracking-wide text-center">e-flux Posters</h1>
+        <div
+          id="project2"
+          ref={project2Ref}
+          className="mb-6 mt-12 flex flex-col gap-6"
+        >
+          <h1 className="text-[6vw] font-bold tracking-wide text-center">
+            e-flux Posters
+          </h1>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-            {["/videos/eflux/1.mp4", "/videos/eflux/2.mp4", "/videos/eflux/3.mp4"].map(
-              (src, i) => (
-                <div
-                  key={`poster-${i}`}
-                  className="relative cursor-pointer overflow-hidden group shadow-md aspect-9/16 bg-black flex items-center justify-center"
-                  onClick={() => openVideoLightbox(src)}
-                >
-                  <video
-                    src={src}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                  />
-                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
-                    <div className="w-12 h-12 rounded-full bg-white/80 flex items-center justify-center">
-                      <span className="text-black text-lg font-bold ml-0.5">▶</span>
-                    </div>
+            {[
+              "/videos/eflux/1.mp4",
+              "/videos/eflux/2.mp4",
+              "/videos/eflux/3.mp4",
+            ].map((src, i) => (
+              <div
+                key={`poster-${i}`}
+                className="relative cursor-pointer overflow-hidden group shadow-sm aspect-9/16 bg-black flex items-center justify-center"
+                onClick={() => openVideoLightbox(src)}
+              >
+                <video
+                  src={src}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                />
+                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                  <div className="w-12 h-12 rounded-full bg-white/80 flex items-center justify-center">
+                    <span className="text-black text-lg font-bold ml-0.5">▶</span>
                   </div>
                 </div>
-              )
-            )}
+              </div>
+            ))}
           </div>
 
           <div className="mt-8">
@@ -537,7 +508,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
 
       {/* Active Building Modal */}
       {activeBuilding && (
-        <div className="fixed inset-0 z-40 bg-black/90 flex items-center justify-center p-4 overflow-auto">
+        <div className="fixed inset-0 z-100 bg-black/90 flex items-center justify-center p-4 overflow-auto">
           <div className="bg-white w-full max-w-6xl p-8 relative">
             <button
               className="absolute top-4 right-4 text-3xl font-bold hover:text-[#ff2f00] transition-colors"
@@ -579,7 +550,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
           className="fixed inset-0 bg-black/95 z-40 flex items-center justify-center p-4 overflow-hidden"
           onClick={closeLightbox}
         >
-          <div
+          <div 
             className="relative w-full h-full max-w-4xl max-h-[90vh] flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
@@ -593,7 +564,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
 
             <video
               src={lightboxVideo}
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain rounded-lg"
               controls
               autoPlay
               playsInline
