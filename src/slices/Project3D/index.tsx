@@ -96,6 +96,14 @@ const buildings: Building[] = [
   },
 ];
 
+// --- 3D VIEWER CONSTANTS ---
+// Scale adjusted for correct Vercel rendering (tiny values cause incorrect auto-fit)
+const MODEL_SCALE: [number, number, number] = [0.01, 0.01, 0.01];
+// Camera pulled back on Z and raised on Y to frame the full model correctly
+const CAMERA_POSITION: [number, number, number] = [0, 5, 25];
+const CAMERA_FOV = 45;
+const MODEL_PATH = "/models/myModel.glb";
+
 // --- SIDE MENU ITEMS ---
 export const ProjectMenuItems: MenuItem[] = [
   { id: "#project1", label: "Growing Habitats", short: "01" },
@@ -200,7 +208,7 @@ export default function Project3D() {
                 </div>
               ) : (
                 <Canvas
-                  camera={{ position: [0, 5, 25], fov: 45 }}
+                  camera={{ position: CAMERA_POSITION, fov: CAMERA_FOV }}
                   gl={{ antialias: true, toneMappingExposure: 1 }}
                   shadows
                   onError={(error) => {
@@ -229,8 +237,8 @@ export default function Project3D() {
                     }
                   >
                     <Model
-                      path="/models/myModel.glb"
-                      scale={[0.01, 0.01, 0.01]}
+                      path={MODEL_PATH}
+                      scale={MODEL_SCALE}
                       position={[0, -4, 0]}
                     />
                   </Suspense>
