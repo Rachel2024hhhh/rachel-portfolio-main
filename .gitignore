@@ -1,0 +1,42 @@
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Node / package files
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build / output folders
+/dist
+/build
+/.next
+/.cache
+
+# Ignore all images by default, then track the ones you want explicitly
+public/images/**/*
+!public/images/GrowingHabitats/**
+!public/images/LayerbyLayer/**
+!public/images/MuteUnmute/**
+!public/images/Traffic/**
+!public/images/about-me/**
+!public/images/data/**
+
+# Ignore RAW / camera files
+*.CR2
+*.NEF
+*.ARW
+*.RAF
+
+# Ignore temporary editor files
+*.swp
+*.swo
+*.tmp
+
+public_backup/
+public/videos/experiments/
+# Track eflux videos
+!public/videos/eflux/**

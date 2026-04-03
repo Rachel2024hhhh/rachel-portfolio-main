@@ -1,0 +1,50 @@
+{
+  "name": "rachelwebsite",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier --write .",
+    "slicemachine": "start-slicemachine",
+    "vercel-build": "next build"
+  },
+  "dependencies": {
+    "@google-analytics/data": "^4.12.1",
+    "@prismicio/client": "^7.21.0",
+    "@prismicio/next": "^2.0.2",
+    "@prismicio/react": "^3.2.2",
+    "@react-three/drei": "^10.7.6",
+    "@react-three/fiber": "^9.4.0",
+    "@react-three/postprocessing": "^3.0.4",
+    "@threlte/core": "^8.1.8",
+    "@threlte/extras": "^9.5.5",
+    "gsap": "^3.13.0",
+    "next": "^16.2.2",
+    "p5": "^2.1.1",
+    "postprocessing": "^6.38.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-responsive": "^10.0.1",
+    "three": "^0.181.0"
+  },
+  "devDependencies": {
+    "@slicemachine/adapter-next": "^0.3.88",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9.8.0",
+    "eslint-config-next": "16.0.1",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.7.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
