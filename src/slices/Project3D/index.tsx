@@ -350,8 +350,8 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                       <Bounds clip observe margin={1.2}>
                         <Model
                           path="/models/tree.glb"
-                          scale={[0.02, 0.02, 0.02]}
-                          position={[0, 0, 0]}
+                          scale={[0.002, 0.002, 0.002]}
+                          position={[0, -4, 0]}
                         />
                       </Bounds>
                     </Suspense>
