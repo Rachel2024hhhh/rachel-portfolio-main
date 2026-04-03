@@ -351,7 +351,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                         <Model
                           path="/models/tree.glb"
                           scale={[0.02, 0.02, 0.02]}
-                          position={[0, 0.4, 0]}
+                          position={[0, 0, 0]}
                         />
                       </Bounds>
                     </Suspense>
