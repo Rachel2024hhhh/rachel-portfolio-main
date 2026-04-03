@@ -16,14 +16,18 @@ yarn-error.log
 /.next
 /.cache
 
-# Ignore all images by default, then track the ones you want explicitly
+# Track ALL images and videos
 public/images/**/*
-!public/images/GrowingHabitats/**
-!public/images/LayerbyLayer/**
-!public/images/MuteUnmute/**
-!public/images/Traffic/**
-!public/images/about-me/**
-!public/images/data/**
+!public/images/
+!public/images/**
+
+public/videos/**/*
+!public/videos/
+!public/videos/**
+
+public/models/**/*
+!public/models/
+!public/models/**
 
 # Ignore RAW / camera files
 *.CR2
@@ -37,6 +41,3 @@ public/images/**/*
 *.tmp
 
 public_backup/
-public/videos/experiments/
-# Track eflux videos
-!public/videos/eflux/**
