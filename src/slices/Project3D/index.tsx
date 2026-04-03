@@ -326,7 +326,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                 ) : (
 
               <Canvas
-  camera={{ position: [0, 0, 8], fov: 60 }}
+  camera={{ position: [0, 0, 5], fov: 45 }}
   gl={{ antialias: true, toneMappingExposure: 1 }}
   shadows
   onError={(error) => {
@@ -338,22 +338,24 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
   <directionalLight position={[10, 10, 10]} intensity={1.2} castShadow />
   <directionalLight position={[-10, 5, -5]} intensity={0.6} />
 
-  <Suspense
-    fallback={
-      <Html center>
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm font-medium text-white">Loading model...</p>
-        </div>
-      </Html>
-    }
-  >
+<Suspense
+  fallback={
+    <Html center>
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin" />
+        <p className="text-sm font-medium text-white">Loading model...</p>
+      </div>
+    </Html>
+  }
+>
+  <Bounds clip observe margin={1.2}>
     <Model
       path="/models/tree.glb"
-      scale={[0.2, 0.2, 0.2]}
-      position={[0, 10, -20]}
+      scale={[0.02, 0.02, 0.02]}
+      position={[0, 0.8, 0]}
     />
-  </Suspense>
+  </Bounds>
+</Suspense>
 
   <OrbitControls
     ref={orbitControlsRef}
