@@ -60,10 +60,23 @@ export default function ExperimentsTriggerAndModal({
         Experiments ↗
       </button>
 
+      {/* Close button - Centered at bottom */}
+      {showExperiments && (
+        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
+          <button
+            onClick={() => setShowExperiments(false)}
+            className="px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors"
+            aria-label="Close experiments"
+          >
+            Close
+          </button>
+        </div>
+      )}
+
       {/* MODAL */}
       {showExperiments && (
         <div
-          className="fixed inset-0 z-50 backdrop-blur-3xl flex flex-col overflow-hidden"
+          className="fixed inset-0 z-40 backdrop-blur-3xl flex flex-col overflow-hidden"
           onClick={(e) => e.target === e.currentTarget && setShowExperiments(false)}
         >
           {/* Header */}
@@ -74,15 +87,6 @@ export default function ExperimentsTriggerAndModal({
               </h2>
             </div>
           </div>
-
-          {/* Close button */}
-          <button
-            onClick={() => setShowExperiments(false)}
-            className="absolute top-4 right-4 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
-            aria-label="Close experiments"
-          >
-            Close
-          </button>
 
           {/* GALLERY */}
           <div className="flex-1 overflow-y-auto px-6 md:px-12 pb-20">

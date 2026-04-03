@@ -37,14 +37,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* Optional global About Me Modal */}
         {showAboutMe && (
-          <div className="relative z-40">
+          <div className="fixed inset-0 z-40 flex flex-col">
+            <div className="absolute top-4 right-4 z-50">
+              <button
+                className="px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors"
+                onClick={() => setShowAboutMe(false)}
+                aria-label="Close About Me"
+              >
+                Close
+              </button>
+            </div>
             <AboutMe isVisible={showAboutMe} onClose={() => setShowAboutMe(false)} />
           </div>
         )}
 
         {/* Optional global Contact Modal */}
         {showContact && (
-          <div className="relative z-40">
+          <div className="fixed inset-0 z-40 flex flex-col">
+            <div className="absolute top-4 right-4 z-50">
+              <button
+                className="px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors"
+                onClick={() => setShowContact(false)}
+                aria-label="Close Contact"
+              >
+                Close
+              </button>
+            </div>
             <ContactModal onClose={() => setShowContact(false)} />
           </div>
         )}
