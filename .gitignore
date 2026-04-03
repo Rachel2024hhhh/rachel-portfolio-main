@@ -5,7 +5,7 @@
 .Spotlight-V100
 .Trashes
 
-# Node / package files (if applicable)
+# Node / package files
 node_modules/
 npm-debug.log
 yarn-error.log
@@ -38,3 +38,5 @@ public/images/**/*
 
 public_backup/
 public/videos/experiments/
+# Track eflux videos
+!public/videos/eflux/**

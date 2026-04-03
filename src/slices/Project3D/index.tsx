@@ -108,6 +108,9 @@ const Model: React.FC<{
   }
 };
 
+// Preload model
+useGLTF.preload("/models/tree.glb");
+
 interface MergedComponentProps {
   isVisible: boolean;
   onClose: () => void;
@@ -128,14 +131,12 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxVideo, setLightboxVideo] = useState<string | null>(null);
   const [modelError, setModelError] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState(8);
+  const [zoomLevel, setZoomLevel] = useState(15);
 
   const tabContainerHeight = 70;
 
   useEffect(() => {
     setMounted(true);
-    // Preload model
-    useGLTF.preload("/models/tree.glb");
   }, []);
 
   const allGalleryImages = useMemo(
@@ -232,11 +233,11 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
   }, []);
 
   const handleZoomIn = () => {
-    setZoomLevel((prev) => Math.max(prev - 2, 2));
+    setZoomLevel((prev) => Math.max(prev - 2, 5));
   };
 
   const handleZoomOut = () => {
-    setZoomLevel((prev) => Math.min(prev + 2, 20));
+    setZoomLevel((prev) => Math.min(prev + 2, 40));
   };
 
   return (
@@ -333,7 +334,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                   </svg>
                 </button>
 
-                <div className="flex flex-col items-center justify-center px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 min-w-15">
+                <div className="flex flex-col items-center justify-center px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 min-w-[60px]">
                   <span className="text-xs text-white/60 uppercase tracking-wide">Zoom</span>
                   <span className="text-lg font-semibold text-white">{zoomLevel}</span>
                 </div>
@@ -386,8 +387,8 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                       <Bounds clip observe margin={1.2}>
                         <Model
                           path="/models/tree.glb"
-                          scale={[0.02, 0.02, 0.02]}
-                          position={[0, 0.8, 0]}
+                          scale={[1, 1, 1]}
+                          position={[0, 0, 0]}
                         />
                       </Bounds>
                     </Suspense>
