@@ -1,0 +1,19 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"datatitle": {
+				"__TYPE__": "FieldContent",
+				"value": "closer",
+				"type": "Text"
+			},
+			"data_description": {
+				"__TYPE__": "FieldContent",
+				"value": "lose",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]

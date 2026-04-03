@@ -1,0 +1,19 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title3d": {
+				"__TYPE__": "FieldContent",
+				"value": "needs",
+				"type": "Text"
+			},
+			"description": {
+				"__TYPE__": "FieldContent",
+				"value": "establish",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]

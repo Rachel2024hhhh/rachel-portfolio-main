@@ -1,0 +1,16 @@
+{
+  "id": "materialbased",
+  "type": "SharedSlice",
+  "name": "Materialbased",
+  "description": "Materialbased",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": ""
+    }
+  ]
+}
