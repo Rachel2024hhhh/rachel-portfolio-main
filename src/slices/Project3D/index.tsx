@@ -121,6 +121,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
 
   const project1Ref = useRef<HTMLDivElement>(null);
   const project2Ref = useRef<HTMLDivElement>(null);
+  const orbitControlsRef = useRef<any>(null);
 
   const [activeBuilding, setActiveBuilding] = useState<Building | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -130,6 +131,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxVideo, setLightboxVideo] = useState<string | null>(null);
   const [modelError, setModelError] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(8);
 
   const tabContainerHeight = 70;
 
@@ -230,6 +232,14 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
     slides[targetIdx].classList.add("opacity-100");
   }, []);
 
+  const handleZoomIn = () => {
+    setZoomLevel((prev) => Math.max(prev - 2, 2));
+  };
+
+  const handleZoomOut = () => {
+    setZoomLevel((prev) => Math.min(prev + 2, 20));
+  };
+
   return (
     <div className="fixed inset-0 z-50 bg-white overflow-auto">
       {/* Close Button */}
@@ -312,6 +322,34 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
           {/* 3D Canvas + Text */}
           <div className="flex flex-col md:flex-row gap-6">
             <div className="md:w-1/2 w-full h-96 md:h-128 shadow-md overflow-hidden relative bg-gray-900">
+              {/* Zoom Controls */}
+              <div className="absolute top-6 right-6 z-20 flex gap-3">
+                <button
+                  onClick={handleZoomOut}
+                  className="group relative p-3 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300"
+                  aria-label="Zoom out"
+                >
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                  </svg>
+                </button>
+
+                <div className="flex flex-col items-center justify-center px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 min-w-[60px]">
+                  <span className="text-xs text-white/60 uppercase tracking-wide">Zoom</span>
+                  <span className="text-lg font-semibold text-white">{zoomLevel}</span>
+                </div>
+
+                <button
+                  onClick={handleZoomIn}
+                  className="group relative p-3 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300"
+                  aria-label="Zoom in"
+                >
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                </button>
+              </div>
+
               {mounted ? (
                 modelError ? (
                   <div className="w-full h-full flex items-center justify-center bg-gray-800">
@@ -324,7 +362,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                   </div>
                 ) : (
                   <Canvas
-                    camera={{ position: [0, 0, 8], fov: 45 }}
+                    camera={{ position: [0, 0, zoomLevel], fov: 45 }}
                     gl={{ antialias: true, toneMappingExposure: 1 }}
                     shadows
                     onError={(error) => {
@@ -356,6 +394,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                     </Suspense>
 
                     <OrbitControls
+                      ref={orbitControlsRef}
                       enablePan={false}
                       minDistance={2}
                       maxDistance={8}
