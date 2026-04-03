@@ -42,8 +42,7 @@ export default function ExperimentsTriggerAndModal({
     { id: 8, type: "video", src: "videos/experiments/3.mp4", caption: "Kinetic blur test", aspect: "aspect-[3/4]" },
     { id: 9, type: "image", src: "images/experiments/1.webp", caption: "Framing distortion", aspect: "aspect-[4/5]" },
     { id: 10, type: "image", src: "images/experiments/5.webp", caption: "Surface scan", aspect: "aspect-square" },
-     { id: 11, type: "video", src: "videos/experiments/4.mp4", caption: "Blender Music Visualization", aspect: "aspect-[8/5]" },
-
+    { id: 11, type: "video", src: "videos/experiments/4.mp4", caption: "Blender Music Visualization", aspect: "aspect-[8/5]" },
   ];
 
   return (
@@ -73,17 +72,16 @@ export default function ExperimentsTriggerAndModal({
               <h2 className="text-3xl md:text-4xl font-medium uppercase tracking-widest text-black">
               Experiments
               </h2>
-              
             </div>
           </div>
 
-          {/* Close button – made absolute top-right for guaranteed visibility */}
+          {/* Close button */}
           <button
             onClick={() => setShowExperiments(false)}
-            className="absolute top-4 right-6 z-50 text-6xl text- font-black hover:text-[#ff2f00] transition-colors duration-200 leading-none hover:scale-110  w-12 h-12 flex items-center justify-center"
+            className="absolute top-4 right-4 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
             aria-label="Close experiments"
           >
-            ×
+            Close
           </button>
 
           {/* GALLERY */}
@@ -138,7 +136,7 @@ export default function ExperimentsTriggerAndModal({
                     </div>
 
                     {item.type === "video" && (
-                      <div className="absolute bottom-3 left-3 bg-black/60 text-white/90 text-[10px] px-2.5 py-0.5  font-mono tracking-wider opacity-80">
+                      <div className="absolute bottom-3 left-3 bg-black/60 text-white/90 text-[10px] px-2.5 py-0.5 font-mono tracking-wider opacity-80">
                         LOOP
                       </div>
                     )}
