@@ -4,7 +4,7 @@ import React, { useState, useRef, useMemo, Suspense, useEffect, useCallback } fr
 import Image from "next/image";
 import ProjectDivider from "../../components/ProjectDivider";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, useGLTF, Html } from "@react-three/drei";
+import { OrbitControls, Environment, useGLTF, Bounds, Html } from "@react-three/drei";
 import SideMenu, { MenuItem } from "../../components/SideMenu";
 
 // --- TYPES ---
@@ -89,15 +89,27 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return arr;
 };
 
-// --- MODEL COMPONENT ---
+// --- MODEL COMPONENT WITH ERROR HANDLING ---
 const Model: React.FC<{
   path: string;
   scale?: [number, number, number];
   position?: [number, number, number];
 }> = ({ path, scale = [1, 1, 1], position = [0, 0, 0] }) => {
-  const { scene } = useGLTF(path);
-  return scene ? <primitive object={scene} scale={scale} position={position} /> : null;
+  try {
+    const { scene } = useGLTF(path);
+    if (!scene) {
+      console.warn(`Model scene is empty: ${path}`);
+      return null;
+    }
+    return <primitive object={scene} scale={scale} position={position} />;
+  } catch (error) {
+    console.error(`Failed to load model at ${path}:`, error);
+    return null;
+  }
 };
+
+// Preload model
+useGLTF.preload("/models/tree.glb");
 
 interface MergedComponentProps {
   isVisible: boolean;
@@ -124,7 +136,6 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
 
   useEffect(() => {
     setMounted(true);
-    useGLTF.preload("/models/tree.glb");
   }, []);
 
   const allGalleryImages = useMemo(
@@ -314,7 +325,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                   </div>
                 ) : (
                   <Canvas
-                    camera={{ position: [0, 0, 8], fov: 60 }}
+                    camera={{ position: [0, 0, 15], fov: 45 }}
                     gl={{ antialias: true, toneMappingExposure: 1 }}
                     shadows
                     onError={(error) => {
@@ -336,11 +347,13 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                         </Html>
                       }
                     >
-                      <Model
-                        path="/models/tree.glb"
-                        scale={[0.1, 0.1, 0.1]}
-                        position={[0, 0, 0]}
-                      />
+                      <Bounds clip observe margin={1.2}>
+                        <Model
+                          path="/models/tree.glb"
+                          scale={[0.02, 0.02, 0.02]}
+                          position={[0, -4, 0]}
+                        />
+                      </Bounds>
                     </Suspense>
 
                     <OrbitControls
