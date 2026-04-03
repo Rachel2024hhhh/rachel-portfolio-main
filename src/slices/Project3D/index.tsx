@@ -324,50 +324,49 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                     </div>
                   </div>
                 ) : (
-                  <Canvas
-                    camera={{ position: [0, 0, 15], fov: 45 }}
-                    gl={{ antialias: true, toneMappingExposure: 1 }}
-                    shadows
-                    onError={(error) => {
-                      console.error("Canvas error:", error);
-                      setModelError(true);
-                    }}
-                  >
-                    <ambientLight intensity={0.7} />
-                    <directionalLight position={[10, 10, 10]} intensity={1.2} castShadow />
-                    <directionalLight position={[-10, 5, -5]} intensity={0.6} />
 
-                    <Suspense
-                      fallback={
-                        <Html center>
-                          <div className="flex flex-col items-center gap-3">
-                            <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                            <p className="text-sm font-medium text-white">Loading model...</p>
-                          </div>
-                        </Html>
-                      }
-                    >
-                      <Bounds clip observe margin={1.2}>
-                        <Model
-                          path="/models/tree.glb"
-                          scale={[0.02, 0.02, 0.02]}
-                          position={[0, -4, 0]}
-                        />
-                      </Bounds>
-                    </Suspense>
+              <Canvas
+  camera={{ position: [0, 0, 8], fov: 60 }}
+  gl={{ antialias: true, toneMappingExposure: 1 }}
+  shadows
+  onError={(error) => {
+    console.error("Canvas error:", error);
+    setModelError(true);
+  }}
+>
+  <ambientLight intensity={0.7} />
+  <directionalLight position={[10, 10, 10]} intensity={1.2} castShadow />
+  <directionalLight position={[-10, 5, -5]} intensity={0.6} />
 
-                    <OrbitControls
-                      ref={orbitControlsRef}
-                      enablePan={false}
-                      minDistance={2}
-                      maxDistance={8}
-                      autoRotate
-                      autoRotateSpeed={0.3}
-                      enableDamping
-                      dampingFactor={0.05}
-                    />
-                    <Environment preset="sunset" background blur={0.6} />
-                  </Canvas>
+  <Suspense
+    fallback={
+      <Html center>
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          <p className="text-sm font-medium text-white">Loading model...</p>
+        </div>
+      </Html>
+    }
+  >
+    <Model
+      path="/models/tree.glb"
+      scale={[0.2, 0.2, 0.2]}
+      position={[0, 10, -20]}
+    />
+  </Suspense>
+
+  <OrbitControls
+    ref={orbitControlsRef}
+    enablePan={false}
+    minDistance={2}
+    maxDistance={8}
+    autoRotate
+    autoRotateSpeed={0.3}
+    enableDamping
+    dampingFactor={0.05}
+  />
+  <Environment preset="sunset" background blur={0.6} />
+</Canvas>
                 )
               ) : (
                 <div className="w-full h-full flex items-center justify-center bg-gray-800">
