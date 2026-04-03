@@ -322,6 +322,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
           {/* 3D Canvas + Text */}
           <div className="flex flex-col md:flex-row gap-6">
             <div className="md:w-1/2 w-full h-96 md:h-128 shadow-md overflow-hidden relative bg-gray-900">
+
               {/* Zoom Controls */}
               <div className="absolute top-6 right-6 z-20 flex gap-3">
                 <button
@@ -334,7 +335,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                   </svg>
                 </button>
 
-                <div className="flex flex-col items-center justify-center px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 min-w-[60px]">
+                <div className="flex flex-col items-center justify-center px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 min-w-15">
                   <span className="text-xs text-white/60 uppercase tracking-wide">Zoom</span>
                   <span className="text-lg font-semibold text-white">{zoomLevel}</span>
                 </div>
@@ -387,8 +388,8 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                       <Bounds clip observe margin={1.2}>
                         <Model
                           path="/models/tree.glb"
-                          scale={[1, 1, 1]}
-                          position={[0, 0, 0]}
+                          scale={[0.02, 0.02, 0.02]}
+                          position={[0, 0.4, 0]}
                         />
                       </Bounds>
                     </Suspense>
