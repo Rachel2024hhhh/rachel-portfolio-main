@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import path from "path";
+import fs from "fs";
 
 const nextConfig: NextConfig = {
   turbopack: {
@@ -24,6 +25,10 @@ const nextConfig: NextConfig = {
     });
 
     return config;
+  },
+  onDemandEntries: {
+    maxInactiveAge: 60 * 1000,
+    pagesBufferLength: 5,
   },
 };
 
