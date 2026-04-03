@@ -1,5 +1,9 @@
 # macOS system files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 
 # Node / package files (if applicable)
 node_modules/
@@ -32,7 +36,5 @@ public/images/**/*
 *.swo
 *.tmp
 
-.DS_Store
-public_backup/
 public_backup/
 public/videos/experiments/

@@ -5,7 +5,7 @@ import "./globals.css";
 import { useState } from "react";
 import useIdle from "../hooks/useIdle";
 import { components } from "../slices";
-import ContactModal from "../slices/ContactModal"; // Adjust path as needed
+import ContactModal from "../slices/ContactModal";
 
 const { materialbased: AboutMe } = components;
 
@@ -39,12 +39,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {showAboutMe && (
           <div className="relative z-40">
             <AboutMe isVisible={showAboutMe} onClose={() => setShowAboutMe(false)} />
-            <button
-              className="text-white absolute top-6 right-6 text-3xl"
-              onClick={() => setShowAboutMe(false)}
-            >
-              ×
-            </button>
           </div>
         )}
 
@@ -52,12 +46,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {showContact && (
           <div className="relative z-40">
             <ContactModal onClose={() => setShowContact(false)} />
-            <button
-              className="text-white absolute top-6 right-6 text-3xl"
-              onClick={() => setShowContact(false)}
-            >
-              ×
-            </button>
           </div>
         )}
 
