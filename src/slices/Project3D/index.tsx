@@ -108,9 +108,6 @@ const Model: React.FC<{
   }
 };
 
-// Preload model
-useGLTF.preload("/models/tree.glb");
-
 interface MergedComponentProps {
   isVisible: boolean;
   onClose: () => void;
@@ -137,6 +134,8 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
 
   useEffect(() => {
     setMounted(true);
+    // Preload model
+    useGLTF.preload("/models/tree.glb");
   }, []);
 
   const allGalleryImages = useMemo(
@@ -334,7 +333,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                   </svg>
                 </button>
 
-                <div className="flex flex-col items-center justify-center px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 min-w-[60px]">
+                <div className="flex flex-col items-center justify-center px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 min-w-15">
                   <span className="text-xs text-white/60 uppercase tracking-wide">Zoom</span>
                   <span className="text-lg font-semibold text-white">{zoomLevel}</span>
                 </div>
