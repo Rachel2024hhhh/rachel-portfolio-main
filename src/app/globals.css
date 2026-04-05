@@ -302,6 +302,8 @@ body[data-theme="dark"] {
   --color-bg-mid: #111113;
   --color-bg-end: #17171a;
   --color-text-primary: #f3f3f3;
+  --color-accent-dark: #00e5ff;
+  --color-accent-dark-hover: #7af3ff;
 }
 
 body[data-theme="dark"] .bg-white {
@@ -351,7 +353,15 @@ body[data-theme="dark"] a {
 }
 
 body[data-theme="dark"] a:hover {
-  color: #ff2f00;
+  color: var(--color-accent-dark);
+}
+
+body[data-theme="dark"] .text-\[\#ff2f00\] {
+  color: var(--color-accent-dark) !important;
+}
+
+body[data-theme="dark"] .hover\:text-\[\#ff2f00\]:hover {
+  color: var(--color-accent-dark-hover) !important;
 }
 
 body[data-theme="dark"] .border-zinc-200,
@@ -372,4 +382,14 @@ body[data-theme="dark"] .border-zinc-400 {
 
 .cuba-tip-float {
   animation: cuba-tip-float 4.5s ease-in-out infinite;
+}
+
+body[data-theme="dark"] .cuba-tip-diamond {
+  background-color: rgba(6, 56, 66, 0.78) !important;
+  border-color: rgba(0, 229, 255, 0.52) !important;
+  color: #e8fdff !important;
+}
+
+body[data-theme="dark"] .cuba-tip-diamond:hover {
+  color: var(--color-accent-dark-hover) !important;
 }

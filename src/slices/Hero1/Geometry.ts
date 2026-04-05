@@ -95,6 +95,20 @@ export const amberMaterial = new THREE.MeshPhysicalMaterial({
   side: THREE.DoubleSide,
 });
 
+export const cyanMaterial = new THREE.MeshPhysicalMaterial({
+  color: 0x00d9ff,
+  roughness: 0.05,
+  metalness: 0,
+  transmission: 1,
+  thickness: 1,
+  ior: 2.8,
+  clearcoat: 0.8,
+  clearcoatRoughness: 0.05,
+  envMapIntensity: 1,
+  transparent: true,
+  side: THREE.DoubleSide,
+});
+
 export const silverMaterial = new THREE.MeshStandardMaterial({
   color: 0xe8ebf0,
   roughness: 0.28,

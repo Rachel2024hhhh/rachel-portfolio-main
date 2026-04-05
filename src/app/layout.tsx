@@ -305,7 +305,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             )}
 
             <button
-              className="cuba-tip-float w-14 h-14 rotate-45 flex items-center justify-center bg-black/60 backdrop-blur-md text-white text-[0.65rem] uppercase tracking-[0.14em] font-medium border border-white/20 hover:text-[#ff2f00] transition-colors"
+              className="cuba-tip-float cuba-tip-diamond w-14 h-14 rotate-45 flex items-center justify-center bg-black/60 backdrop-blur-md text-white text-[0.65rem] uppercase tracking-[0.14em] font-medium border border-white/20 hover:text-[#ff2f00] transition-colors"
               onClick={() => {
                 setShowCubaTip((prev) => !prev);
                 if (!showCubaTip) {

@@ -17,6 +17,7 @@ interface ShapeProps {
   rate?: number;
   scale?: number;
   material?: THREE.Material;
+  isDarkTheme?: boolean;
   interactiveHint?: boolean;
   onInteract?: () => void;
 }
@@ -119,8 +120,15 @@ const playShapeTone = async (shapeName: string) => {
   oscillator.stop(now + tone.duration + 0.02);
 };
 
-const gemEdgesMaterial = new LineBasicMaterial({
+const gemEdgesMaterialWarm = new LineBasicMaterial({
   color: 0xff5500,
+  linewidth: 1.5,
+  transparent: true,
+  opacity: 0.8,
+});
+
+const gemEdgesMaterialCool = new LineBasicMaterial({
+  color: 0x00c9ff,
   linewidth: 1.5,
   transparent: true,
   opacity: 0.8,
@@ -133,6 +141,7 @@ const Shapes: FC<ShapeProps> = ({
   rate = 0.3, // base speed — only used for gem rotation
   scale: propScale,
   material: propMaterial,
+  isDarkTheme = false,
   interactiveHint = false,
   onInteract,
 }) => {
@@ -161,6 +170,13 @@ const Shapes: FC<ShapeProps> = ({
           })
         : materials[0].clone())
   );
+
+  useEffect(() => {
+    if (propMaterial) {
+      setCurrentMaterial(propMaterial);
+    }
+  }, [propMaterial]);
+
   // Floating + breathing for all + rotation ONLY for gem
   useFrame((state, delta) => {
     if (!groupRef.current) return;
@@ -243,7 +259,7 @@ const Shapes: FC<ShapeProps> = ({
 
     const mesh = meshRef.current;
     const edges = new EdgesGeometry(mesh.geometry);
-    const line = new LineSegments(edges, gemEdgesMaterial);
+    const line = new LineSegments(edges, isDarkTheme ? gemEdgesMaterialCool : gemEdgesMaterialWarm);
     mesh.add(line);
     edgeRef.current = line;
 
@@ -253,7 +269,7 @@ const Shapes: FC<ShapeProps> = ({
         edgeRef.current.geometry.dispose();
       }
     };
-  }, [name]);
+  }, [name, isDarkTheme]);
 
   return (
     <group ref={groupRef} position={position}>

@@ -5,12 +5,13 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, ContactShadows, Environment } from "@react-three/drei";
 import * as THREE from "three";
 import Shapes from "./Shapes";
-import { geometries, defaultPositions, defaultScales, silverMaterial, amberMaterial } from "./Geometry";
+import { geometries, defaultPositions, defaultScales, silverMaterial, amberMaterial, cyanMaterial } from "./Geometry";
 
 const spreadFactor = 1.5;
 
 const Scene: FC = () => {
   const [showHint, setShowHint] = useState(true);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -20,12 +21,25 @@ const Scene: FC = () => {
     return () => window.clearTimeout(timeout);
   }, []);
 
+  useEffect(() => {
+    const syncTheme = () => {
+      setIsDarkTheme(document.body.dataset.theme === "dark");
+    };
+
+    syncTheme();
+
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(document.body, { attributes: true, attributeFilter: ["data-theme"] });
+
+    return () => observer.disconnect();
+  }, []);
+
   const materials = useMemo(() => {
     const mats: Record<string, THREE.Material> = {};
 
     Object.keys(geometries).forEach((name) => {
       if (name === "gem") {
-        mats[name] = amberMaterial;
+        mats[name] = isDarkTheme ? cyanMaterial : amberMaterial;
         return;
       }
 
@@ -50,7 +64,23 @@ const Scene: FC = () => {
     });
 
     return mats;
-  }, []);
+  }, [isDarkTheme]);
+
+  const glowColors = isDarkTheme
+    ? {
+        primary: 0x00e5ff,
+        secondary: 0x00cfff,
+        tertiary: 0x2be7ff,
+        soft: 0x7af3ff,
+        lower: 0x00b7ff,
+      }
+    : {
+        primary: 0xff5500,
+        secondary: 0xff6600,
+        tertiary: 0xff7700,
+        soft: 0xff7043,
+        lower: 0xff6600,
+      };
 
   const handleInteract = useCallback(() => {
     setShowHint(false);
@@ -75,11 +105,11 @@ const Scene: FC = () => {
         <directionalLight position={[15, 20, 15]} intensity={2.2} castShadow shadow-mapSize={[2048, 2048]} />
         <directionalLight position={[-10, 5, 10]} intensity={0.8} color={0xa0c8ff} />
         <directionalLight position={[0, 10, -15]} intensity={0.6} />
-        <pointLight position={[0, 0, 1.5]} intensity={18} distance={18} decay={2} color={0xff5500} />
-        <pointLight position={[0.8, -0.3, 1.2]} intensity={15} distance={16} decay={2} color={0xff6600} />
-        <pointLight position={[-0.6, 0.4, 1]} intensity={12} distance={16} decay={2} color={0xff7700} />
-        <pointLight position={[0, 0, 1]} intensity={8} distance={20} decay={2} color={0xff7043} />
-        <pointLight position={[0, -4, 0]} intensity={15} distance={25} decay={2} color={0xff6600} />
+        <pointLight position={[0, 0, 1.5]} intensity={18} distance={18} decay={2} color={glowColors.primary} />
+        <pointLight position={[0.8, -0.3, 1.2]} intensity={15} distance={16} decay={2} color={glowColors.secondary} />
+        <pointLight position={[-0.6, 0.4, 1]} intensity={12} distance={16} decay={2} color={glowColors.tertiary} />
+        <pointLight position={[0, 0, 1]} intensity={8} distance={20} decay={2} color={glowColors.soft} />
+        <pointLight position={[0, -4, 0]} intensity={15} distance={25} decay={2} color={glowColors.lower} />
 
         <Environment preset="studio" />
         <ContactShadows position={[0, -5, 0]} opacity={0.4} scale={40} blur={1} far={9} />
@@ -92,6 +122,7 @@ const Scene: FC = () => {
             position={defaultPositions[name].map((v) => v * spreadFactor) as [number, number, number]}
             scale={defaultScales[name]}
             material={materials[name]}
+            isDarkTheme={isDarkTheme}
             interactiveHint={showHint}
             onInteract={handleInteract}
           />
