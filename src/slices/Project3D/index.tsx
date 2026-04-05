@@ -89,26 +89,27 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return arr;
 };
 
-// --- MODEL COMPONENT WITH ERROR HANDLING ---
-const Model: React.FC<{
-  path: string;
+// --- MODEL COMPONENT WITH PROPER GLB LOADING ---
+const TreeModel: React.FC<{
   scale?: [number, number, number];
   position?: [number, number, number];
-}> = ({ path, scale = [1, 1, 1], position = [0, 0, 0] }) => {
+}> = ({ scale = [0.04, 0.04, 0.04], position = [0, 3, 1] }) => {
   try {
-    const { scene } = useGLTF(path);
-    if (!scene) {
-      console.warn(`Model scene is empty: ${path}`);
-      return null;
-    }
+    const { scene } = useGLTF("/models/tree.glb");
     return <primitive object={scene} scale={scale} position={position} />;
   } catch (error) {
-    console.error(`Failed to load model at ${path}:`, error);
-    return null;
+    console.error("Failed to load tree model:", error);
+    return (
+      <Html center>
+        <div className="text-white text-center">
+          <p className="text-sm">Model failed to load</p>
+        </div>
+      </Html>
+    );
   }
 };
 
-// Preload model
+// Preload the model
 useGLTF.preload("/models/tree.glb");
 
 interface MergedComponentProps {
@@ -130,7 +131,6 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
   const [activeSection, setActiveSection] = useState("");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxVideo, setLightboxVideo] = useState<string | null>(null);
-  const [modelError, setModelError] = useState(false);
 
   const tabContainerHeight = 70;
 
@@ -313,67 +313,43 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
           {/* 3D Canvas + Text */}
           <div className="flex flex-col md:flex-row gap-6">
             <div className="md:w-1/2 w-full h-96 md:h-128 shadow-md overflow-hidden relative bg-gray-900">
-              {mounted ? (
-                modelError ? (
-                  <div className="w-full h-full flex items-center justify-center bg-gray-800">
-                    <div className="text-center text-white">
-                      <p className="text-lg font-medium mb-2">Unable to load 3D model</p>
-                      <p className="text-sm text-gray-400">
-                        The model file may be missing or corrupted
-                      </p>
-                    </div>
-                  </div>
-                ) : (
+              {mounted && (
+                <Canvas
+                  camera={{ position: [0, 0, 5], fov: 45 }}
+                  gl={{ antialias: true, toneMappingExposure: 1 }}
+                  shadows
+                >
+                  <ambientLight intensity={0.7} />
+                  <directionalLight position={[10, 10, 10]} intensity={1.2} castShadow />
+                  <directionalLight position={[-10, 5, -5]} intensity={0.6} />
 
-              <Canvas
-  camera={{ position: [0, 0, 5], fov: 45 }}
-  gl={{ antialias: true, toneMappingExposure: 1 }}
-  shadows
-  onError={(error) => {
-    console.error("Canvas error:", error);
-    setModelError(true);
-  }}
->
-  <ambientLight intensity={0.7} />
-  <directionalLight position={[10, 10, 10]} intensity={1.2} castShadow />
-  <directionalLight position={[-10, 5, -5]} intensity={0.6} />
+                  <Suspense
+                    fallback={
+                      <Html center>
+                        <div className="flex flex-col items-center gap-3">
+                          <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          <p className="text-sm font-medium text-white">Loading model...</p>
+                        </div>
+                      </Html>
+                    }
+                  >
+                    <Bounds clip observe margin={1.2}>
+                      <TreeModel />
+                    </Bounds>
+                  </Suspense>
 
-<Suspense
-  fallback={
-    <Html center>
-      <div className="flex flex-col items-center gap-3">
-        <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin" />
-        <p className="text-sm font-medium text-white">Loading model...</p>
-      </div>
-    </Html>
-  }
->
-  <Bounds clip observe margin={1.2}>
-    <Model
-      path="/models/tree.glb"
-      scale={[0.04, 0.04, 0.04]}
-      position={[0, 3, 1]}
-    />
-  </Bounds>
-</Suspense>
-
-  <OrbitControls
-    ref={orbitControlsRef}
-    enablePan={false}
-    minDistance={2}
-    maxDistance={8}
-    autoRotate
-    autoRotateSpeed={0.3}
-    enableDamping
-    dampingFactor={0.05}
-  />
-  <Environment preset="sunset" background blur={0.6} />
-</Canvas>
-                )
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gray-800">
-                  <p className="text-white">Loading...</p>
-                </div>
+                  <OrbitControls
+                    ref={orbitControlsRef}
+                    enablePan={false}
+                    minDistance={2}
+                    maxDistance={8}
+                    autoRotate
+                    autoRotateSpeed={0.3}
+                    enableDamping
+                    dampingFactor={0.05}
+                  />
+                  <Environment preset="sunset" background blur={0.6} />
+                </Canvas>
               )}
             </div>
 
