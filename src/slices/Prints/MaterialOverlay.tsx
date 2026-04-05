@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 
 interface MaterialOverlayProps {
   images: string[]; // array of image URLs
@@ -27,10 +28,12 @@ const MaterialOverlay: React.FC<MaterialOverlayProps> = ({ images, onClose }) =>
       {/* Image display */}
       <div className="relative w-full max-w-4xl h-96 flex items-center justify-center bg-gray-600 rounded-md shadow-md">
         {images.length > 0 && (
-          <img
+          <Image
             src={images[currentIndex]}
             alt={`Material ${currentIndex + 1}`}
-            className="max-w-full max-h-full object-contain rounded-md"
+            fill
+            className="object-contain rounded-md"
+            sizes="(max-width: 1024px) 100vw, 1024px"
           />
         )}
 

@@ -9,6 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "postinstall": "node scripts/ensure-svelte-shims.mjs",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --write .",
@@ -32,7 +33,7 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-responsive": "^10.0.1",
-    "three": "^0.181.0"
+    "three": "^0.181.2"
   },
   "devDependencies": {
     "@slicemachine/adapter-next": "^0.3.88",
@@ -44,6 +45,7 @@
     "eslint-config-next": "16.0.1",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
+    "svelte2tsx": "^0.7.53",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

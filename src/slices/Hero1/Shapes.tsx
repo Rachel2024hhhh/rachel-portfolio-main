@@ -84,8 +84,8 @@ const Shapes: FC<ShapeProps> = ({
 
       // Continuous rotation → only the gem
       if (name === "gem") {
-        groupRef.current.rotation.x += delta * 0.7;
-        groupRef.current.rotation.y += delta * 0.55;
+        groupRef.current.rotation.x += delta * (0.7 + rate * 0.1);
+        groupRef.current.rotation.y += delta * (0.55 + rate * 0.1);
         // optional tiny z twist: groupRef.current.rotation.z += delta * 0.3;
       }
       // No rotation for donut, pillowSphere, diamond
@@ -173,14 +173,15 @@ const Shapes: FC<ShapeProps> = ({
   useEffect(() => {
     if (name !== "gem" || !meshRef.current) return;
 
-    const edges = new EdgesGeometry(meshRef.current.geometry);
+    const mesh = meshRef.current;
+    const edges = new EdgesGeometry(mesh.geometry);
     const line = new LineSegments(edges, gemEdgesMaterial);
-    meshRef.current.add(line);
+    mesh.add(line);
     edgeRef.current = line;
 
     return () => {
       if (edgeRef.current) {
-        meshRef.current?.remove(edgeRef.current);
+        mesh.remove(edgeRef.current);
         edgeRef.current.geometry.dispose();
       }
     };

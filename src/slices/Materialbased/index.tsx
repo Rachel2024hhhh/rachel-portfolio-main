@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect, Suspense } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import Image from "next/image";
@@ -19,12 +19,9 @@ export type MaterialbasedProps = Partial<
 };
 
 const Materialbased: React.FC<MaterialbasedProps> = ({
-  slice,
   isVisible,
   onClose,
 }) => {
-  if (!isVisible) return null;
-
   const section1Ref = useRef<HTMLDivElement>(null);
   const section2Ref = useRef<HTMLDivElement>(null);
 
@@ -32,7 +29,6 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
   const tab2Ref = useRef<HTMLButtonElement>(null);
 
   const [activeSection, setActiveSection] = useState("");
-  const [sliderStyle, setSliderStyle] = useState({ width: 0, left: 0 });
   const [showProcess1, setShowProcess1] = useState(false);
   const [showProcess2, setShowProcess2] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -49,7 +45,6 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
     const nav = document.querySelector("nav");
     if (!nav) return;
 
-    const navRect = nav.getBoundingClientRect();
     const sections = [
       { id: "#section1", ref: section1Ref, tabRef: tab1Ref },
       { id: "#section2", ref: section2Ref, tabRef: tab2Ref },
@@ -66,13 +61,6 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
 
         if (window.scrollY >= offsetTop && window.scrollY < offsetBottom) {
           setActiveSection(section.id);
-          if (section.tabRef.current) {
-            const rect = section.tabRef.current.getBoundingClientRect();
-            setSliderStyle({
-              width: rect.width,
-              left: rect.left - navRect.left,
-            });
-          }
           break;
         }
       }
@@ -80,6 +68,8 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
   };
 
   useEffect(() => {
+    if (!isVisible) return;
+
     const onScroll = () => requestAnimationFrame(updateActiveTab);
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -90,7 +80,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", updateActiveTab);
     };
-  }, []);
+  }, [isVisible]);
 
   const openLightbox = (src: string) => {
     setLightboxImage(src);
@@ -101,6 +91,8 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
     setLightboxOpen(false);
     setLightboxImage(null);
   };
+
+  if (!isVisible) return null;
 
   return (
     <div className="fixed inset-0 z-50 bg-white overflow-auto">

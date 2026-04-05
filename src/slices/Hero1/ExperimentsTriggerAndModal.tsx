@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 interface ExperimentItem {
   id: number;
@@ -121,11 +122,12 @@ export default function ExperimentsTriggerAndModal({
                         </p>
                       </video>
                     ) : (
-                      <img
+                      <Image
                         src={item.src}
                         alt={item.alt || item.caption || ""}
-                        className="w-full h-full object-cover transition-all duration-500 group-hover:brightness-110"
-                        loading="lazy"
+                        fill
+                        className="object-cover transition-all duration-500 group-hover:brightness-110"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                       />
                     )}
 

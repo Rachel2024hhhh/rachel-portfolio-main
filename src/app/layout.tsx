@@ -17,7 +17,7 @@ const robotoFlex = Roboto_Flex({
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const { idle } = useIdle(10000);
+  useIdle(10000);
 
   const [showAboutMe, setShowAboutMe] = useState(false);
   const [showContact, setShowContact] = useState(false);

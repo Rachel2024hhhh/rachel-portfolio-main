@@ -1,6 +1,5 @@
 import type { NextConfig } from "next";
 import path from "path";
-import fs from "fs";
 
 const nextConfig: NextConfig = {
   turbopack: {
@@ -9,7 +8,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  webpack: (config, { isServer }) => {
+  webpack: (config) => {
     config.experiments = {
       ...config.experiments,
       asyncWebAssembly: true,

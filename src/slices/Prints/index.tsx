@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo, useRef, Suspense } from "react";
+import React, { useState, useEffect, useRef, Suspense, useCallback } from "react";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import Image from "next/image";
@@ -18,8 +18,6 @@ interface PrintMatterProps extends Partial<SliceComponentProps<Content.PrintsSli
 }
 
 const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
-  if (!isVisible) return null;
-
   const [showProcessLayer, setShowProcessLayer] = useState(false);
   const [showProcessMotion, setShowProcessMotion] = useState(false);
   const [showProcessMute, setShowProcessMute] = useState(false);
@@ -49,14 +47,14 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
-  const handleBookClick = () => {
+  const handleBookClick = useCallback(() => {
     if (!isAnimating) {
       setIsAnimating(true);
       setIsPaused(false);
     } else {
       setIsPaused((prev) => !prev);
     }
-  };
+  }, [isAnimating]);
 
   useEffect(() => {
     if (!isAnimating || isPaused) return;
@@ -67,14 +65,6 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
 
     return () => clearInterval(interval);
   }, [isAnimating, isPaused, allImages]);
-
-  useEffect(() => {
-    if (!isVisible) {
-      setIsAnimating(false);
-      setIsPaused(false);
-      setCurrentIndex(0);
-    }
-  }, [isVisible]);
 
   // --- Tabs / Scroll + Active Section ---
   const motionRef = useRef<HTMLDivElement>(null);
@@ -118,6 +108,8 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
   };
 
   useEffect(() => {
+    if (!isVisible) return;
+
     let rafId: number | null = null;
 
     const onScroll = () => {
@@ -135,7 +127,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
       window.removeEventListener("resize", findCurrentTabSelector);
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [isVisible]);
 
   // --- Keyboard controls ---
   useEffect(() => {
@@ -153,7 +145,9 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
 
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [isVisible, onClose]);
+  }, [isVisible, onClose, handleBookClick]);
+
+  if (!isVisible) return null;
 
   return (
     <div className="fixed inset-0 z-50 bg-white overflow-auto overflow-x-hidden">
@@ -295,12 +289,14 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
                         aria-label="Start / pause / resume book page flip animation"
                       >
                         <div className="relative w-full h-full flex items-center justify-center">
-                          <img
-                            key={currentIndex}
+                          <Image
                             src={allImages[currentIndex]}
                             alt={`Motion of Departure – page ${currentIndex + 1} of ${allImages.length}`}
-                            className="w-full h-full object-contain"
-                            loading="eager"
+                            fill
+                            className="object-contain"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            priority
+                            unoptimized
                           />
                         </div>
 

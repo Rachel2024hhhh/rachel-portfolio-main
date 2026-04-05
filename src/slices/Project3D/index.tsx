@@ -3,9 +3,10 @@
 import React, { useState, useRef, useMemo, Suspense, useEffect, useCallback } from "react";
 import Image from "next/image";
 import ProjectDivider from "../../components/ProjectDivider";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, useGLTF, Bounds, Html } from "@react-three/drei";
+import { Canvas, useLoader } from "@react-three/fiber";
+import { OrbitControls, Environment, Bounds, Html } from "@react-three/drei";
 import SideMenu, { MenuItem } from "../../components/SideMenu";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 // --- TYPES ---
 interface Building {
@@ -28,7 +29,7 @@ const buildings: Building[] = [
         </p>
         <h2 className="text-xl font-semibold mb-1">Design Approach</h2>
         <p className="mb-4">
-          The building's modular floors allow rotation and adaptability, responding to sunlight and natural airflow. Its stacked organic layout rejects rigid grids, creating a flexible structure that interacts dynamically with its environment.
+          The building&apos;s modular floors allow rotation and adaptability, responding to sunlight and natural airflow. Its stacked organic layout rejects rigid grids, creating a flexible structure that interacts dynamically with its environment.
         </p>
       </>
     ),
@@ -89,28 +90,14 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return arr;
 };
 
-// --- MODEL COMPONENT WITH PROPER GLB LOADING ---
+// --- TREE MODEL COMPONENT ---
 const TreeModel: React.FC<{
   scale?: [number, number, number];
   position?: [number, number, number];
 }> = ({ scale = [0.04, 0.04, 0.04], position = [0, 3, 1] }) => {
-  try {
-    const { scene } = useGLTF("/models/tree.glb");
-    return <primitive object={scene} scale={scale} position={position} />;
-  } catch (error) {
-    console.error("Failed to load tree model:", error);
-    return (
-      <Html center>
-        <div className="text-white text-center">
-          <p className="text-sm">Model failed to load</p>
-        </div>
-      </Html>
-    );
-  }
+  const gltf = useLoader(GLTFLoader, "/models/tree.glb");
+  return <primitive object={gltf.scene} scale={scale} position={position} />;
 };
-
-// Preload the model
-useGLTF.preload("/models/tree.glb");
 
 interface MergedComponentProps {
   isVisible: boolean;
@@ -118,14 +105,10 @@ interface MergedComponentProps {
 }
 
 const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose }) => {
-  if (!isVisible) return null;
-
   const project1Ref = useRef<HTMLDivElement>(null);
   const project2Ref = useRef<HTMLDivElement>(null);
-  const orbitControlsRef = useRef<any>(null);
 
   const [activeBuilding, setActiveBuilding] = useState<Building | null>(null);
-  const [mounted, setMounted] = useState(false);
   const [showProcess1, setShowProcess1] = useState(false);
   const [showProcess2, setShowProcess2] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -133,10 +116,6 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
   const [lightboxVideo, setLightboxVideo] = useState<string | null>(null);
 
   const tabContainerHeight = 70;
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const allGalleryImages = useMemo(
     () =>
@@ -178,6 +157,8 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
   }, []);
 
   useEffect(() => {
+    if (!isVisible) return;
+
     const handleScroll = () => {
       requestAnimationFrame(updateActiveTab);
     };
@@ -190,7 +171,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", updateActiveTab);
     };
-  }, [updateActiveTab]);
+  }, [isVisible, updateActiveTab]);
 
   const openVideoLightbox = useCallback((src: string) => {
     setLightboxVideo(src);
@@ -230,6 +211,8 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
     slides[targetIdx].classList.remove("opacity-0");
     slides[targetIdx].classList.add("opacity-100");
   }, []);
+
+  if (!isVisible) return null;
 
   return (
     <div className="fixed inset-0 z-50 bg-white overflow-auto">
@@ -313,44 +296,41 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
           {/* 3D Canvas + Text */}
           <div className="flex flex-col md:flex-row gap-6">
             <div className="md:w-1/2 w-full h-96 md:h-128 shadow-md overflow-hidden relative bg-gray-900">
-              {mounted && (
-                <Canvas
-                  camera={{ position: [0, 0, 5], fov: 45 }}
-                  gl={{ antialias: true, toneMappingExposure: 1 }}
-                  shadows
+              <Canvas
+                camera={{ position: [0, 0, 5], fov: 45 }}
+                gl={{ antialias: true, toneMappingExposure: 1 }}
+                shadows
+              >
+                <ambientLight intensity={0.7} />
+                <directionalLight position={[10, 10, 10]} intensity={1.2} castShadow />
+                <directionalLight position={[-10, 5, -5]} intensity={0.6} />
+
+                <Suspense
+                  fallback={
+                    <Html center>
+                      <div className="flex flex-col items-center gap-3">
+                        <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <p className="text-sm font-medium text-white">Loading model...</p>
+                      </div>
+                    </Html>
+                  }
                 >
-                  <ambientLight intensity={0.7} />
-                  <directionalLight position={[10, 10, 10]} intensity={1.2} castShadow />
-                  <directionalLight position={[-10, 5, -5]} intensity={0.6} />
+                  <Bounds clip observe margin={1.2}>
+                    <TreeModel />
+                  </Bounds>
+                </Suspense>
 
-                  <Suspense
-                    fallback={
-                      <Html center>
-                        <div className="flex flex-col items-center gap-3">
-                          <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          <p className="text-sm font-medium text-white">Loading model...</p>
-                        </div>
-                      </Html>
-                    }
-                  >
-                    <Bounds clip observe margin={1.2}>
-                      <TreeModel />
-                    </Bounds>
-                  </Suspense>
-
-                  <OrbitControls
-                    ref={orbitControlsRef}
-                    enablePan={false}
-                    minDistance={2}
-                    maxDistance={8}
-                    autoRotate
-                    autoRotateSpeed={0.3}
-                    enableDamping
-                    dampingFactor={0.05}
-                  />
-                  <Environment preset="sunset" background blur={0.6} />
-                </Canvas>
-              )}
+                <OrbitControls
+                  enablePan={false}
+                  minDistance={2}
+                  maxDistance={8}
+                  autoRotate
+                  autoRotateSpeed={0.3}
+                  enableDamping
+                  dampingFactor={0.05}
+                />
+                <Environment preset="sunset" background blur={0.6} />
+              </Canvas>
             </div>
 
             <div className="md:w-1/2 w-full bg-gray-100 p-6 flex flex-col gap-4">

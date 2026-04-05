@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
 
 interface AboutMe3DEffectProps {
@@ -12,6 +12,19 @@ const AboutMe3DEffect: React.FC<AboutMe3DEffectProps> = ({ onClose }) => {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const layersRef = useRef<HTMLDivElement[]>([]);
+
+  const handleClose = useCallback(() => {
+    setIsExpanded(false);
+    gsap.to(layersRef.current, {
+      scale: 1,
+      opacity: 1,
+      rotateY: 0,
+      translateZ: 0,
+      duration: 0.5,
+      ease: "power2.out"
+    });
+    onClose();
+  }, [onClose]);
 
   useEffect(() => {
     // Focus the close button when the modal opens
@@ -27,7 +40,7 @@ const AboutMe3DEffect: React.FC<AboutMe3DEffectProps> = ({ onClose }) => {
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [handleClose]);
 
   const handleImageClick = () => {
     if (isExpanded) return;
@@ -51,19 +64,6 @@ const AboutMe3DEffect: React.FC<AboutMe3DEffectProps> = ({ onClose }) => {
         ease: "power2.out"
       }, 0);
     });
-  };
-
-  const handleClose = () => {
-    setIsExpanded(false);
-    gsap.to(layersRef.current, {
-      scale: 1,
-      opacity: 1,
-      rotateY: 0,
-      translateZ: 0,
-      duration: 0.5,
-      ease: "power2.out"
-    });
-    onClose();
   };
 
   const handleBackdropClick = (event: React.MouseEvent) => {
