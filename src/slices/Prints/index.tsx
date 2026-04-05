@@ -167,13 +167,29 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
 
       {/* PROJECTS SECTION */}
 
-      <div className="p-10 max-w-7xl mx-auto">
+      <div className="p-10 max-w-7xl mx-auto relative text-center">
+        <aside className="pointer-events-none hidden xl:block absolute -left-20 top-24">
+          <p
+            className="editorial-kicker text-zinc-600"
+            style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+          >
+            Reading Line / Image Essay / 03
+          </p>
+        </aside>
+
+        <p className="pointer-events-none hidden 2xl:block absolute -right-22 top-52 text-xs uppercase tracking-[0.24em] text-zinc-400 rotate-12">
+          Typography in the Margins
+        </p>
+        <p className="pointer-events-none hidden 2xl:block absolute -left-24 bottom-34 text-xs uppercase tracking-[0.24em] text-zinc-400 -rotate-12">
+          A Study of Shapes and Color
+        </p>
 
         {/* MOTION OF DEPARTURE */}
         <div id="motion" ref={motionRef} className="mb-6 mt-12 flex flex-col gap-6">
-          <h1 className="text-[6vw] font-bold tracking-[0.02em] text-center break-word">
-            MOTION OF DEPARTURE
-          </h1>
+          <p className="magazine-kicker">Feature / Data and Human Story</p>
+          <h1 className="magazine-title break-word">MOTION OF DEPARTURE</h1>
+          <p className="magazine-byline">Visual Essay on Migration and Presence</p>
+          <div className="magazine-rule" aria-hidden="true" />
 
           {/* Cover Image */}
           <div className="relative w-full h-200 overflow-hidden group">
@@ -215,7 +231,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
               </h4>
             </div>
 
-            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed">
+            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed text-center magazine-body">
               <p>
                 This project addresses the human impact of large-scale <strong>migration</strong> by giving each individual their own space within a dataset. Migration is often reduced to aggregated numbers — millions of people flattened into flows, codes, and statistics — obscuring the <em>personal stories</em> behind each movement.
               </p>
@@ -322,7 +338,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
 
                     {/* Typing container removed — gap remains as per original layout */}
 
-                    <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed">
+                    <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed text-center">
                       <p>
                         For the process of Motion of Departure, I developed a <strong>custom script in InDesign</strong> This allowed me to explore how design and programming can work together to translate abstract migration data into a tangible narrative.
                       </p>
@@ -354,9 +370,10 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
 
         {/* LAYER BY LAYER */}
         <div id="layer" ref={layerRef} className="mb-6 mt-12 flex flex-col gap-6">
-          <h1 className="text-[6vw] font-bold tracking-[0.02em] whitespace-nowrap text-center">
-            LAYER BY LAYER
-          </h1>
+          <p className="magazine-kicker">Feature / Ritual and Photography</p>
+          <h1 className="magazine-title whitespace-nowrap">LAYER BY LAYER</h1>
+          <p className="magazine-byline">Image Sequence and Spiritual Materiality</p>
+          <div className="magazine-rule" aria-hidden="true" />
 
           <div className="w-full h-200 relative bg-gray-300 flex items-center justify-center">
             <Image
@@ -377,7 +394,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
               </h4>
             </div>
 
-            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed">
+            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed text-center magazine-body">
               <p>
                 As a visual artist growing up in the <strong>Caribbean</strong>, I was immersed in traditions where <em>spirituality</em> is rooted in nature and everyday life. Rituals, offerings, and symbolic connections to the elements taught me to see meaning in the ordinary — speaking to a tree, honoring the earth, or sensing unseen energies in daily actions.
               </p>
@@ -588,9 +605,10 @@ The home became both studio and source. Instead of searching for extraordinary m
 
         {/* MUTE & UNMUTE */}
         <div id="animations" ref={animationsRef} className="mb-6 mt-12 flex flex-col gap-6">
-          <h1 className="text-[6vw] font-bold tracking-[0.02em] whitespace-nowrap text-center">
-            MUTE & UNMUTE
-          </h1>
+          <p className="magazine-kicker">Feature / Sound and Typography</p>
+          <h1 className="magazine-title whitespace-nowrap">MUTE & UNMUTE</h1>
+          <p className="magazine-byline">Close-Up Study of Gesture, Sound, and Type</p>
+          <div className="magazine-rule" aria-hidden="true" />
 
           <div className="w-full h-200 relative flex items-center justify-center">
             <Image
@@ -609,7 +627,7 @@ The home became both studio and source. Instead of searching for extraordinary m
               <h4 className="text-gray-700 font-extralight">A Study in Close-Up</h4>
             </div>
 
-            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed">
+            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed text-center magazine-body">
               <p>
                 This project began with the randomly assigned word <strong>“Close-Up.”</strong>  
                 During a school visit to two exhibitions, we were asked to move through the space in <em>complete silence</em>, documenting our observations only through notes and sketches.
@@ -813,6 +831,13 @@ The home became both studio and source. Instead of searching for extraordinary m
         </div>
 
         <ProjectDivider />
+
+        <footer className="mt-14 border-t border-zinc-300 pt-6">
+          <p className="editorial-kicker text-zinc-700 mb-2">Editorial Footer</p>
+          <p className="text-sm text-zinc-700 leading-relaxed max-w-3xl mx-auto">
+            These works are edited as narrative spreads, where typography, sequencing, and pacing carry the same weight as images and final outcomes.
+          </p>
+        </footer>
       </div>
     </div>
   );

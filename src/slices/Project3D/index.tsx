@@ -238,14 +238,33 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
         onTabClick={onTabClick}
       />
 
-      <div className="p-10 max-w-7xl mx-auto">
+      <div className="p-10 max-w-7xl mx-auto relative text-center">
+        <aside className="pointer-events-none hidden xl:block absolute -left-20 top-24">
+          <p
+            className="editorial-kicker text-zinc-600"
+            style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+          >
+            Editorial Index / Spatial Experiments / 02
+          </p>
+        </aside>
+
+        <p className="pointer-events-none hidden 2xl:block absolute -right-22 top-52 text-xs uppercase tracking-[0.24em] text-zinc-400 rotate-12">
+          Architecture as Soft Sculpture
+        </p>
+        <p className="pointer-events-none hidden 2xl:block absolute -left-24 bottom-36 text-xs uppercase tracking-[0.24em] text-zinc-400 -rotate-12">
+          Field Notes / Form Studies
+        </p>
+
         {/* ========== PROJECT 1: GROWING HABITATS ========== */}
         <div
           id="project1"
           ref={project1Ref}
           className="mb-6 mt-12 flex flex-col gap-6 relative"
         >
-          <h1 className="text-[6vw] font-bold tracking-[0.02em] text-center">Growing Habitats</h1>
+          <p className="magazine-kicker">Feature / Bio-Architectural Studies</p>
+          <h1 className="magazine-title">Growing Habitats</h1>
+          <p className="magazine-byline">Research, 3D Forms, and Process Notes</p>
+          <div className="magazine-rule" aria-hidden="true" />
 
           {/* Gallery Slider */}
           <div className="gallery-slider relative w-full h-96 overflow-hidden bg-zinc-200 shadow-md">
@@ -339,7 +358,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
               </Canvas>
             </div>
 
-            <div className="md:w-1/2 w-full bg-zinc-100 p-6 flex flex-col gap-4 text-gray-800 leading-relaxed">
+            <div className="md:w-1/2 w-full bg-zinc-100 p-6 flex flex-col gap-4 text-gray-800 leading-relaxed text-center magazine-body">
               <h2 className="text-2xl font-bold">Growing Habitats</h2>
               <p className="font-medium">3D Explorations of Nature and Architecture</p>
               <p>
@@ -399,7 +418,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
               <div className="bg-zinc-100 p-8 flex flex-col gap-8 transition-transform duration-700 ease-in-out">
                 <div className="max-w-3xl">
                   <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
-                  <div className="space-y-4 text-gray-700">
+                  <div className="space-y-4 text-gray-700 text-center">
                     <p className="leading-relaxed">
                       The process began with exploring different landscapes, observing how{" "}
                       <strong>nature grows within human-made environments</strong>.
@@ -441,7 +460,10 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
 
         {/* ========== PROJECT 2: e-flux POSTERS ========== */}
         <div id="project2" ref={project2Ref} className="mb-6 mt-12 flex flex-col gap-6">
-          <h1 className="text-[6vw] font-bold tracking-[0.02em] text-center">e-flux Posters</h1>
+          <p className="magazine-kicker">Feature / Motion Posters</p>
+          <h1 className="magazine-title">e-flux Posters</h1>
+          <p className="magazine-byline">Graphic Rhythm and Visual Timing</p>
+          <div className="magazine-rule" aria-hidden="true" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
             {["/videos/eflux/1.mp4", "/videos/eflux/2.mp4", "/videos/eflux/3.mp4"].map(
@@ -483,7 +505,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
               }`}
             >
               <div className="bg-zinc-100 p-8 flex flex-col gap-8 transition-transform duration-700 ease-in-out">
-                <div className="max-w-3xl">
+                <div className="max-w-3xl mx-auto">
                   <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
                   <p className="text-gray-700 leading-relaxed">
                     Process details for e-flux Posters will go here.
@@ -495,6 +517,13 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
 
           <ProjectDivider />
         </div>
+
+        <footer className="mt-14 border-t border-zinc-300 pt-6">
+          <p className="editorial-kicker text-zinc-700 mb-2">Editorial Footer</p>
+          <p className="text-sm text-zinc-700 leading-relaxed max-w-3xl mx-auto">
+            This page reads as a design journal: concept framing, visual evidence, and process reveal are arranged as chapters rather than isolated project cards.
+          </p>
+        </footer>
       </div>
 
       {/* Active Building Modal */}

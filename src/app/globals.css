@@ -18,6 +18,82 @@
 }
 
 /* -------------------------------
+   Global Typographic Presence
+---------------------------------*/
+body {
+  letter-spacing: 0.002em;
+  font-weight: 420;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 650;
+  letter-spacing: 0.012em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+p,
+li {
+  font-weight: 430;
+  line-height: 1.72;
+  text-wrap: pretty;
+}
+
+.editorial-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.magazine-kicker {
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 620;
+  color: #52525b;
+}
+
+.magazine-title {
+  font-size: clamp(2.2rem, 7vw, 6.2rem);
+  letter-spacing: 0.06em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.magazine-dek {
+  max-width: 64ch;
+  margin-inline: auto;
+  font-size: clamp(0.98rem, 1.6vw, 1.2rem);
+  line-height: 1.7;
+  color: #3f3f46;
+}
+
+.magazine-byline {
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #71717a;
+}
+
+.magazine-rule {
+  width: min(22rem, 65%);
+  margin: 1rem auto 0;
+  border-top: 1px solid #a1a1aa;
+}
+
+.magazine-body {
+  max-width: 72ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* -------------------------------
    Hero Typography
 ---------------------------------*/
 .hero-type-lockup {
@@ -306,6 +382,26 @@ body[data-theme="dark"] {
   --color-accent-dark-hover: #7af3ff;
 }
 
+body[data-theme="dark"] h1,
+body[data-theme="dark"] h2,
+body[data-theme="dark"] h3,
+body[data-theme="dark"] h4 {
+  letter-spacing: 0.014em;
+}
+
+body[data-theme="dark"] .magazine-kicker,
+body[data-theme="dark"] .magazine-byline {
+  color: #a1a1aa;
+}
+
+body[data-theme="dark"] .magazine-dek {
+  color: #d4d4d8;
+}
+
+body[data-theme="dark"] .magazine-rule {
+  border-top-color: #3f3f46;
+}
+
 body[data-theme="dark"] .bg-white {
   background-color: #0b0b0c !important;
 }
@@ -346,6 +442,10 @@ body[data-theme="dark"] h2,
 body[data-theme="dark"] h3,
 body[data-theme="dark"] h4 {
   color: #ececec;
+}
+
+body[data-theme="dark"] .tag-line-gradient {
+  color: var(--color-accent-dark);
 }
 
 body[data-theme="dark"] a {

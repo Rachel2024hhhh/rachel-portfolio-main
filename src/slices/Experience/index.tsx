@@ -166,12 +166,31 @@ const WorkExperience: FC<WorkExperienceProps> = ({ isVisible = true, onClose }) 
         onTabClick={onTabClick}
       />
 
-      <div className="p-10 max-w-7xl mx-auto space-y-8">
-        <header className="space-y-5 border-b border-zinc-200 pb-8 mt-10">
-          <h1 className="text-[6vw] font-bold tracking-[0.02em] text-center uppercase">Practice Space</h1>
-          <p className="text-center text-zinc-600 text-sm md:text-base">
+      <div className="p-10 max-w-7xl mx-auto space-y-8 relative text-center">
+        <aside className="pointer-events-none hidden xl:block absolute -left-20 top-24">
+          <p
+            className="editorial-kicker text-zinc-600"
+            style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+          >
+            Studio Notes / Work Archive / 01
+          </p>
+        </aside>
+
+        <p className="pointer-events-none hidden 2xl:block absolute -right-22 top-44 text-xs uppercase tracking-[0.24em] text-zinc-400 rotate-12">
+          A Study of Shapes and Color
+        </p>
+        <p className="pointer-events-none hidden 2xl:block absolute -left-26 bottom-28 text-xs uppercase tracking-[0.24em] text-zinc-400 -rotate-12">
+          Material Notes in Motion
+        </p>
+
+        <header className="space-y-4 border-b border-zinc-200 pb-8 mt-10">
+          <p className="magazine-kicker">Issue 01 / Practice Archive</p>
+          <h1 className="magazine-title">Practice Space</h1>
+          <p className="magazine-dek">
             This section is still in development, so not all content is updated yet.
           </p>
+          <p className="magazine-byline">Edited by Misrizos Studio</p>
+          <div className="magazine-rule" aria-hidden="true" />
         </header>
 
         <section id="experience-roles" ref={rolesRef} className="space-y-6 mb-6 mt-12 flex flex-col gap-6">
@@ -180,13 +199,13 @@ const WorkExperience: FC<WorkExperienceProps> = ({ isVisible = true, onClose }) 
           {experienceItems.map((item) => (
             <article key={item.title} className="bg-zinc-100 border border-zinc-200 p-7 md:p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-start">
-                <div className="text-zinc-800 leading-relaxed">
+                <div className="text-zinc-800 leading-relaxed text-center magazine-body">
                   {item.focus && <p className="text-xs uppercase tracking-[0.14em] text-zinc-500 mb-2">{item.focus}</p>}
                   <h3 className="text-2xl font-bold mb-1">{item.title}</h3>
                   <p className="text-zinc-600">{item.place}</p>
                   {item.period && <p className="text-zinc-600 mb-3">{item.period}</p>}
 
-                  <div className="mt-2 flex flex-wrap gap-4">
+                  <div className="mt-2 flex flex-wrap justify-center gap-4">
                     {item.externalLink && (
                       <a
                         href={item.externalLink}
@@ -210,7 +229,7 @@ const WorkExperience: FC<WorkExperienceProps> = ({ isVisible = true, onClose }) 
                     ))}
                   </div>
 
-                  <ul className="list-disc list-inside space-y-2 mt-3">
+                  <ul className="list-disc list-inside space-y-2 mt-3 text-center">
                     {item.bullets.map((bullet) => (
                       <li key={bullet}>{bullet}</li>
                     ))}
@@ -245,7 +264,7 @@ const WorkExperience: FC<WorkExperienceProps> = ({ isVisible = true, onClose }) 
         <section id="experience-learning" ref={learningRef} className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
           <div className="bg-zinc-50 p-6 border border-zinc-200">
             <h2 className="text-xl font-bold mb-4">Learning Path</h2>
-            <div className="space-y-4 text-zinc-800 leading-relaxed">
+            <div className="space-y-4 text-zinc-800 leading-relaxed text-center">
               <div>
                 <h3 className="font-semibold">Bachelor - Graphic Design (BDes)</h3>
                 <p className="text-zinc-600">ArtEZ University of the Arts, Arnhem</p>
@@ -267,7 +286,7 @@ const WorkExperience: FC<WorkExperienceProps> = ({ isVisible = true, onClose }) 
           <div id="experience-tools" ref={toolsRef} className="space-y-6">
             <div className="bg-zinc-50 p-6 border border-zinc-200">
               <h2 className="text-xl font-bold mb-4">Tools in Use</h2>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-zinc-800">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-zinc-800 justify-items-center">
                 <li>Adobe Creative Cloud</li>
                 <li>Blender</li>
                 <li>Nomad Sculpt</li>
@@ -279,7 +298,7 @@ const WorkExperience: FC<WorkExperienceProps> = ({ isVisible = true, onClose }) 
 
             <div className="bg-zinc-50 p-6 border border-zinc-200">
               <h2 className="text-xl font-bold mb-4">Working Approach</h2>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-zinc-800">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-zinc-800 justify-items-center">
                 <li>Attention to detail</li>
                 <li>Visual awareness</li>
                 <li>Team collaboration</li>
@@ -289,6 +308,13 @@ const WorkExperience: FC<WorkExperienceProps> = ({ isVisible = true, onClose }) 
             </div>
           </div>
         </section>
+
+        <footer className="mt-14 border-t border-zinc-300 pt-6">
+          <p className="editorial-kicker text-zinc-700 mb-2">Editorial Footer</p>
+          <p className="text-sm text-zinc-700 leading-relaxed max-w-3xl mx-auto">
+            This section is structured as a living archive: each role is presented as field notes, process context, and references instead of a traditional CV timeline.
+          </p>
+        </footer>
       </div>
     </div>
   );
