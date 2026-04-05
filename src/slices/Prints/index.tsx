@@ -152,7 +152,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 bg-white overflow-auto overflow-x-hidden">
       <button
-        className="fixed top-4 right-4 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
+        className="fixed top-5 right-5 md:top-6 md:right-6 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
         onClick={onClose}
         aria-label="Close project view"
       >

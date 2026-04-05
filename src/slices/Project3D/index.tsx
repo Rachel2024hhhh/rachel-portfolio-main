@@ -224,7 +224,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
     <div className="fixed inset-0 z-50 bg-white overflow-auto">
       {/* Close Button */}
       <button
-        className="fixed top-4 right-4 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
+        className="fixed top-5 right-5 md:top-6 md:right-6 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
         onClick={onClose}
         aria-label="Close modal"
       >
@@ -502,7 +502,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
         <div className="fixed inset-0 z-40 bg-black/90 flex items-center justify-center p-4 overflow-auto">
           <div className="bg-white w-full max-w-6xl p-8 relative">
             <button
-              className="absolute top-4 right-4 text-3xl font-bold hover:text-[#ff2f00] transition-colors"
+              className="absolute top-5 right-5 text-3xl font-bold leading-none hover:text-[#ff2f00] transition-colors"
               onClick={() => setActiveBuilding(null)}
               aria-label="Close modal"
             >

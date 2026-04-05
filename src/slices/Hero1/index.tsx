@@ -139,7 +139,7 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
       {showPrints && <PrintMatter isVisible={showPrints} onClose={() => setShowPrints(false)} />}
       {showProject3D && <Project3D isVisible={showProject3D} onClose={() => setShowProject3D(false)} />}
       {showMaterial && <MaterialbasedModal isVisible={showMaterial} onClose={() => setShowMaterial(false)} />}
-      {showExperience && <WorkExperience />}
+      {showExperience && <WorkExperience onClose={() => setShowExperience(false)} />}
 
       <div className="h-screen" />
     </>

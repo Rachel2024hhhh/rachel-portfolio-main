@@ -42,7 +42,7 @@ const AboutMe3DEffect: React.FC<AboutMe3DEffectProps> = ({ onClose }) => {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [handleClose]);
 
-  const handleImageClick = () => {
+  const handleImageClick = useCallback(() => {
     if (isExpanded) return;
     setIsExpanded(true);
 
@@ -64,7 +64,17 @@ const AboutMe3DEffect: React.FC<AboutMe3DEffectProps> = ({ onClose }) => {
         ease: "power2.out"
       }, 0);
     });
-  };
+  }, [isExpanded]);
+
+  useEffect(() => {
+    if (isExpanded) return;
+
+    const timeout = window.setTimeout(() => {
+      handleImageClick();
+    }, 3000);
+
+    return () => window.clearTimeout(timeout);
+  }, [isExpanded, handleImageClick]);
 
   const handleBackdropClick = (event: React.MouseEvent) => {
     if (event.target === event.currentTarget) {
@@ -77,26 +87,27 @@ const AboutMe3DEffect: React.FC<AboutMe3DEffectProps> = ({ onClose }) => {
       className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={handleBackdropClick}
     >
-      <div className="relative bg-black/50 backdrop-blur-lg border border-white/20 p-12 flex flex-col gap-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="relative bg-black/50 backdrop-blur-lg border border-white/20 p-8 md:p-12 flex flex-col gap-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         {/* Close button */}
         <button
           ref={closeButtonRef}
           onClick={handleClose}
-          className="absolute top-4 right-4 text-white text-2xl font-bold hover:text-[#ff2f00] transition-colors z-50 focus:outline-none focus:ring-2 focus:ring-white/50"
+          className="absolute top-5 right-5 md:top-6 md:right-6 text-white text-2xl font-bold leading-none hover:text-[#ff2f00] transition-colors z-50 focus:outline-none focus:ring-2 focus:ring-white/50"
           aria-label="Close modal"
         >
           ✕
         </button>
 
-        {/* Title */}
-        <h2 className="text-white text-3xl font-bold">About Me</h2>
+        <div className="space-y-2">
+          <p className="text-white/60 text-xs uppercase tracking-[0.2em]">Artist Statement</p>
+          <h2 className="text-white text-3xl md:text-4xl font-bold">About Me</h2>
+        </div>
 
         {/* Image Container */}
         <div
           ref={containerRef}
-          className="image-container relative w-64 h-64 md:w-80 md:h-80 mx-auto cursor-pointer"
+          className="image-container relative w-64 h-64 md:w-80 md:h-80 mx-auto"
           style={{ perspective: "1000px" }}
-          onClick={handleImageClick}
         >
           {Array.from({ length: 5 }, (_, index) => (
             <div
@@ -115,12 +126,54 @@ const AboutMe3DEffect: React.FC<AboutMe3DEffectProps> = ({ onClose }) => {
         </div>
 
         {/* Description */}
-<p className="text-white/80 text-lg">
-  I am a visual artist and designer exploring ways to make work that is present, interactive, and accessible. I enjoy building experiences from scratch, experimenting with form, space, and interactivity, and seeing how people encounter them.
-</p>
-<p className="text-white/80 text-lg">
-  I care about design that communicates honestly, helping people understand what’s happening around them instead of adding noise or distraction. My practice moves between physical installations, sculptural experiments, and digital 3D work, translating the hands-on curiosity I’ve always had into experiences that invite engagement and reflection. I strive to create work that is meaningful, thoughtful, and accessible to everyone.
-</p>
+        <div className="space-y-4 text-white/85 text-base md:text-lg leading-relaxed">
+          <p>
+            I am a visual artist and designer exploring ways to make work that feels present, interactive,
+            and accessible. I enjoy building experiences from scratch, experimenting with form, space, and
+            interaction, and observing how people encounter them.
+          </p>
+          <p>
+            My practice moves between physical installations, sculptural experiments, and digital 3D work.
+            I care about communication that is clear and honest, helping people understand what is around
+            them without adding noise.
+          </p>
+          <p>
+            I strive to make work that balances curiosity and structure: thoughtful in process, human in
+            tone, and open to different audiences.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-white/80">
+          <div className="border border-white/15 px-4 py-3">
+            <p className="text-white/55 uppercase tracking-[0.12em] text-xs mb-1">Practice</p>
+            <p>Installation, 3D, Editorial</p>
+          </div>
+          <div className="border border-white/15 px-4 py-3">
+            <p className="text-white/55 uppercase tracking-[0.12em] text-xs mb-1">Based In</p>
+            <p>Netherlands</p>
+          </div>
+          <div className="border border-white/15 px-4 py-3">
+            <p className="text-white/55 uppercase tracking-[0.12em] text-xs mb-1">Open To</p>
+            <p>Collaborations & Commissions</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+          <a
+            href="mailto:misrizos.2023@gmail.com"
+            className="px-5 py-3 border border-white/30 text-white uppercase text-xs tracking-[0.14em] font-medium hover:bg-white hover:text-black transition-colors text-center"
+          >
+            Email Me
+          </a>
+          <a
+            href="https://instagram.com/misrizosdesign"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-3 border border-white/30 text-white uppercase text-xs tracking-[0.14em] font-medium hover:bg-white hover:text-black transition-colors text-center"
+          >
+            Instagram
+          </a>
+        </div>
       </div>
     </div>
   );
