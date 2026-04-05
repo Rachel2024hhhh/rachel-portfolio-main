@@ -98,7 +98,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
     <div className="fixed inset-0 z-50 bg-white overflow-auto">
       {/* CLOSE BUTTON */}
       <button
-        className="absolute top-4 right-4 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
+        className="fixed top-4 right-4 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
         onClick={onClose}
       >
         Close
@@ -121,7 +121,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
           ref={section1Ref}
           className="mb-6 mt-12 flex flex-col gap-6"
         >
-          <h1 className="text-[6vw] font-bold tracking-wide text-center">
+          <h1 className="text-[6vw] font-bold tracking-[0.02em] text-center">
             Urban Syntax
           </h1>
 
@@ -132,7 +132,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
                 src="/images/traffic/main/1.webp"
                 alt="Urban Syntax main image 1"
                 fill
-                className="object-cover transition-transform duration-500 hover:scale-105 cursor-pointer"
+                className="object-cover transition-transform duration-500 ease-out hover:scale-[1.03] cursor-pointer"
                 onClick={() => openLightbox("/images/traffic/main/1.webp")}
                 sizes="(max-width: 768px) 100vw, 50vw"
                 priority
@@ -143,7 +143,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
                 src="/images/traffic/main/2.webp"
                 alt="Urban Syntax main image 2"
                 fill
-                className="object-cover transition-transform duration-500 hover:scale-105 cursor-pointer"
+                className="object-cover transition-transform duration-500 ease-out hover:scale-[1.03] cursor-pointer"
                 onClick={() => openLightbox("/images/traffic/main/2.webp")}
                 sizes="(max-width: 768px) 100vw, 50vw"
                 priority
@@ -153,7 +153,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
 
           {/* Two-column description */}
           <div className="flex flex-col md:flex-row gap-6 mt-6">
-            <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
+            <div className="md:w-1/2 w-full bg-zinc-50 p-6 flex flex-col items-center justify-center gap-2">
               <h2 className="text-2xl font-bold">Urban Syntax</h2>
               <h3 className="text-xl font-medium">Installation</h3>
               <h4 className="text-gray-700 font-extralight">
@@ -161,7 +161,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
               </h4>
             </div>
 
-            <div className="md:w-1/2 w-full bg-gray-100 p-6">
+            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed">
               <p>
                 This project began as an observation of my daily commute. Traveling constantly from station to station in the Netherlands, I noticed how much of my attention was drawn to <strong>traffic signs, signals, and forms</strong> along the way.  
                 On my way to school, I often found myself checking the sides of the street, noticing shapes, colors, and structures that usually go unseen.
@@ -190,10 +190,10 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
 
             <div
               className={`transition-all duration-700 ease-in-out overflow-hidden ${
-                showProcess1 ? "max-h-500 opacity-100 mt-8" : "max-h-0 opacity-0"
+                showProcess1 ? "max-h-500 opacity-100 mt-8 translate-y-0" : "max-h-0 opacity-0 -translate-y-2"
               }`}
             >
-              <div className="bg-gray-100 p-8 flex flex-col gap-8">
+              <div className="bg-zinc-100 p-8 flex flex-col gap-8 transition-transform duration-700 ease-in-out">
                 <div className="max-w-3xl">
                   <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
                   <p className="text-gray-700 leading-relaxed">
@@ -219,14 +219,14 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
                   ].map((src, i) => (
                     <div 
                       key={i} 
-                      className="relative overflow-hidden shadow-sm cursor-pointer bg-gray-50"
+                      className="relative overflow-hidden shadow-sm cursor-pointer bg-zinc-50"
                     >
                       <Image
                         src={src}
                         alt={`Process image ${i + 1}`}
                         width={800}
                         height={1200}
-                        className="w-full h-auto object-cover transition-transform duration-500 hover:scale-105"
+                        className="w-full h-auto object-cover transition-transform duration-500 ease-out hover:scale-[1.03]"
                         onClick={() => openLightbox(src)}
                         sizes="(max-width: 768px) 100vw, 33vw"
                       />
@@ -247,7 +247,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
           ref={section2Ref}
           className="mb-6 mt-12 flex flex-col gap-6"
         >
-          <h1 className="text-[6vw] font-bold tracking-wide text-center">
+          <h1 className="text-[6vw] font-bold tracking-[0.02em] text-center">
             Earth in the Ocean
           </h1>
 
@@ -311,7 +311,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
                   src={src}
                   alt={`Earth in the Ocean gallery piece ${i + 1}`}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
                 />
               </div>
@@ -320,7 +320,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
 
           {/* Two-column description */}
           <div className="flex flex-col md:flex-row gap-6 mt-6">
-            <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
+            <div className="md:w-1/2 w-full bg-zinc-50 p-6 flex flex-col items-center justify-center gap-2">
               <h2 className="text-2xl font-bold">Earth in the Ocean</h2>
               <h3 className="text-xl font-medium">Ceramics Project</h3>
               <h4 className="text-gray-700 font-extralight">
@@ -328,7 +328,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
               </h4>
             </div>
 
-            <div className="md:w-1/2 w-full bg-gray-100 p-6">
+            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed">
               <p>
                 This project emerged from my personal <strong>necessity of creating, sculpting, and layering</strong>. I love the process of building something from nothing starting from a basic element, then adding layers, shaping, and refining. Ceramics allows me to experience this process fully, translating the act of creation into a tangible form.
               </p>
@@ -358,10 +358,10 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
 
             <div
               className={`transition-all duration-700 ease-in-out overflow-hidden ${
-                showProcess2 ? "max-h-500 opacity-100 mt-8" : "max-h-0 opacity-0"
+                showProcess2 ? "max-h-500 opacity-100 mt-8 translate-y-0" : "max-h-0 opacity-0 -translate-y-2"
               }`}
             >
-              <div className="bg-gray-100 p-8 flex flex-col gap-8">
+              <div className="bg-zinc-100 p-8 flex flex-col gap-8 transition-transform duration-700 ease-in-out">
                 <div className="max-w-3xl">
                   <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
 
@@ -388,13 +388,13 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
   ].map((src, i) => (
     <div 
       key={i} 
-      className="relative w-full aspect-4/5 overflow-hidden shadow-sm cursor-pointer bg-gray-50"
+      className="relative w-full aspect-4/5 overflow-hidden shadow-sm cursor-pointer bg-zinc-50"
     >
       <Image
         src={src}
         alt={`Earth in the Ocean process image ${i + 1}`}
         fill
-        className="object-cover transition-transform duration-500 hover:scale-105"
+        className="object-cover transition-transform duration-500 ease-out hover:scale-[1.03]"
         onClick={() => openLightbox(src)}
         sizes="(max-width: 768px) 100vw, 20vw"
       />

@@ -1,7 +1,7 @@
 
 "use client";
 
-import { FC, useRef, useState, useEffect } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { useFrame, ThreeEvent } from "@react-three/fiber";
 import { EdgesGeometry, LineSegments, LineBasicMaterial } from "three";
@@ -17,10 +17,107 @@ interface ShapeProps {
   rate?: number;
   scale?: number;
   material?: THREE.Material;
-  soundURL?: string;
+  interactiveHint?: boolean;
+  onInteract?: () => void;
 }
 
-const audioMap: Record<string, HTMLAudioElement> = {};
+type ShapeTone = {
+  oscillator: OscillatorType;
+  startFrequency: number;
+  endFrequency: number;
+  duration: number;
+  volume: number;
+};
+
+const shapeTones: Record<string, ShapeTone> = {
+  gem: {
+    oscillator: "triangle",
+    startFrequency: 880,
+    endFrequency: 1240,
+    duration: 0.18,
+    volume: 0.06,
+  },
+  donut: {
+    oscillator: "sine",
+    startFrequency: 240,
+    endFrequency: 180,
+    duration: 0.16,
+    volume: 0.08,
+  },
+  pillowSphere: {
+    oscillator: "sine",
+    startFrequency: 320,
+    endFrequency: 220,
+    duration: 0.22,
+    volume: 0.07,
+  },
+  diamond: {
+    oscillator: "square",
+    startFrequency: 640,
+    endFrequency: 960,
+    duration: 0.12,
+    volume: 0.045,
+  },
+};
+
+let sharedAudioContext: AudioContext | null = null;
+
+const getAudioContext = () => {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const audioWindow = window as typeof window & {
+    webkitAudioContext?: typeof AudioContext;
+  };
+  const AudioContextConstructor = audioWindow.AudioContext ?? audioWindow.webkitAudioContext;
+  if (!AudioContextConstructor) {
+    return null;
+  }
+
+  if (!sharedAudioContext) {
+    sharedAudioContext = new AudioContextConstructor();
+  }
+
+  return sharedAudioContext;
+};
+
+const playShapeTone = async (shapeName: string) => {
+  const tone = shapeTones[shapeName];
+  const audioContext = getAudioContext();
+
+  if (!tone || !audioContext) {
+    return;
+  }
+
+  if (audioContext.state === "suspended") {
+    await audioContext.resume();
+  }
+
+  const now = audioContext.currentTime;
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
+  const filterNode = audioContext.createBiquadFilter();
+
+  oscillator.type = tone.oscillator;
+  oscillator.frequency.setValueAtTime(tone.startFrequency, now);
+  oscillator.frequency.exponentialRampToValueAtTime(tone.endFrequency, now + tone.duration);
+
+  filterNode.type = "lowpass";
+  filterNode.frequency.setValueAtTime(2200, now);
+  filterNode.Q.setValueAtTime(0.8, now);
+
+  gainNode.gain.setValueAtTime(0.0001, now);
+  gainNode.gain.exponentialRampToValueAtTime(tone.volume, now + 0.02);
+  gainNode.gain.exponentialRampToValueAtTime(0.0001, now + tone.duration);
+
+  oscillator.connect(filterNode);
+  filterNode.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+
+  oscillator.start(now);
+  oscillator.stop(now + tone.duration + 0.02);
+};
 
 const gemEdgesMaterial = new LineBasicMaterial({
   color: 0xff5500,
@@ -36,7 +133,8 @@ const Shapes: FC<ShapeProps> = ({
   rate = 0.3, // base speed — only used for gem rotation
   scale: propScale,
   material: propMaterial,
-  soundURL,
+  interactiveHint = false,
+  onInteract,
 }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
@@ -63,9 +161,6 @@ const Shapes: FC<ShapeProps> = ({
           })
         : materials[0].clone())
   );
-
-  const [isPlaying, setIsPlaying] = useState(false);
-
   // Floating + breathing for all + rotation ONLY for gem
   useFrame((state, delta) => {
     if (!groupRef.current) return;
@@ -74,7 +169,8 @@ const Shapes: FC<ShapeProps> = ({
     if (!reduceMotion) {
       // Subtle breathing scale (all shapes)
       const breath = Math.sin(t * 0.6 + position[0]) * 0.04;
-      groupRef.current.scale.setScalar(1 + breath);
+      const hintPulse = interactiveHint ? (Math.sin(t * 1.8 + position[2] * 1.5) + 1) * 0.035 : 0;
+      groupRef.current.scale.setScalar(1 + breath + hintPulse);
 
       // Gentle position floating / drifting (all shapes)
       groupRef.current.position.y =
@@ -92,27 +188,9 @@ const Shapes: FC<ShapeProps> = ({
     }
   });
 
-  // Audio setup + cleanup
-  useEffect(() => {
-    if (!soundURL) return;
-    if (!audioMap[name]) {
-      const audio = new Audio(soundURL);
-      audio.volume = 0.7;
-      audioMap[name] = audio;
-      audio.addEventListener("ended", () => setIsPlaying(false));
-    }
-
-    return () => {
-      if (audioMap[name]) {
-        audioMap[name].pause();
-        audioMap[name].currentTime = 0;
-      }
-    };
-  }, [name, soundURL]);
-
-  // Click: quick random spin + sound toggle
-  const handlePointerDown = (e: ThreeEvent<PointerEvent>) => {
+  const handlePointerDown = async (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
+    onInteract?.();
 
     if (meshRef.current) {
       gsap.to(meshRef.current.rotation, {
@@ -129,17 +207,7 @@ const Shapes: FC<ShapeProps> = ({
       setCurrentMaterial(newMat);
     }
 
-    if (soundURL && audioMap[name]) {
-      const audio = audioMap[name];
-      if (isPlaying) {
-        audio.pause();
-        audio.currentTime = 0;
-      } else {
-        audio.currentTime = 0;
-        audio.play().catch(() => {});
-      }
-      setIsPlaying(!isPlaying);
-    }
+    await playShapeTone(name).catch(() => {});
   };
 
   // Hover: slight scale + cursor change

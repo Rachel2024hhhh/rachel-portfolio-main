@@ -152,7 +152,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 bg-white overflow-auto overflow-x-hidden">
       <button
-        className="absolute top-4 right-4 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
+        className="fixed top-4 right-4 px-6 py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-lg hover:text-[#ff2f00] transition-colors z-50"
         onClick={onClose}
         aria-label="Close project view"
       >
@@ -171,7 +171,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
 
         {/* MOTION OF DEPARTURE */}
         <div id="motion" ref={motionRef} className="mb-6 mt-12 flex flex-col gap-6">
-          <h1 className="text-[6vw] font-bold tracking-wide text-center break-word">
+          <h1 className="text-[6vw] font-bold tracking-[0.02em] text-center break-word">
             MOTION OF DEPARTURE
           </h1>
 
@@ -207,7 +207,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
           </div>
 
           <div className="flex flex-col md:flex-row gap-6 mt-6 overflow-x-hidden">
-            <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
+            <div className="md:w-1/2 w-full bg-zinc-50 p-6 flex flex-col items-center justify-center gap-2">
               <h2 className="text-2xl font-bold">Motion of Departure</h2>
               <h3 className="text-xl font-medium">Data Visualization Project</h3>
               <h4 className="text-gray-700 font-extralight">
@@ -215,7 +215,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
               </h4>
             </div>
 
-            <div className="md:w-1/2 w-full bg-gray-100 p-6">
+            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed">
               <p>
                 This project addresses the human impact of large-scale <strong>migration</strong> by giving each individual their own space within a dataset. Migration is often reduced to aggregated numbers — millions of people flattened into flows, codes, and statistics — obscuring the <em>personal stories</em> behind each movement.
               </p>
@@ -253,7 +253,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
                   src={src}
                   alt={`Motion of Departure – final detail ${idx + 1}`}
                   fill
-                  className="object-cover transition-transform duration-700 hover:scale-105"
+                  className="object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
@@ -272,10 +272,10 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
 
             <div
               className={`transition-all duration-700 ease-in-out overflow-hidden ${
-                showProcessMotion ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
+                showProcessMotion ? "max-h-screen opacity-100 mt-8 translate-y-0" : "max-h-0 opacity-0 -translate-y-2"
               }`}
             >
-              <div className="bg-gray-100 p-8 flex flex-col gap-8">
+              <div className="bg-zinc-100 p-8 flex flex-col gap-8 transition-transform duration-700 ease-in-out">
                 <div className="w-full max-w-full">
                   <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
 
@@ -322,7 +322,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
 
                     {/* Typing container removed — gap remains as per original layout */}
 
-                    <div className="md:w-1/2 w-full bg-gray-100 p-6">
+                    <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed">
                       <p>
                         For the process of Motion of Departure, I developed a <strong>custom script in InDesign</strong> This allowed me to explore how design and programming can work together to translate abstract migration data into a tangible narrative.
                       </p>
@@ -354,7 +354,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
 
         {/* LAYER BY LAYER */}
         <div id="layer" ref={layerRef} className="mb-6 mt-12 flex flex-col gap-6">
-          <h1 className="text-[6vw] font-bold tracking-wide whitespace-nowrap text-center">
+          <h1 className="text-[6vw] font-bold tracking-[0.02em] whitespace-nowrap text-center">
             LAYER BY LAYER
           </h1>
 
@@ -369,7 +369,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
           </div>
 
           <div className="flex flex-col md:flex-row gap-6">
-            <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
+            <div className="md:w-1/2 w-full bg-zinc-50 p-6 flex flex-col items-center justify-center gap-2">
               <h2 className="text-2xl font-bold">Layer by Layer</h2>
               <h3 className="text-xl font-medium">Photography Project</h3>
               <h4 className="text-gray-700 font-extralight">
@@ -377,7 +377,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
               </h4>
             </div>
 
-            <div className="md:w-1/2 w-full bg-gray-100 p-6">
+            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed">
               <p>
                 As a visual artist growing up in the <strong>Caribbean</strong>, I was immersed in traditions where <em>spirituality</em> is rooted in nature and everyday life. Rituals, offerings, and symbolic connections to the elements taught me to see meaning in the ordinary — speaking to a tree, honoring the earth, or sensing unseen energies in daily actions.
               </p>
@@ -411,7 +411,7 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
                   src={src}
                   alt={`Layer by Layer – final detail ${idx + 1}`}
                   fill
-                  className="object-cover transition-transform duration-700 hover:scale-105"
+                  className="object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
@@ -517,10 +517,10 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
 
             <div
               className={`transition-all duration-700 ease-in-out overflow-hidden ${
-                showProcessLayer ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
+                showProcessLayer ? "max-h-screen opacity-100 mt-8 translate-y-0" : "max-h-0 opacity-0 -translate-y-2"
               }`}
             >
-              <div className="bg-gray-100 p-8 flex flex-col gap-8">
+              <div className="bg-zinc-100 p-8 flex flex-col gap-8 transition-transform duration-700 ease-in-out">
                 <div className="max-w-3xl">
                   <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
 
@@ -588,7 +588,7 @@ The home became both studio and source. Instead of searching for extraordinary m
 
         {/* MUTE & UNMUTE */}
         <div id="animations" ref={animationsRef} className="mb-6 mt-12 flex flex-col gap-6">
-          <h1 className="text-[6vw] font-bold tracking-wide whitespace-nowrap text-center">
+          <h1 className="text-[6vw] font-bold tracking-[0.02em] whitespace-nowrap text-center">
             MUTE & UNMUTE
           </h1>
 
@@ -603,13 +603,13 @@ The home became both studio and source. Instead of searching for extraordinary m
           </div>
 
           <div className="flex flex-col md:flex-row gap-6">
-            <div className="md:w-1/2 w-full bg-gray-50 p-6 flex flex-col items-center justify-center gap-2">
+            <div className="md:w-1/2 w-full bg-zinc-50 p-6 flex flex-col items-center justify-center gap-2">
               <h2 className="text-2xl font-bold">Mute & Unmute</h2>
               <h3 className="text-xl font-medium">Photography and Typography</h3>
               <h4 className="text-gray-700 font-extralight">A Study in Close-Up</h4>
             </div>
 
-            <div className="md:w-1/2 w-full bg-gray-100 p-6">
+            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed">
               <p>
                 This project began with the randomly assigned word <strong>“Close-Up.”</strong>  
                 During a school visit to two exhibitions, we were asked to move through the space in <em>complete silence</em>, documenting our observations only through notes and sketches.
@@ -764,10 +764,10 @@ The home became both studio and source. Instead of searching for extraordinary m
 
             <div
               className={`transition-all duration-700 ease-in-out overflow-hidden ${
-                showProcessMute ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
+                showProcessMute ? "max-h-screen opacity-100 mt-8 translate-y-0" : "max-h-0 opacity-0 -translate-y-2"
               }`}
             >
-              <div className="bg-gray-100 p-8 flex flex-col gap-8">
+              <div className="bg-zinc-100 p-8 flex flex-col gap-8 transition-transform duration-700 ease-in-out">
                 <div className="max-w-3xl">
                   <h3 className="text-2xl font-bold mb-4">
                     Process & Development

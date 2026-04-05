@@ -44,9 +44,8 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
             </div>
 
             <div className="col-start-1 md:row-start-1 flex flex-col justify-center">
-              {/* IMPROVED TYPOGRAPHY HIERARCHY */}
-              <div className="mb-8 md:mb-12 space-y-2">
-                <h1 className="text-[clamp(3rem,24vmin,16rem)] leading-[0.9] tracking-tighter whitespace-nowrap font-bold">
+              <div className="hero-type-lockup mb-8 md:mb-12">
+                <h1 className="hero-display whitespace-nowrap font-bold">
                   <span className="block first-name-gold uppercase">
                     {slice.primary?.first_name ?? "First Name"}
                   </span>
@@ -55,13 +54,13 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
                   </span>
                 </h1>
 
-                <div className="space-y-3 pt-2">
-                  <p className="tag-line-gradient text-xl md:text-2xl tracking-[0.15em] uppercase font-semibold letter-spacing-wide">
+                <div className="hero-subcopy space-y-3 pt-3 md:pt-4">
+                  <p className="tag-line-gradient text-xl md:text-2xl uppercase font-semibold">
                     {slice.primary?.tag_line ?? "Your Tagline Here"}
                   </p>
 
-                  <p className="tag-line-description text-black font-normal text-base md:text-lg tracking-normal leading-relaxed italic max-w-md">
-                    {slice.primary.tag_line_description}
+                  <p className="tag-line-description text-black font-normal text-base md:text-lg italic">
+                    {slice.primary?.tag_line_description}
                   </p>
                 </div>
               </div>
@@ -70,11 +69,11 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
                 <ExperimentsTriggerAndModal
                   triggerClassName="
                     group
-                    inline-flex items-center 
+                    inline-flex items-center gap-2
                     text-black
-                    text-base md:text-lg font-medium uppercase tracking-[0.1em]
+                    text-sm md:text-base font-semibold uppercase tracking-[0.14em]
                     cursor-pointer
-                    transition-colors duration-300
+                    transition-colors duration-300 border-b border-black/30 pb-1
                     hover:text-[#ff2f00]
                     animate-[float_4s_ease-in-out_infinite]
                   "

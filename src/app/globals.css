@@ -20,39 +20,67 @@
 /* -------------------------------
    Hero Typography
 ---------------------------------*/
+.hero-type-lockup {
+  max-width: min(92vw, 42rem);
+}
+
+.hero-display {
+  font-size: clamp(3rem, 17vmin, 10.5rem);
+  line-height: 0.88;
+  letter-spacing: -0.022em;
+}
+
 .first-name-gold, .last-name-gold {
   font-family: var(--font-roboto);
-  font-weight: 600;
-  font-size: clamp(3rem, 20vmin, 9rem);
+  font-weight: 560;
   color: var(--color-text-primary);
-  letter-spacing: 0.01em;
-  text-shadow: 0 0 3px rgba(128,128,128,0.6), 0 0 6px rgba(128,128,128,0.4), 0 0 12px rgba(128,128,128,0.2);
-  max-width: 95vw;
+  letter-spacing: -0.018em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+  font-variation-settings: "opsz" 48, "wdth" 108;
+}
+
+.last-name-gold {
+  font-variation-settings: "opsz" 48, "wdth" 120;
 }
 
 .tag-line-gradient {
   font-family: var(--font-poppins);
-  font-weight: 600;
+  font-weight: 580;
   font-size: clamp(1.5rem, 6vmin, 2.5rem);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.12em;
   color: #ff2f00;
-  max-width: 90vw;
- 
-
-  
+  text-wrap: balance;
 }
 
 .tag-line-description {
-
-  max-width: 95vw; /* match the others */
+  max-width: 44ch;
   font-family: var(--font-poppins);
-  font-weight: 300;
-  font-size: clamp(1rem, 4vmin, 1.5rem);
-  letter-spacing: 0.003em;
+  font-weight: 360;
+  font-size: clamp(0.98rem, 2.2vmin, 1.22rem);
+  line-height: 1.62;
+  letter-spacing: 0.006em;
   color: var(--color-text-primary);
-  max-width: 85vw;
-  
+  text-wrap: pretty;
+}
 
+.hero-subcopy {
+  max-width: min(90vw, 42rem);
+}
+
+@media (max-width: 768px) {
+  .hero-display {
+    font-size: clamp(2.7rem, 15vw, 5.6rem);
+    letter-spacing: -0.012em;
+  }
+
+  .tag-line-gradient {
+    letter-spacing: 0.08em;
+  }
+
+  .tag-line-description {
+    max-width: 34ch;
+    line-height: 1.55;
+  }
 }
 /* -------------------------------
    Hero Buttons

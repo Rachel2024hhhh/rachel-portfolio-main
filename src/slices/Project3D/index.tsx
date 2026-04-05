@@ -3,10 +3,11 @@
 import React, { useState, useRef, useMemo, Suspense, useEffect, useCallback } from "react";
 import Image from "next/image";
 import ProjectDivider from "../../components/ProjectDivider";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, Environment, Bounds, Html } from "@react-three/drei";
 import SideMenu, { MenuItem } from "../../components/SideMenu";
-import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 
 // --- TYPES ---
 interface Building {
@@ -90,57 +91,18 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return arr;
 };
 
-// --- PROCEDURAL TREE COMPONENT (LIGHTWEIGHT) ---
-const ProceduralTree: React.FC<{
+// --- COMPRESSED TREE MODEL COMPONENT ---
+const TreeModel: React.FC<{
   scale?: [number, number, number];
   position?: [number, number, number];
-}> = ({ scale = [1.5, 2, 1.5], position = [0, 0, 0] }) => {
-  const meshRef = useRef<THREE.Group>(null);
+}> = ({ scale = [0.04, 0.04, 0.04], position = [0, 3, 1] }) => {
+  const gltf = useLoader(GLTFLoader, "/models/tree.glb", (loader) => {
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
+    loader.setDRACOLoader(dracoLoader);
+  });
 
-  useEffect(() => {
-    if (!meshRef.current) return;
-
-    // Create simple tree-like structure with cones
-    const group = new THREE.Group();
-
-    // Trunk
-    const trunkGeometry = new THREE.CylinderGeometry(0.3, 0.5, 1.5, 8);
-    const trunkMaterial = new THREE.MeshPhongMaterial({ color: 0x8B4513 });
-    const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
-    trunk.position.y = 0.75;
-    group.add(trunk);
-
-    // Foliage - multiple cones stacked
-    const foliageMaterial = new THREE.MeshPhongMaterial({ 
-      color: 0x228B22,
-      side: THREE.DoubleSide 
-    });
-
-    for (let i = 0; i < 3; i++) {
-      const coneGeometry = new THREE.ConeGeometry(1.2 - i * 0.25, 1.2, 8);
-      const cone = new THREE.Mesh(coneGeometry, foliageMaterial);
-      cone.position.y = 2 + i * 0.8;
-      cone.castShadow = true;
-      cone.receiveShadow = true;
-      group.add(cone);
-    }
-
-    meshRef.current.clear();
-    meshRef.current.add(group);
-
-    // Auto-rotate
-    const interval = setInterval(() => {
-      if (meshRef.current) {
-        meshRef.current.rotation.y += 0.01;
-      }
-    }, 50);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <group ref={meshRef} scale={scale} position={position} />
-  );
+  return <primitive object={gltf.scene} scale={scale} position={position} />;
 };
 
 interface MergedComponentProps {
@@ -283,10 +245,10 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
           ref={project1Ref}
           className="mb-6 mt-12 flex flex-col gap-6 relative"
         >
-          <h1 className="text-[6vw] font-bold tracking-wide text-center">Growing Habitats</h1>
+          <h1 className="text-[6vw] font-bold tracking-[0.02em] text-center">Growing Habitats</h1>
 
           {/* Gallery Slider */}
-          <div className="gallery-slider relative w-full h-96 overflow-hidden bg-gray-200 shadow-md">
+          <div className="gallery-slider relative w-full h-96 overflow-hidden bg-zinc-200 shadow-md">
             {Array.from({ length: 8 }, (_, i) => `/images/growinghabitats/book/${i + 1}.webp`).map(
               (src, i) => (
                 <div
@@ -296,7 +258,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                   }`}
                   data-index={i}
                 >
-                  <div className="absolute inset-0 bg-gray-300 flex items-center justify-center text-gray-600 text-xl font-medium z-0">
+                  <div className="absolute inset-0 bg-zinc-300 flex items-center justify-center text-gray-600 text-xl font-medium z-0">
                     Loading...
                   </div>
 
@@ -360,7 +322,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                   }
                 >
                   <Bounds clip observe margin={1.2}>
-                    <ProceduralTree />
+                    <TreeModel />
                   </Bounds>
                 </Suspense>
 
@@ -377,19 +339,19 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
               </Canvas>
             </div>
 
-            <div className="md:w-1/2 w-full bg-gray-100 p-6 flex flex-col gap-4">
+            <div className="md:w-1/2 w-full bg-zinc-100 p-6 flex flex-col gap-4 text-gray-800 leading-relaxed">
               <h2 className="text-2xl font-bold">Growing Habitats</h2>
               <p className="font-medium">3D Explorations of Nature and Architecture</p>
-              <p className="text-gray-700">
+              <p>
                 Growing Habitats is a 3D project that explores the intersection of{" "}
                 <strong>architecture and natural growth patterns</strong>. Inspired by the ways
                 plants, fungi, and animals build and interact with their environments.
               </p>
-              <p className="text-gray-700">
+              <p>
                 I focused on <strong>3D sculpting</strong> as a way to translate my need for
                 building, movement, and interactivity into space.
               </p>
-              <p className="text-gray-700">
+              <p>
                 Some pieces take cues from mushroom growth, bird nests, or the clustering of
                 snails, transforming observations into architectural forms.
               </p>
@@ -401,7 +363,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
             {allGalleryImages.map(({ img, building }, index) => (
               <div
                 key={`${building.name}-${index}`}
-                className="relative cursor-pointer overflow-hidden shadow-md bg-gray-100 group"
+                className="relative cursor-pointer overflow-hidden shadow-md bg-zinc-100 group"
                 onClick={() => setActiveBuilding(building)}
               >
                 <Image
@@ -409,7 +371,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                   alt={building.name}
                   width={500}
                   height={500}
-                  className="object-cover w-full h-60 transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover w-full h-60 transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   unoptimized
                 />
@@ -431,10 +393,10 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
 
             <div
               className={`transition-all duration-700 ease-in-out overflow-hidden ${
-                showProcess1 ? "max-h-screen opacity-100 mt-8" : "max-h-0 opacity-0"
+                showProcess1 ? "max-h-screen opacity-100 mt-8 translate-y-0" : "max-h-0 opacity-0 -translate-y-2"
               }`}
             >
-              <div className="bg-gray-100 p-8 flex flex-col gap-8">
+              <div className="bg-zinc-100 p-8 flex flex-col gap-8 transition-transform duration-700 ease-in-out">
                 <div className="max-w-3xl">
                   <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
                   <div className="space-y-4 text-gray-700">
@@ -479,7 +441,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
 
         {/* ========== PROJECT 2: e-flux POSTERS ========== */}
         <div id="project2" ref={project2Ref} className="mb-6 mt-12 flex flex-col gap-6">
-          <h1 className="text-[6vw] font-bold tracking-wide text-center">e-flux Posters</h1>
+          <h1 className="text-[6vw] font-bold tracking-[0.02em] text-center">e-flux Posters</h1>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
             {["/videos/eflux/1.mp4", "/videos/eflux/2.mp4", "/videos/eflux/3.mp4"].map(
@@ -491,7 +453,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                 >
                   <video
                     src={src}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                     autoPlay
                     loop
                     muted
@@ -517,10 +479,10 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
 
             <div
               className={`transition-all duration-700 ease-in-out overflow-hidden ${
-                showProcess2 ? "max-h-500 opacity-100 mt-8" : "max-h-0 opacity-0"
+                showProcess2 ? "max-h-500 opacity-100 mt-8 translate-y-0" : "max-h-0 opacity-0 -translate-y-2"
               }`}
             >
-              <div className="bg-gray-100 p-8 flex flex-col gap-8">
+              <div className="bg-zinc-100 p-8 flex flex-col gap-8 transition-transform duration-700 ease-in-out">
                 <div className="max-w-3xl">
                   <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
                   <p className="text-gray-700 leading-relaxed">
@@ -563,7 +525,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                     src={img}
                     alt={`${activeBuilding.name} ${i + 1}`}
                     fill
-                    className="object-cover transition-transform duration-500 hover:scale-105"
+                    className="object-cover transition-transform duration-500 ease-out hover:scale-[1.03]"
                     unoptimized
                   />
                 </div>
