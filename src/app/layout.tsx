@@ -74,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm px-6"
             onPointerDown={resetIdle}
           >
-            <div className="w-full max-w-3xl rounded-2xl border border-white/20 bg-white/8 p-8 md:p-12 text-center text-white shadow-2xl">
+            <div className="w-full max-w-3xl border border-white/20 bg-white/8 p-8 md:p-12 text-center text-white shadow-2xl">
               <p className="text-xs md:text-sm uppercase tracking-[0.28em] text-white/70 mb-4">
                 Screensaver Mode
               </p>
@@ -92,7 +92,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   href="https://instagram.com/misrizosdesign"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-full border border-white/30 text-white font-medium uppercase tracking-[0.1em] hover:bg-white hover:text-black transition-colors"
+                  className="px-6 py-3 rounded-full border border-white/30 text-white font-medium uppercase tracking-widest hover:bg-white hover:text-black transition-colors"
                 >
                   misrizosdesign
                 </a>
@@ -100,7 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   href="https://instagram.com/misrizos_studio"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-full border border-white/30 text-white font-medium uppercase tracking-[0.1em] hover:bg-white hover:text-black transition-colors"
+                  className="px-6 py-3 rounded-full border border-white/30 text-white font-medium uppercase tracking-widest hover:bg-white hover:text-black transition-colors"
                 >
                   misrizos_studio
                 </a>
