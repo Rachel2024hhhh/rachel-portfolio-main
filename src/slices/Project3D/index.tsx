@@ -3,10 +3,9 @@
 import React, { useState, useRef, useMemo, Suspense, useEffect, useCallback } from "react";
 import Image from "next/image";
 import ProjectDivider from "../../components/ProjectDivider";
-import { Canvas, useLoader } from "@react-three/fiber";
-import { OrbitControls, Environment, Bounds, Html } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Environment, useGLTF, Bounds, Html } from "@react-three/drei";
 import SideMenu, { MenuItem } from "../../components/SideMenu";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 // --- TYPES ---
 interface Building {
@@ -90,15 +89,28 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return arr;
 };
 
-// --- TREE MODEL COMPONENT ---
+// --- MODEL COMPONENT WITH PROPER GLB LOADING ---
 const TreeModel: React.FC<{
   scale?: [number, number, number];
   position?: [number, number, number];
 }> = ({ scale = [0.04, 0.04, 0.04], position = [0, 3, 1] }) => {
-  const gltf = useLoader(GLTFLoader, "/models/tree.glb");
-
-  return <primitive object={gltf.scene} scale={scale} position={position} />;
+  try {
+    const { scene } = useGLTF("/models/tree.glb");
+    return <primitive object={scene} scale={scale} position={position} />;
+  } catch (error) {
+    console.error("Failed to load tree model:", error);
+    return (
+      <Html center>
+        <div className="text-white text-center">
+          <p className="text-sm">Model failed to load</p>
+        </div>
+      </Html>
+    );
+  }
 };
+
+// Preload the model
+useGLTF.preload("/models/tree.glb");
 
 interface MergedComponentProps {
   isVisible: boolean;
@@ -316,7 +328,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                       <Html center>
                         <div className="flex flex-col items-center gap-3">
                           <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          <p className="text-sm font-medium text-white">Loading 3D model...</p>
+                          <p className="text-sm font-medium text-white">Loading model...</p>
                         </div>
                       </Html>
                     }
