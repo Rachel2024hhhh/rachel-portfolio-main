@@ -3,11 +3,12 @@
 import { Roboto_Flex } from "next/font/google";
 import "./globals.css";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import useIdle from "../hooks/useIdle";
 import { components } from "../slices";
-import ContactModal from "../slices/ContactModal";
 
 const { materialbased: AboutMe } = components;
+const ContactModal = dynamic(() => import("../slices/ContactModal"), { ssr: false });
 
 const robotoFlex = Roboto_Flex({
   variable: "--font-roboto-flex",
