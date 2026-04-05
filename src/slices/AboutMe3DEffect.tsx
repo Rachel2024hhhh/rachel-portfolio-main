@@ -174,6 +174,13 @@ const AboutMe3DEffect: React.FC<AboutMe3DEffectProps> = ({ onClose }) => {
             Instagram
           </a>
         </div>
+
+        <footer className="mt-2 border-t border-white/20 pt-5 text-center">
+          <p className="editorial-kicker text-white/70 mb-2">Editorial Footer</p>
+          <p className="text-sm text-white/75 leading-relaxed max-w-2xl mx-auto">
+            This statement page is treated as an editorial profile, combining biography, practice context, and collaboration intent in one spread.
+          </p>
+        </footer>
       </div>
     </div>
   );

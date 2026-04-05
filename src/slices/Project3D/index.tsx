@@ -382,7 +382,8 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
             {allGalleryImages.map(({ img, building }, index) => (
               <div
                 key={`${building.name}-${index}`}
-                className="relative cursor-pointer overflow-hidden shadow-md bg-zinc-100 group"
+                className="project-gallery-float relative cursor-pointer overflow-hidden shadow-md bg-zinc-100 group"
+                style={{ animationDelay: `${(index % 8) * 0.22}s` }}
                 onClick={() => setActiveBuilding(building)}
               >
                 <Image
@@ -470,7 +471,8 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
               (src, i) => (
                 <div
                   key={`poster-${i}`}
-                  className="relative cursor-pointer overflow-hidden group shadow-md aspect-9/16 bg-black flex items-center justify-center"
+                  className="project-gallery-float relative cursor-pointer overflow-hidden group shadow-md aspect-9/16 bg-black flex items-center justify-center"
+                  style={{ animationDelay: `${(i % 6) * 0.2}s` }}
                   onClick={() => openVideoLightbox(src)}
                 >
                   <video
@@ -548,7 +550,8 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
               {activeBuilding.images.slice(0, 8).map((img, i) => (
                 <div
                   key={i}
-                  className="relative aspect-4/3 bg-gray-200 overflow-hidden shadow-md"
+                  className="project-gallery-float relative aspect-4/3 bg-gray-200 overflow-hidden shadow-md"
+                  style={{ animationDelay: `${(i % 8) * 0.2}s` }}
                 >
                   <Image
                     src={img}

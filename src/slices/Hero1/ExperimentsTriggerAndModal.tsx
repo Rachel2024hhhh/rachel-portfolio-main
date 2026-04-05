@@ -80,17 +80,27 @@ export default function ExperimentsTriggerAndModal({
           className="fixed inset-0 z-40 backdrop-blur-3xl flex flex-col overflow-hidden"
           onClick={(e) => e.target === e.currentTarget && setShowExperiments(false)}
         >
+          <p className="pointer-events-none hidden 2xl:block absolute right-6 top-40 text-xs uppercase tracking-[0.24em] text-black/35 rotate-12 z-30">
+            Process Fragments / Motion Trials
+          </p>
+          <p className="pointer-events-none hidden 2xl:block absolute left-6 bottom-24 text-xs uppercase tracking-[0.24em] text-black/35 -rotate-12 z-30">
+            Editorial Appendix / Experiments
+          </p>
+
           {/* Header */}
-          <div className="sticky top-0 z-20 flex flex-col sm:flex-row sm:items-center sm:justify-between px-6 md:px-12 py-5 md:py-6 bg-white/15 border-b border-black/15">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-10 mb-4 sm:mb-0">
-              <h2 className="text-3xl md:text-4xl font-medium uppercase tracking-widest text-black">
-              Experiments
-              </h2>
-            </div>
+          <div className="sticky top-0 z-20 px-6 md:px-12 py-5 md:py-6 bg-white/15 border-b border-black/15 text-center">
+            <p className="magazine-kicker">Supplement / Visual Lab</p>
+            <h2 className="magazine-title text-black">Experiments</h2>
+            <p className="magazine-byline">Tests in Material, Motion, and Image Behavior</p>
+            <p className="magazine-dek mt-2">
+              A loose editorial spread of process clips and image studies collected during development.
+            </p>
+            <div className="magazine-rule" aria-hidden="true" />
           </div>
 
           {/* GALLERY */}
           <div className="flex-1 overflow-y-auto px-6 md:px-12 pb-20">
+            <p className="magazine-kicker text-center mt-6 mb-5">Sequenced Notes / Updated Continuously</p>
             <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 md:gap-6">
               {experiments.map((item, index) => (
                 <div
@@ -134,7 +144,7 @@ export default function ExperimentsTriggerAndModal({
                     {/* Hover caption */}
                     <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5 md:p-6">
                       <div>
-                        <p className="text-[#ff2f00] uppercase text-xs md:text-sm tracking-[0.15em] font-medium mb-1.5">
+                        <p className="magazine-kicker text-[#ff2f00] mb-1.5">
                           {item.caption}
                         </p>
                         <div className="h-px w-10 bg-white/40" />
@@ -153,8 +163,11 @@ export default function ExperimentsTriggerAndModal({
           </div>
 
           {/* Footer */}
-          <div className="py-10 text-center text-black/50 text-sm italic tracking-wider">
-            Work in progress — always evolving
+          <div className="py-10 text-center px-6">
+            <p className="magazine-kicker text-black/55 mb-2">Editorial Footer</p>
+            <p className="text-black/60 text-sm italic tracking-wider">
+              Work in progress, always evolving through new tests and visual drafts.
+            </p>
           </div>
         </div>
       )}

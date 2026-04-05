@@ -99,6 +99,13 @@ const ContactModal: React.FC<ContactModalProps> = ({ onClose }) => {
             </a>
           </div>
         </div>
+
+        <footer className="mt-2 border-t border-white/20 pt-5 text-center">
+          <p className="editorial-kicker text-white/70 mb-2">Editorial Footer</p>
+          <p className="text-sm text-white/75 leading-relaxed max-w-2xl mx-auto">
+            This contact page is structured as a closing note: clear channels, response expectations, and collaboration openness.
+          </p>
+        </footer>
       </div>
     </div>
   );

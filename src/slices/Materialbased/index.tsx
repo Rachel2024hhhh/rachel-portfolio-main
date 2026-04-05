@@ -409,6 +409,13 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
           </div>
         </div>
 
+        <footer className="mt-14 border-t border-zinc-300 pt-6 text-center">
+          <p className="editorial-kicker text-zinc-700 mb-2">Editorial Footer</p>
+          <p className="text-sm text-zinc-700 leading-relaxed max-w-3xl mx-auto">
+            This section is edited as a material journal, where observation, process notes, and final artifacts are presented as connected chapters.
+          </p>
+        </footer>
+
         <ProjectDivider />
       </div>
 

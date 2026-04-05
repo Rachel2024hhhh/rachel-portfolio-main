@@ -239,8 +239,12 @@ const WorkExperience: FC<WorkExperienceProps> = ({ isVisible = true, onClose }) 
                 <div className="bg-zinc-50 border border-zinc-300 p-4">
                   {item.images && item.images.length > 0 ? (
                     <div className="grid grid-cols-2 gap-3">
-                      {item.images.map((image) => (
-                        <div key={image.src} className="relative aspect-4/3 overflow-hidden border border-zinc-300 bg-zinc-200">
+                      {item.images.map((image, imageIndex) => (
+                        <div
+                          key={image.src}
+                          className="project-gallery-float relative aspect-4/3 overflow-hidden border border-zinc-300 bg-zinc-200"
+                          style={{ animationDelay: `${(imageIndex % 6) * 0.2}s` }}
+                        >
                           <Image src={image.src} alt={image.alt} fill className="object-cover transition-transform duration-500 ease-out hover:scale-[1.03]" />
                         </div>
                       ))}

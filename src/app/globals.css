@@ -484,6 +484,27 @@ body[data-theme="dark"] .border-zinc-400 {
   animation: cuba-tip-float 4.5s ease-in-out infinite;
 }
 
+@keyframes project-gallery-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.project-gallery-float {
+  animation: project-gallery-float 5.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-gallery-float {
+    animation: none;
+  }
+}
+
 body[data-theme="dark"] .cuba-tip-diamond {
   background-color: rgba(6, 56, 66, 0.78) !important;
   border-color: rgba(0, 229, 255, 0.52) !important;
