@@ -25,6 +25,11 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
     const anyActive = 
       showAboutMe || showContact || showPrints || showProject3D || showMaterial || showExperience;
     document.body.style.overflow = anyActive ? "hidden" : "";
+    
+    // Dispatch event to notify layout of section state
+    const event = new CustomEvent("portfolio:section-open", { detail: { isOpen: anyActive } });
+    window.dispatchEvent(event);
+    
     return () => {
       document.body.style.overflow = "";
     };
