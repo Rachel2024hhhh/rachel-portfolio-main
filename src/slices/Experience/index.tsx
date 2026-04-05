@@ -167,6 +167,11 @@ const WorkExperience: FC<WorkExperienceProps> = ({ isVisible = true, onClose }) 
       />
 
       <div className="p-10 max-w-7xl mx-auto space-y-8 relative text-center">
+        <div className="mx-auto mt-4 inline-flex items-center gap-3 border border-zinc-300 px-3 py-1.5 bg-white/70">
+          <span className="text-[0.68rem] uppercase tracking-[0.2em] text-zinc-600">Section 04</span>
+          <span className="h-px w-8 bg-zinc-400" aria-hidden="true" />
+          <span className="text-zinc-500 text-[0.65rem]">●</span>
+        </div>
 
         <header className="space-y-4 border-b border-zinc-200 pb-8 mt-10">
           <p className="magazine-kicker">Issue 01 / Practice Archive</p>
