@@ -2,7 +2,7 @@
 
 import { Roboto_Flex } from "next/font/google";
 import "./globals.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import useIdle from "../hooks/useIdle";
 import { components } from "../slices";
@@ -94,6 +94,55 @@ const cubaTips = [
   "Did you know? Santería art and spiritual practice in Cuba blends West African traditions with Catholicism, creating unique sacred imagery.",
 ];
 
+const tipCategoryRules: Array<{ match: RegExp; category: string }> = [
+  { match: /ballet|dance|choreograph|acosta|alicia alonso|lizt alfonso|gades/i, category: "Dance" },
+  { match: /novel|poetry|literary|writer|guill[eé]n|carpentier|lezama|arenas/i, category: "Literature" },
+  { match: /film|cinema|documentar|tab[ií]o|sol[aá]s|alea/i, category: "Film" },
+  { match: /architect|design|poster|typography|furniture/i, category: "Design" },
+  { match: /photo|photograph|corrales|landscape/i, category: "Photography" },
+  { match: /sculpt|installation|c[aá]rdenas/i, category: "Sculpture" },
+  { match: /paint|visual|mural|lam|pel[aá]ez|mendive|mart[ií]nez pedro/i, category: "Visual Arts" },
+  { match: /music|rumba|son|jazz|mambo|salsa|trova|compay|mor[eé]|van van|puente/i, category: "Music" },
+];
+
+const tipSourceRules: Array<{ match: RegExp; label: string; href: string }> = [
+  { match: /carlos acosta/i, label: "Carlos Acosta", href: "https://en.wikipedia.org/wiki/Carlos_Acosta" },
+  { match: /wifredo lam/i, label: "Wifredo Lam", href: "https://en.wikipedia.org/wiki/Wifredo_Lam" },
+  { match: /alicia alonso/i, label: "Alicia Alonso", href: "https://en.wikipedia.org/wiki/Alicia_Alonso" },
+  { match: /beny mor[eé]/i, label: "Beny More", href: "https://en.wikipedia.org/wiki/Beny_Mor%C3%A9" },
+  { match: /los van van/i, label: "Los Van Van", href: "https://en.wikipedia.org/wiki/Los_Van_Van" },
+  { match: /tania bruguera/i, label: "Tania Bruguera", href: "https://en.wikipedia.org/wiki/Tania_Bruguera" },
+  { match: /alejo carpentier/i, label: "Alejo Carpentier", href: "https://en.wikipedia.org/wiki/Alejo_Carpentier" },
+  { match: /tom[aá]s guti[eé]rrez alea|tit[oó]n/i, label: "Tomas Gutierrez Alea", href: "https://en.wikipedia.org/wiki/Tom%C3%A1s_Guti%C3%A9rrez_Alea" },
+  { match: /compay segundo/i, label: "Compay Segundo", href: "https://en.wikipedia.org/wiki/Compay_Segundo" },
+  { match: /machito|frank grillo/i, label: "Machito", href: "https://en.wikipedia.org/wiki/Machito" },
+  { match: /tito puente/i, label: "Tito Puente", href: "https://en.wikipedia.org/wiki/Tito_Puente" },
+  { match: /amelia pel[aá]ez/i, label: "Amelia Pelaez", href: "https://en.wikipedia.org/wiki/Amelia_Pel%C3%A1ez" },
+  { match: /luis mart[ií]nez pedro/i, label: "Luis Martinez Pedro", href: "https://www.artnet.com/artists/luis-martinez-pedro/" },
+  { match: /manuel mendive/i, label: "Manuel Mendive", href: "https://en.wikipedia.org/wiki/Manuel_Mendive" },
+  { match: /agust[ií]n c[aá]rdenas/i, label: "Agustin Cardenas", href: "https://en.wikipedia.org/wiki/Agust%C3%ADn_C%C3%A1rdenas" },
+  { match: /ra[uú]l corrales/i, label: "Raul Corrales", href: "https://en.wikipedia.org/wiki/Ra%C3%BAl_Corrales" },
+  { match: /nicol[aá]s guill[eé]n/i, label: "Nicolas Guillen", href: "https://en.wikipedia.org/wiki/Nicol%C3%A1s_Guill%C3%A9n" },
+  { match: /jos[eé] lezama lima/i, label: "Jose Lezama Lima", href: "https://en.wikipedia.org/wiki/Jos%C3%A9_Lezama_Lima" },
+  { match: /reinaldo arenas/i, label: "Reinaldo Arenas", href: "https://en.wikipedia.org/wiki/Reinaldo_Arenas" },
+  { match: /humberto sol[aá]s/i, label: "Humberto Solas", href: "https://en.wikipedia.org/wiki/Humberto_Sol%C3%A1s" },
+  { match: /juan carlos tab[ií]o/i, label: "Juan Carlos Tabio", href: "https://en.wikipedia.org/wiki/Juan_Carlos_Tab%C3%ADo" },
+  { match: /silvio rodr[ií]guez/i, label: "Silvio Rodriguez", href: "https://en.wikipedia.org/wiki/Silvio_Rodr%C3%ADguez" },
+  { match: /juan formell/i, label: "Juan Formell", href: "https://en.wikipedia.org/wiki/Juan_Formell" },
+  { match: /ballet nacional de cuba/i, label: "Ballet Nacional de Cuba", href: "https://en.wikipedia.org/wiki/Cuban_National_Ballet" },
+  { match: /havana.*architecture|architecture blends colonial/i, label: "Architecture of Havana", href: "https://en.wikipedia.org/wiki/Havana#Architecture" },
+  { match: /santer[ií]a/i, label: "Santeria in Cuba", href: "https://en.wikipedia.org/wiki/Santer%C3%ADa" },
+];
+
+const getTipCategory = (tip: string) => {
+  const rule = tipCategoryRules.find((item) => item.match.test(tip));
+  return rule?.category ?? "Cuban Arts";
+};
+
+const getTipSource = (tip: string) => {
+  return tipSourceRules.find((item) => item.match.test(tip)) ?? null;
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const { idle, resetIdle } = useIdle(45000);
 
@@ -104,6 +153,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const [showCubaTip, setShowCubaTip] = useState(false);
   const [tipIndex, setTipIndex] = useState(0);
   const [anySectionOpen, setAnySectionOpen] = useState(false);
+  const tipPoolRef = useRef<number[]>([]);
 
   const showScreensaver = idle && !showAboutMe && !showContact;
 
@@ -132,14 +182,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return () => window.removeEventListener("portfolio:section-open", handleSectionStateChange);
   }, []);
 
+  const buildTipPool = (excludeIndex: number) => {
+    const indices = Array.from({ length: cubaTips.length }, (_, i) => i).filter((i) => i !== excludeIndex);
+    for (let i = indices.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    return indices;
+  };
+
   const nextRandomTip = () => {
     if (cubaTips.length <= 1) return;
     setTipIndex((prev) => {
-      let next = prev;
-      while (next === prev) {
-        next = Math.floor(Math.random() * cubaTips.length);
+      if (tipPoolRef.current.length === 0) {
+        tipPoolRef.current = buildTipPool(prev);
       }
-      return next;
+      const next = tipPoolRef.current.pop();
+      return typeof next === "number" ? next : prev;
     });
   };
 
@@ -178,6 +237,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     };
   }, [showScreensaver, anySectionOpen]);
 
+  const currentTip = cubaTips[tipIndex];
+  const currentCategory = getTipCategory(currentTip);
+  const currentSource = getTipSource(currentTip);
+
   return (
     <html lang="en">
       <body className={`${robotoFlex.variable} antialiased relative`}>
@@ -205,8 +268,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="fixed bottom-4 right-4 z-60 flex flex-col items-end gap-3">
             {showCubaTip && (
               <div className="w-[min(92vw,22rem)] border border-zinc-300 bg-white/95 backdrop-blur-md shadow-2xl p-4">
-                <p className="text-[0.7rem] uppercase tracking-[0.14em] text-zinc-500 mb-2">Cuba Curiosity</p>
-                <p className="text-sm md:text-[0.95rem] text-zinc-800 leading-relaxed">{cubaTips[tipIndex]}</p>
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <p className="text-[0.7rem] uppercase tracking-[0.14em] text-zinc-500">Cuba Curiosity</p>
+                  <span className="px-2 py-1 border border-zinc-300 bg-zinc-100 text-[0.62rem] uppercase tracking-[0.12em] text-zinc-700">
+                    {currentCategory}
+                  </span>
+                </div>
+                <p className="text-sm md:text-[0.95rem] text-zinc-800 leading-relaxed">{currentTip}</p>
+
+                {currentSource && (
+                  <a
+                    href={currentSource.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-block text-xs uppercase tracking-[0.12em] text-zinc-600 hover:text-[#ff2f00]"
+                  >
+                    Learn More: {currentSource.label}
+                  </a>
+                )}
 
                 <div className="mt-4 flex items-center gap-3">
                   <button
