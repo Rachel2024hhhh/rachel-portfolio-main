@@ -20,6 +20,7 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
   const [showProject3D, setShowProject3D] = useState(false);
   const [showMaterial, setShowMaterial] = useState(false);
   const [showExperience, setShowExperience] = useState(false);
+  const [showExperiments, setShowExperiments] = useState(false);
 
   useEffect(() => {
     const anyActive = 
@@ -72,6 +73,7 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
 
               <div className="mt-8 md:mt-12">
                 <ExperimentsTriggerAndModal
+                  onOpenChange={setShowExperiments}
                   triggerClassName="
                     group
                     inline-flex items-center gap-2
@@ -105,37 +107,39 @@ const Hero1: FC<Hero1Props> = ({ slice }) => {
           </div>
 
           {/* BOTTOM NAVIGATION BUTTONS */}
-          <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-40 w-full max-w-lg md:max-w-4xl">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 justify-center px-4">
-              <button
-                className="w-full px-3 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
-                onClick={() => setShowProject3D(true)}
-              >
-                Motion & 3D
-              </button>
+          {!showExperiments && (
+            <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-40 w-full max-w-lg md:max-w-4xl">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 justify-center px-4">
+                <button
+                  className="w-full px-3 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
+                  onClick={() => setShowProject3D(true)}
+                >
+                  Motion & 3D
+                </button>
 
-              <button
-                className="w-full px-3 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
-                onClick={() => setShowPrints(true)}
-              >
-                Prints & Photography
-              </button>
+                <button
+                  className="w-full px-3 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
+                  onClick={() => setShowPrints(true)}
+                >
+                  Prints & Photography
+                </button>
 
-              <button
-                className="w-full px-3 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
-                onClick={() => setShowMaterial(true)}
-              >
-                Material Based
-              </button>
+                <button
+                  className="w-full px-3 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
+                  onClick={() => setShowMaterial(true)}
+                >
+                  Material Based
+                </button>
 
-              <button
-                className="w-full px-3 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
-                onClick={() => setShowExperience(true)}
-              >
-                Work Experience
-              </button>
+                <button
+                  className="w-full px-3 py-2 md:px-6 md:py-3 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors flex items-center justify-center text-center"
+                  onClick={() => setShowExperience(true)}
+                >
+                  Work Experience
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

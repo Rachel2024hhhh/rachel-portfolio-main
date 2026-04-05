@@ -168,21 +168,11 @@ const PrintMatter: React.FC<PrintMatterProps> = ({ isVisible, onClose }) => {
       {/* PROJECTS SECTION */}
 
       <div className="p-10 max-w-7xl mx-auto relative text-center">
-        <aside className="pointer-events-none hidden xl:block absolute -left-20 top-24">
-          <p
-            className="editorial-kicker text-zinc-600"
-            style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
-          >
-            Reading Line / Image Essay / 03
-          </p>
-        </aside>
-
-        <p className="pointer-events-none hidden 2xl:block absolute -right-22 top-52 text-xs uppercase tracking-[0.24em] text-zinc-400 rotate-12">
-          Typography in the Margins
-        </p>
-        <p className="pointer-events-none hidden 2xl:block absolute -left-24 bottom-34 text-xs uppercase tracking-[0.24em] text-zinc-400 -rotate-12">
-          A Study of Shapes and Color
-        </p>
+        <div className="mx-auto mt-4 inline-flex items-center gap-3 border border-zinc-300 px-3 py-1.5 bg-white/70">
+          <span className="text-[0.68rem] uppercase tracking-[0.2em] text-zinc-600">Section 02</span>
+          <span className="h-px w-8 bg-zinc-400" aria-hidden="true" />
+          <span className="text-zinc-500 text-[0.65rem]">●</span>
+        </div>
 
         {/* MOTION OF DEPARTURE */}
         <div id="motion" ref={motionRef} className="mb-6 mt-12 flex flex-col gap-6">

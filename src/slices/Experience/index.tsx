@@ -167,21 +167,6 @@ const WorkExperience: FC<WorkExperienceProps> = ({ isVisible = true, onClose }) 
       />
 
       <div className="p-10 max-w-7xl mx-auto space-y-8 relative text-center">
-        <aside className="pointer-events-none hidden xl:block absolute -left-20 top-24">
-          <p
-            className="editorial-kicker text-zinc-600"
-            style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
-          >
-            Studio Notes / Work Archive / 01
-          </p>
-        </aside>
-
-        <p className="pointer-events-none hidden 2xl:block absolute -right-22 top-44 text-xs uppercase tracking-[0.24em] text-zinc-400 rotate-12">
-          A Study of Shapes and Color
-        </p>
-        <p className="pointer-events-none hidden 2xl:block absolute -left-26 bottom-28 text-xs uppercase tracking-[0.24em] text-zinc-400 -rotate-12">
-          Material Notes in Motion
-        </p>
 
         <header className="space-y-4 border-b border-zinc-200 pb-8 mt-10">
           <p className="magazine-kicker">Issue 01 / Practice Archive</p>

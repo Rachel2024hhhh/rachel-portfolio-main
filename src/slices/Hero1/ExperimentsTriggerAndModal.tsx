@@ -14,10 +14,12 @@ interface ExperimentItem {
 
 interface ExperimentsTriggerAndModalProps {
   triggerClassName?: string;
+  onOpenChange?: (isOpen: boolean) => void;
 }
 
 export default function ExperimentsTriggerAndModal({
   triggerClassName = "",
+  onOpenChange,
 }: ExperimentsTriggerAndModalProps) {
   const [showExperiments, setShowExperiments] = useState(false);
 
@@ -27,10 +29,11 @@ export default function ExperimentsTriggerAndModal({
     } else {
       document.body.style.overflow = "";
     }
+    onOpenChange?.(showExperiments);
     return () => {
       document.body.style.overflow = "";
     };
-  }, [showExperiments]);
+  }, [showExperiments, onOpenChange]);
 
   const experiments: ExperimentItem[] = [
     { id: 1, type: "video", src: "/videos/experiments/2.mp4", caption: "Threshold Flow", aspect: "aspect-[4/5]" },
@@ -80,13 +83,6 @@ export default function ExperimentsTriggerAndModal({
           className="fixed inset-0 z-40 backdrop-blur-3xl flex flex-col overflow-hidden"
           onClick={(e) => e.target === e.currentTarget && setShowExperiments(false)}
         >
-          <p className="pointer-events-none hidden 2xl:block absolute right-6 top-40 text-xs uppercase tracking-[0.24em] text-black/35 rotate-12 z-30">
-            Process Fragments / Motion Trials
-          </p>
-          <p className="pointer-events-none hidden 2xl:block absolute left-6 bottom-24 text-xs uppercase tracking-[0.24em] text-black/35 -rotate-12 z-30">
-            Editorial Appendix / Experiments
-          </p>
-
           {/* Header */}
           <div className="sticky top-0 z-20 px-6 md:px-12 py-5 md:py-6 bg-white/15 border-b border-black/15 text-center">
             <p className="magazine-kicker">Supplement / Visual Lab</p>

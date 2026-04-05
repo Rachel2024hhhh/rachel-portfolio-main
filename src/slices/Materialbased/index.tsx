@@ -111,7 +111,12 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
         onTabClick={onTabClick}
       />
 
-      <div className="p-10 max-w-7xl mx-auto">
+      <div className="p-10 max-w-7xl mx-auto text-center">
+        <div className="mx-auto mt-4 inline-flex items-center gap-3 border border-zinc-300 px-3 py-1.5 bg-white/70">
+          <span className="text-[0.68rem] uppercase tracking-[0.2em] text-zinc-600">Section 03</span>
+          <span className="h-px w-8 bg-zinc-400" aria-hidden="true" />
+          <span className="text-zinc-500 text-[0.65rem]">●</span>
+        </div>
 
 
 
@@ -121,9 +126,10 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
           ref={section1Ref}
           className="mb-6 mt-12 flex flex-col gap-6"
         >
-          <h1 className="text-[6vw] font-bold tracking-[0.02em] text-center">
-            Urban Syntax
-          </h1>
+          <p className="magazine-kicker">Feature / Urban Visual Language</p>
+          <h1 className="magazine-title">Urban Syntax</h1>
+          <p className="magazine-byline">Installation Study of Sign, Color, and Form</p>
+          <div className="magazine-rule" aria-hidden="true" />
 
           {/* Two perfectly aligned images side by side – now using Next Image + relative wrapper */}
           <div className="w-full relative mt-6 h-[50vh] md:h-200 flex overflow-hidden  shadow-lg">
@@ -161,7 +167,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
               </h4>
             </div>
 
-            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed">
+            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed magazine-body">
               <p>
                 This project began as an observation of my daily commute. Traveling constantly from station to station in the Netherlands, I noticed how much of my attention was drawn to <strong>traffic signs, signals, and forms</strong> along the way.  
                 On my way to school, I often found myself checking the sides of the street, noticing shapes, colors, and structures that usually go unseen.
@@ -194,7 +200,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
               }`}
             >
               <div className="bg-zinc-100 p-8 flex flex-col gap-8 transition-transform duration-700 ease-in-out">
-                <div className="max-w-3xl">
+                <div className="max-w-3xl mx-auto text-center">
                   <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
                   <p className="text-gray-700 leading-relaxed">
                     To develop this project, I began by exploring the city and capturing multiple photographs of traffic elements, signs, and urban details. I analyzed these elements, categorizing them based on color, edges, or shapes, and assigned values and meanings to each. Using this system, I created several compositions that translated these visual observations into organized designs.
@@ -247,9 +253,10 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
           ref={section2Ref}
           className="mb-6 mt-12 flex flex-col gap-6"
         >
-          <h1 className="text-[6vw] font-bold tracking-[0.02em] text-center">
-            Earth in the Ocean
-          </h1>
+          <p className="magazine-kicker">Feature / Biomimicry in Ceramics</p>
+          <h1 className="magazine-title">Earth in the Ocean</h1>
+          <p className="magazine-byline">Marine Systems Translated into Material Form</p>
+          <div className="magazine-rule" aria-hidden="true" />
 
           {/* Main Image with Hover Motion – fixed structure + Next Image */}
           <div className="relative w-full h-125 md:h-[60vh] overflow-hidden group shadow-md cursor-pointer ">
@@ -328,7 +335,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
               </h4>
             </div>
 
-            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed">
+            <div className="md:w-1/2 w-full bg-zinc-100 p-6 space-y-4 text-gray-800 leading-relaxed magazine-body">
               <p>
                 This project emerged from my personal <strong>necessity of creating, sculpting, and layering</strong>. I love the process of building something from nothing starting from a basic element, then adding layers, shaping, and refining. Ceramics allows me to experience this process fully, translating the act of creation into a tangible form.
               </p>
@@ -362,7 +369,7 @@ const Materialbased: React.FC<MaterialbasedProps> = ({
               }`}
             >
               <div className="bg-zinc-100 p-8 flex flex-col gap-8 transition-transform duration-700 ease-in-out">
-                <div className="max-w-3xl">
+                <div className="max-w-3xl mx-auto text-center">
                   <h3 className="text-2xl font-bold mb-4">Process & Development</h3>
 
                   <p className="text-gray-700 leading-relaxed">
