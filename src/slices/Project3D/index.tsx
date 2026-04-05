@@ -3,10 +3,10 @@
 import React, { useState, useRef, useMemo, Suspense, useEffect, useCallback } from "react";
 import Image from "next/image";
 import ProjectDivider from "../../components/ProjectDivider";
-import { Canvas, useLoader } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, Bounds, Html } from "@react-three/drei";
 import SideMenu, { MenuItem } from "../../components/SideMenu";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import * as THREE from "three";
 
 // --- TYPES ---
 interface Building {
@@ -90,13 +90,57 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return arr;
 };
 
-// --- TREE MODEL COMPONENT ---
-const TreeModel: React.FC<{
+// --- PROCEDURAL TREE COMPONENT (LIGHTWEIGHT) ---
+const ProceduralTree: React.FC<{
   scale?: [number, number, number];
   position?: [number, number, number];
-}> = ({ scale = [0.04, 0.04, 0.04], position = [0, 3, 1] }) => {
-  const gltf = useLoader(GLTFLoader, "/models/tree.glb");
-  return <primitive object={gltf.scene} scale={scale} position={position} />;
+}> = ({ scale = [1.5, 2, 1.5], position = [0, 0, 0] }) => {
+  const meshRef = useRef<THREE.Group>(null);
+
+  useEffect(() => {
+    if (!meshRef.current) return;
+
+    // Create simple tree-like structure with cones
+    const group = new THREE.Group();
+
+    // Trunk
+    const trunkGeometry = new THREE.CylinderGeometry(0.3, 0.5, 1.5, 8);
+    const trunkMaterial = new THREE.MeshPhongMaterial({ color: 0x8B4513 });
+    const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+    trunk.position.y = 0.75;
+    group.add(trunk);
+
+    // Foliage - multiple cones stacked
+    const foliageMaterial = new THREE.MeshPhongMaterial({ 
+      color: 0x228B22,
+      side: THREE.DoubleSide 
+    });
+
+    for (let i = 0; i < 3; i++) {
+      const coneGeometry = new THREE.ConeGeometry(1.2 - i * 0.25, 1.2, 8);
+      const cone = new THREE.Mesh(coneGeometry, foliageMaterial);
+      cone.position.y = 2 + i * 0.8;
+      cone.castShadow = true;
+      cone.receiveShadow = true;
+      group.add(cone);
+    }
+
+    meshRef.current.clear();
+    meshRef.current.add(group);
+
+    // Auto-rotate
+    const interval = setInterval(() => {
+      if (meshRef.current) {
+        meshRef.current.rotation.y += 0.01;
+      }
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <group ref={meshRef} scale={scale} position={position} />
+  );
 };
 
 interface MergedComponentProps {
@@ -316,7 +360,7 @@ const MergedComponent: React.FC<MergedComponentProps> = ({ isVisible, onClose })
                   }
                 >
                   <Bounds clip observe margin={1.2}>
-                    <TreeModel />
+                    <ProceduralTree />
                   </Bounds>
                 </Suspense>
 
