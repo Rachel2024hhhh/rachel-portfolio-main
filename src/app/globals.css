@@ -74,6 +74,8 @@ li {
   color: #3f3f46;
 }
 
+/* Animation for CV highlight */
+
 .magazine-byline {
   font-size: 0.75rem;
   letter-spacing: 0.18em;
@@ -499,8 +501,145 @@ body[data-theme="dark"] .border-zinc-400 {
   will-change: transform;
 }
 
+@keyframes bulb-sway {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes bulb-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(255, 204, 94, 0.2), 0 0 14px rgba(255, 204, 94, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 rgba(255, 204, 94, 0.35), 0 0 22px rgba(255, 204, 94, 0.55);
+  }
+}
+
+.theme-bulb-toggle {
+  width: 3.8rem;
+  height: 4.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  transform-origin: top center;
+  animation: bulb-sway 3.2s ease-in-out infinite;
+  position: relative;
+  background: rgba(0, 0, 0, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
+.theme-bulb-wire {
+  width: 2px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.theme-bulb-halo {
+  position: absolute;
+  top: 9px;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 9999px;
+  border: 1px dashed rgba(0, 0, 0, 0.22);
+  opacity: 0.4;
+}
+
+.theme-bulb-glass {
+  width: 1.8rem;
+  height: 2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.42);
+  background: radial-gradient(circle at 30% 30%, #fffbe7 0%, #ffd67a 58%, #f3a919 100%);
+  animation: bulb-glow 2.8s ease-in-out infinite;
+  margin-top: 1px;
+}
+
+.theme-bulb-filament {
+  position: absolute;
+  top: 23px;
+  width: 0.65rem;
+  height: 0.42rem;
+  border: 2px solid rgba(70, 40, 8, 0.7);
+  border-top: 0;
+  border-radius: 0 0 999px 999px;
+}
+
+.theme-bulb-base {
+  width: 1.2rem;
+  height: 0.58rem;
+  margin-top: 0.14rem;
+  border-radius: 0.2rem;
+  background: linear-gradient(to bottom, #808896 0%, #666f7d 100%);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.theme-bulb-label {
+  margin-top: 0.44rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 700;
+}
+
+.theme-bulb-toggle.is-light {
+  background: rgba(0, 0, 0, 0.32);
+}
+
+.theme-bulb-toggle.is-dark .theme-bulb-glass {
+  background: radial-gradient(circle at 30% 30%, #defcff 0%, #68ecff 58%, #00b5ff 100%);
+  box-shadow: 0 0 0 rgba(0, 229, 255, 0.25), 0 0 18px rgba(0, 229, 255, 0.55);
+}
+
+.theme-bulb-toggle.is-dark .theme-bulb-wire {
+  background: rgba(148, 245, 255, 0.8);
+}
+
+.theme-bulb-toggle.is-dark .theme-bulb-halo {
+  border-color: rgba(0, 229, 255, 0.45);
+  opacity: 0.55;
+}
+
+.theme-bulb-toggle.is-dark .theme-bulb-filament {
+  border-color: rgba(8, 93, 110, 0.8);
+}
+
+.theme-bulb-toggle.is-dark .theme-bulb-label {
+  color: rgba(192, 248, 255, 0.92);
+}
+
+.theme-bulb-toggle.is-dark {
+  border-color: rgba(0, 229, 255, 0.4);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 18px rgba(0, 229, 255, 0.22);
+}
+
+.theme-bulb-toggle:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.5);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .project-gallery-float {
+    animation: none;
+  }
+
+  .theme-bulb-toggle,
+  .theme-bulb-glass {
     animation: none;
   }
 }

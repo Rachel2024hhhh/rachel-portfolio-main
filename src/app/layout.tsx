@@ -256,9 +256,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {!showScreensaver && (
           <button
-            className="fixed top-4 left-4 z-60 px-4 py-2 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors"
+            className="fixed top-4 left-4 z-80 px-4 py-2 bg-black/50 backdrop-blur-md text-white font-medium uppercase text-xs md:text-sm hover:text-[#ff2f00] transition-colors"
             onClick={() => setTheme((prev) => (prev === "light" ? "dark" : "light"))}
             aria-label="Toggle color mode"
+            title={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
           >
             {theme === "light" ? "Dark Mode" : "Light Mode"}
           </button>
