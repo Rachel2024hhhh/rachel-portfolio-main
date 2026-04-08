@@ -55,7 +55,7 @@ const experienceItems: ExperienceItem[] = [
     ],
     bullets: [],
     description:
-      "I was part of a three-person team. The restoration project took place at the Plaza de la Revolución in Havana, Cuba. A book documenting the restored works is now available on Amazon. My process and final images are included below.",
+      "Worked for the Cuban artist. I was part of a three-person team. The restoration project took place at the Plaza de la Revolución in Havana, Cuba. A book documenting the restored works is now available on Amazon. My process and final images are included below.",
     images: [],
   },
   {
@@ -66,7 +66,7 @@ const experienceItems: ExperienceItem[] = [
     externalLinkLabel: "Artist reference",
     bullets: [],
     description:
-      "Carlos Yunior Acosta Quesada is a Cuban-British ballet director and retired dancer who is director of the Birmingham Royal Ballet. He danced with many companies, including the English National Ballet, National Ballet of Cuba, Houston Ballet and American Ballet Theatre. He was a permanent member of The Royal Ballet from 1998 to 2015.\n\nWorked with Cuban-British ballet artist Carlos Acosta. Participated in the restoration of a reproduction of La Maja Desnuda by Francisco Goya. My process and final images are included below.",
+      "Carlos Yunior Acosta Quesada is a Cuban-British ballet director and retired dancer who is director of the Birmingham Royal Ballet. He danced with many companies, including the English National Ballet, National Ballet of Cuba, Houston Ballet and American Ballet Theatre. He was a permanent member of The Royal Ballet from 1998 to 2015.\n\nWorked for Cuban-British ballet artist Carlos Acosta. Participated in the restoration of a reproduction of La Maja Desnuda by Francisco Goya. My process and final images are included below.",
     images: [],
   },
 ];
@@ -160,6 +160,11 @@ const WorkExperience: FC<WorkExperienceProps> = ({ isVisible = true, onClose }) 
       />
 
       <div className="p-10 max-w-7xl mx-auto space-y-8 relative text-center">
+        <div className="mb-6">
+          <div className="bg-yellow-200 border-2 border-yellow-400 text-yellow-900 font-bold text-lg px-6 py-4 rounded shadow-lg animate-pulse-slow inline-block">
+            Photos and documents will be added soon!
+          </div>
+        </div>
         <div className="mx-auto mt-4 inline-flex items-center gap-3 border border-zinc-300 px-3 py-1.5 bg-white/70">
           <span className="text-[0.68rem] uppercase tracking-[0.2em] text-zinc-600">
             Section 04
